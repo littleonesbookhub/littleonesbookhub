@@ -4,6 +4,7 @@ Website for Little Ones Book Hub
 ## Personas
 
 Customer - a parent who has subscribed to LOBH
+
 Admin - business owner or admin fo LOBH
 
 ## Use Cases
