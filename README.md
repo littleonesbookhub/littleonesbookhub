@@ -1,6 +1,10 @@
 # littleonesbookhub
 Website for Little Ones Book Hub
 
+## Intention
+
+Really good search experience for existing customers.
+
 ## Personas
 
 Customer - a parent who has subscribed to LOBH
@@ -11,11 +15,6 @@ Admin - business owner or admin fo LOBH
 
 ### Customer
 
-#### Discover
-1. Discover by age filter
-2. Discover by author
-3. Discover by custom collection
-
 #### Search
 1. Search by title, author, age filter, availability
 2. Scroll through results with pagination
@@ -23,6 +22,18 @@ Admin - business owner or admin fo LOBH
 
 #### Preview
 1. Preview book's details like description and image
+
+#### Discover
+1. What is LOBH?
+2. How to subscribe to LOBH?
+3. How to contact LOBH?
+4. Discover by age filter
+5. Discover by author
+6. Discover by custom collection
+
+### Booking
+
+1. Customer should be able to register for notifications when a book becomes available
 
 ### Admin
 1. Admin should be able to add a new book (title, author, description, image, age filter, availability)
