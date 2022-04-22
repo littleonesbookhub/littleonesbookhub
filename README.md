@@ -1,7 +1,7 @@
 # littleonesbookhub
-Website for Little Ones Book Hub
+Website for Little Ones Book Hub (LOBH)
 
-## Intention
+## Milestone Goal
 
 Really good search experience for existing customers.
 
@@ -39,3 +39,7 @@ Admin - business owner or admin fo LOBH
 1. Admin should be able to add a new book (title, author, description, image, age filter, availability)
 2. Admin should be able to update a book (title, author, description, image, age filter, availability)
 3. Admin should be able to delete a book
+
+## Mockups
+
+Mockups for this milestone [can be found here](https://drive.google.com/drive/folders/1PnfXQRYG3PIpBvnqew1rTyelSUqcuoki?usp=sharing).
