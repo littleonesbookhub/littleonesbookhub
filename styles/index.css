@@ -1,6 +1,8 @@
 .banner{
     position: relative;
-    background-color: white;
+    background-size: auto;
+    background-image: url("../assets/glitter-300x300.png");
+    background-repeat: repeat;
     top: 20px;
 }
 
