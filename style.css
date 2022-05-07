@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
+.padd-15{
+    padding-left: 50px;
+}
+.pricing{
+    width: 100%;
+}
+.pricing-heading{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: -15px;
+}
+.pricing-heading h2{
+    font-family: 'Boogaloo', cursive;
+    font-size: 25px;
+}
+.pricing-items{
+    margin: 10px;
+}
