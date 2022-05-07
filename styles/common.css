@@ -1,0 +1,26 @@
+:root {
+    --primary-color: #5B5A76;
+    --alternate-color: white;
+    --secondary-color: #A6A6A6;
+    --navbar-color: #7892BD;
+    --toggle-button-on-color: #5B5A76;
+    --toggle-button-off-color: #7892BD;
+    --in-use-color: #E19A17;
+    --available-color: #7EC6AD;
+    --background-color: white;
+}
+
+body {
+    color: var(--primary-color);
+    background-color: var(--background-color);
+
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    font-family: 'Bubblegum Sans', cursive;    
+}
+
+h2, h3, h4, h5, h6, nav {
+    font-family: 'Boogaloo', cursive;
+}
