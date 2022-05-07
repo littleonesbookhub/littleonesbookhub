@@ -1,0 +1,22 @@
+h2 {
+    text-align: center;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.col {
+    display: flex;
+}
+.contact-address {
+    margin-left: 3em;
+}
+.tel {
+    margin-top: 2em;
+}
+.contact-social {
+    color: black;
+    font-weight: bold;
+    font-size: 5em;
+}
