@@ -1,10 +1,57 @@
-.padd-15{
-    padding-left: 50px;
+.banner{
+    position: relative;
+    background-color: white;
+    top: 20px;
 }
-.pricing{
-    width: 90%;
+
+.row .image-section{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    top: 20px;
+    height: 30vh;
+}
+.row .image-section p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -50px;
+    background-color: rgba(12, 230, 241, 0.59);
+    padding: 50px 50px;
+    border-radius: 95px;
+    font-size: 26px;
+    font-weight: 1000;
+    font-family: 'Boogaloo', cursive;
+    color: white;
+    font-weight: 1000;
+}
+.row .image-section p::selection{
+    background-color: rgba(113, 175, 245, 0.9);
+}
+.row .banner-text-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 10px;
+}
+.banner span{
+    content: '';
+    width: 80%;
     margin: auto;
-    border-bottom: 1px solid rgb(193, 193, 206);
+    padding: 1px 1px;
+    background: rgb(193, 193, 206);
+    display: block;
+    position: relative;
+}
+
+.pricing{
+    width: 80%;
+    margin: auto;
+    border-bottom: 2px solid rgb(193, 193, 206);
+
 }
 
 .pricing-heading{
