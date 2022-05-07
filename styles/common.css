@@ -8,9 +8,19 @@
     --in-use-color: #E19A17;
     --available-color: #7EC6AD;
     --background-color: white;
-  }
+}
 
-  body {
-      color: var(--primary-color);
-      background-color: var(--background-color);
-  }
+body {
+    color: var(--primary-color);
+    background-color: var(--background-color);
+
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    font-family: 'Bubblegum Sans', cursive;    
+}
+
+h2, h3, h4, h5, h6, nav {
+    font-family: 'Boogaloo', cursive;
+}
