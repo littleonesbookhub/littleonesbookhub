@@ -20,6 +20,40 @@
 .pricing-items p{
     padding-bottom: 10px;
 }
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 20px;
+    background-color: #737373;
+    top: 0;
+}
+
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-links h4 {
+    margin-left: 32px;
+    margin-right: 32px;
+}
+
+.nav-links h4:hover {
+    color: #0b0b0c;
+}
+
+.nav-search {
+    margin-right: 32px;
+}
+
 a{
     color:  #5B5A76;
+    text-decoration: none;
+}
+
+a:active{
+    text-decoration-line: underline;
 }
