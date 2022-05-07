@@ -1,0 +1,25 @@
+.padd-15{
+    padding-left: 50px;
+}
+.pricing{
+    width: 90%;
+    margin: auto;
+    border-bottom: 1px solid rgb(193, 193, 206);
+}
+
+.pricing-heading{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: -15px;
+}
+.pricing-heading h2{
+    font-size: 25px;
+}
+.pricing-items p{
+    padding-bottom: 10px;
+}
+a{
+    color:  #5B5A76;
+}
