@@ -9,6 +9,13 @@ h2 {
 .col {
     display: flex;
 }
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 14rem;
+}.contact-data {
+    padding: 2em;
+}
 .contact-address {
     margin-left: 3em;
 }
@@ -20,7 +27,8 @@ h2 {
     font-weight: bold;
     font-size: 4.5em;
 }
-@media (max-width: 600px) {
+/* mobile view */
+@media (max-width: 600px) and (max-width: 768px) {
     iframe {
         width: 100vh;
 
@@ -30,6 +38,10 @@ h2 {
     }
     .contact-social {
         font-size: 3em;
+        margin: auto 0;
+    }
+    .contact-address {
+        margin-right: 0;
     }
     .container {
         display: flex;
