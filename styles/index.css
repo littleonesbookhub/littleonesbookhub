@@ -1,25 +1,52 @@
-.padd-15{
-    padding-left: 50px;
-}
 .pricing{
-    width: 90%;
-    margin: auto;
-    border-bottom: 1px solid rgb(193, 193, 206);
+    width: 100%;
+    text-align: justify;
 }
 
-.pricing-heading{
-    position: relative;
+.pricing h2 {
+    text-align: center;
+}
+
+.pricing-items div {
+    margin-bottom: 32px;
+}
+
+.collections-ctr {
+    width: 100%;
+}
+
+.collection {
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.collection-thumbs {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    bottom: -15px;
+    flex-direction: row;
+
+    max-width: 100%;
+    overflow-x: scroll;
 }
-.pricing-heading h2{
-    font-size: 25px;
+
+/* Disable scrollbar - https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp */
+.collection-thumbs {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
-.pricing-items p{
-    padding-bottom: 10px;
+
+.collection-thumbs a {
+    margin-right: 32px;
 }
-a{
-    color:  #5B5A76;
+
+.collection-thumbs img {
+    border-radius: 8px;
+    width: 120px;
+    height: 160px;
+    object-fit: cover;
+    border: 1px solid var(--thumb-border-color);
 }
+
+.collection-thumbs::-webkit-scrollbar {
+    display: none;
+}
+  
