@@ -26,7 +26,7 @@ nav {
     flex-direction: row;
     justify-content: space-between;
     font-size: 20px;
-    background-color: #737373;
+    background-color: #ffffff;
     top: 0;
 }
 
@@ -41,10 +41,6 @@ nav {
     margin-right: 32px;
 }
 
-.nav-links h4:hover {
-    color: #0b0b0c;
-}
-
 .nav-search {
     margin-right: 32px;
 }
@@ -54,6 +50,6 @@ a{
     text-decoration: none;
 }
 
-a:active{
+.nav-links a.active{
     text-decoration-line: underline;
 }
