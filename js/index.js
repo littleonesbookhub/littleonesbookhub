@@ -1,6 +1,19 @@
 const SPREADSHEET_ID = "1qA6bdIiZSv09FA5qgXhq0nRj_PeTWgp0ufYFmWqeDfM";
 const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
 
+function onScroll() {
+  var navbar = document.querySelector('.nav')
+        window.onscroll = function() {
+            console.log("here")
+        if (window.pageYOffset > 0) {
+            navbar.classList.add('scrolled')
+        } else {
+            navbar.classList.remove('scrolled')
+        }
+        }
+}
+
+
 function fetch_collections() {
     show_collections_loading_spinner();
     fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
@@ -52,6 +65,7 @@ function on_collections_fetched(collections) {
 
 function on_page_load() {
     fetch_collections();
+    onScroll();
 }
 
 window.onload = on_page_load;

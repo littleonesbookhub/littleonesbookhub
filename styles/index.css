@@ -28,6 +28,9 @@ nav {
     font-size: 20px;
     background-color: #ffffff;
     top: 0;
+    position: sticky;
+    background: var(--background-color);
+    transition: background  0.5s;
 }
 
 
@@ -53,3 +56,26 @@ a{
 .nav-links a.active{
     text-decoration-line: underline;
 }
+
+.scrolled {
+    background: var(--navbar-color);
+    color: var(--alternate-color);
+  }
+
+.scrolled a{
+    color: var(--background-color);
+}
+
+body {
+    margin: 0%;
+}
+
+@media screen and (max-width: 600px) {
+    .nav-links {
+      display: none;
+    }
+    .nav {
+        justify-content: flex-end;
+    }
+  }
+
