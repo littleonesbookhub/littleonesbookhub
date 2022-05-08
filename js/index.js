@@ -98,7 +98,6 @@ function add_collection_item(book, books, item_ctr) {
 }
 
 function on_collections_fetched(collections_data) {
-    console.log(collections_data);
     const collections_ctr = document.getElementsByClassName('collections-ctr')[0];
     collections_data.collections.forEach(collection => add_collection(collection, collections_data.books, collections_ctr));
 }
