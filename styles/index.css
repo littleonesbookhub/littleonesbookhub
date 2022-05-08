@@ -21,40 +21,9 @@
     padding-bottom: 10px;
 }
 
-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-size: 20px;
-    background-color: #ffffff;
-    top: 0;
-    position: sticky;
-    background: var(--background-color);
-    transition: background  0.5s;
-}
 
-
-.nav-links {
-    display: flex;
-    flex-direction: row;
-}
-
-.nav-links h4 {
-    margin-left: 32px;
-    margin-right: 32px;
-}
-
-.nav-search {
-    margin-right: 32px;
-}
-
-a{
-    color:  #5B5A76;
-    text-decoration: none;
-}
-
-.nav-links a.active{
-    text-decoration-line: underline;
+body {
+    margin: 0%;
 }
 
 .scrolled {
@@ -66,16 +35,94 @@ a{
     color: var(--background-color);
 }
 
-body {
-    margin: 0%;
+@media screen and (min-width: 600px) {
+    .icon {
+        display: none;
+    }
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 20px;
+        background-color: #ffffff;
+        top: 0;
+        position: sticky;
+        background: var(--background-color);
+        transition: background  0.5s;
+    }
+    
+    
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .nav-links h4 {
+        margin-left: 32px;
+        margin-right: 32px;
+    }
+    
+    .nav-search {
+        margin-right: 32px;
+    }
+    
+    a{
+        color:  #5B5A76;
+        text-decoration: none;
+    }
+    
+    .nav-links a.active{
+        text-decoration-line: underline;
+    }
+    
+    
 }
 
 @media screen and (max-width: 600px) {
-    .nav-links {
-      display: none;
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 20px;
+        background-color: #ffffff;
+        position: fixed;
+        background: var(--background-color);
+        transition: background  0.5s;
+        width: 100%;
+        top: 0;
     }
-    .nav {
-        justify-content: flex-end;
+
+    .nav a {
+        text-decoration: none;
     }
+
+    .icon {
+        margin-left: 32px;
+    }
+
+    #nav-links {
+        display: none;
+        margin-top: 50px;
+        width:100%;
+    }
+
+    #nav-links h4 {
+        border-top: solid 1px white;
+        text-align: center;
+        width: 100%;
+    }
+
+    .nav-search {
+        margin-right: 32px;
+    }
+
+    .opened {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    
   }
 

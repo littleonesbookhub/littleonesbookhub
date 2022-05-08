@@ -4,7 +4,6 @@ const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
 function onScroll() {
   var navbar = document.querySelector('.nav')
         window.onscroll = function() {
-            console.log("here")
         if (window.pageYOffset > 0) {
             navbar.classList.add('scrolled')
         } else {
@@ -61,6 +60,17 @@ function hide_collections_loading_spinner() {
 
 function on_collections_fetched(collections) {
     console.log(collections);
+}
+
+function openMenu() {
+  console.log("here")
+  var x = document.getElementById("nav-links")
+  if (x.style.display === "block"){
+    x.style.display = "none";
+  }
+  else {
+    x.style.display = "block";
+  }
 }
 
 function on_page_load() {
