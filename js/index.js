@@ -94,12 +94,43 @@ function add_collection_item(book, books, item_ctr) {
     collection_thumb.setAttribute("href", books[book].thumbnail_url);
     collection_thumb.innerHTML = `<img class="collection-thumb" src="${books[book].thumbnail_url}">`;
 
+    collection_thumb.addEventListener("click", on_collection_item_click);
+
     item_ctr.appendChild(collection_thumb);
+}
+
+function disable_body_scrolling() {
+    document.body.style.overflow = "hidden";
+}
+
+function enable_body_scrolling() {
+    document.body.style.overflow = "initial";
+}
+
+function show_preview_dialog() {
+    const preview_dialog_frame = document.getElementsByClassName("preview-dialog-frame")[0];
+    preview_dialog_frame.style.display = "initial";
+}
+
+function hide_preview_dialog() {
+    const preview_dialog_frame = document.getElementsByClassName("preview-dialog-frame")[0];
+    preview_dialog_frame.style.display = "none";
 }
 
 function on_collections_fetched(collections_data) {
     const collections_ctr = document.getElementsByClassName('collections-ctr')[0];
     collections_data.collections.forEach(collection => add_collection(collection, collections_data.books, collections_ctr));
+}
+
+function on_collection_item_click(event) {
+    event.preventDefault();
+    disable_body_scrolling();
+    show_preview_dialog();
+}
+
+function on_preview_dialog_close() {
+    hide_preview_dialog();
+    enable_body_scrolling();
 }
 
 function on_page_load() {
