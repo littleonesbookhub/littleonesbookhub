@@ -29,23 +29,31 @@ h2 {
 }
 /* mobile view */
 @media (max-width: 600px) and (max-width: 768px) {
-    iframe {
-        width: 100vh;
-
+    .contact-map {
+        width: 100vw;
+    }
+    #mapDiv {
+        margin: 0 auto;
+    }
+   .contact-map iframe {
+        width: 80%;
+        padding: 1em;
     }
     .col {
-        display: block;
+        display: grid;
+        margin: 0 auto;
     }
     .contact-social {
         font-size: 3em;
         margin: auto 0;
-    }
-    .contact-address {
-        margin-right: 0;
+        display: flex;
+        gap: .7em;
     }
     .container {
         display: flex;
-        justify-content: space-around;
+        width: 100vw;
+        margin: 0 auto;
+        padding: 2em;
         
     }
 }
