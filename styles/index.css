@@ -55,7 +55,6 @@
     border-bottom: 2px solid rgb(193, 193, 206);
 
 }
-
 .pricing-heading{
     position: relative;
     display: flex;
@@ -71,4 +70,50 @@
 }
 a{
     color:  #5B5A76;
+}
+@media (max-width: 768px){
+    .banner{
+        width: 100%;
+        margin: auto;
+    }
+   .row .image-section img{
+       height: 110px;
+       width: auto;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       bottom: -60%;
+       position: relative;
+   }
+   .row .image-section p{
+       padding: 35px 35px;
+       top: -50px;
+       font-weight: 700;
+       border-radius: 80px;
+       font-size: 30px;
+   }
+   .row .banner-text-section{
+       align-items: center;
+       justify-content: center;
+       font-size: 20px;
+   }
+   .row .banner-text-section p{
+       text-align: center;
+   }
+   .banner span{
+    content: '';
+    width: 100%;
+    margin: auto;
+    padding: 1px 1px;
+    background: rgb(193, 193, 206);
+    display: block;
+    position: relative;
+}
+.pricing{
+    width: 100%;
+}
+.pricing-items p{
+    padding-bottom: 0;
+}
+
 }
