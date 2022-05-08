@@ -18,5 +18,22 @@ h2 {
 .contact-social {
     color: black;
     font-weight: bold;
-    font-size: 5em;
+    font-size: 4.5em;
+}
+@media (max-width: 600px) {
+    iframe {
+        width: 100vh;
+
+    }
+    .col {
+        display: block;
+    }
+    .contact-social {
+        font-size: 3em;
+    }
+    .container {
+        display: flex;
+        justify-content: space-around;
+        
+    }
 }
