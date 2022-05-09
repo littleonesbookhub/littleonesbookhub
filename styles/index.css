@@ -3,7 +3,7 @@
     text-align: justify;
 }
 
-.pricing h2, .contact-main {
+.pricing h2, .contact-main h2 {
     text-align: center;
 }
 
@@ -84,6 +84,9 @@
 }
 
 .contact-social {
+    color: black;
+    font-weight: bold;
+    font-size: 4.5em;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -112,11 +115,6 @@
     margin-top: 2em;
 }
 
-.contact-social {
-    color: black;
-    font-weight: bold;
-    font-size: 4.5em;
-}
 /* mobile view */
 @media screen and (max-width: 640px) {
     .contact-desktop {
