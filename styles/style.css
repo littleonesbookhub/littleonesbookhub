@@ -22,7 +22,10 @@ h2 {
 .contact-social i {
     margin-right: 24px;
 }
-
+.contact-social a {
+    text-decoration: none;
+    color: black;
+}
 .contact-mobile {
     display: none;
 }
