@@ -3,7 +3,7 @@
     text-align: justify;
 }
 
-.pricing h2 {
+.pricing h2, .contact-main h2 {
     text-align: center;
 }
 
@@ -71,3 +71,79 @@
     border: none;
     display: none;
 }
+/* contact section begins here */
+.contact-desktop {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+}
+
+.contact-map-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.contact-social {
+    color: black;
+    font-weight: bold;
+    font-size: 4.5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.contact-social i {
+    margin-right: 24px;
+}
+.contact-social a {
+    text-decoration: none;
+    color: black;
+}
+.contact-mobile {
+    display: none;
+}
+
+.contact-data {
+    padding: 2em;
+}
+
+.contact-address {
+    margin-left: 3em;
+}
+
+.tel {
+    margin-top: 2em;
+}
+
+/* mobile view */
+@media screen and (max-width: 640px) {
+    .contact-desktop {
+        display: none;
+    }
+    .contact-mobile {
+        display: block;
+    }
+   .contact-map iframe {
+       width: 100%;
+   }
+   .contact-address-social {
+       width: 100%;
+       display: flex;
+       justify-content: space-between;
+   }
+   .contact-address {
+       width: 65%;
+       margin-left: 0;
+   }
+   .contact-social {
+       display: flex;
+       align-items: center;
+       width: 30%;
+       font-size: 2.5em;
+       margin-right: 15px;
+   }
+   .contact-social i {
+    margin-right: 12px;
+   }
+}
+/* contact section ends here */
