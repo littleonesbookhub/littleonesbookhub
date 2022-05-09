@@ -1,16 +1,18 @@
 const SPREADSHEET_ID = "1qA6bdIiZSv09FA5qgXhq0nRj_PeTWgp0ufYFmWqeDfM";
 const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
 
-function onScroll() {
-        window.onscroll = function() {
+function register_scroll_handler() {
+    const desktop_nav = document.querySelector('.desktop-nav');
+    const mobile_nav = document.querySelector('.mobile-nav');
+    window.onscroll = function () {
         if (window.pageYOffset > 0) {
-          document.querySelector('.desktopNav').classList.add('scrolled')
-          document.querySelector('.mobileNav').classList.add('scrolled')
+            desktop_nav.classList.add('scrolled');
+            mobile_nav.classList.add('scrolled');
         } else {
-          document.querySelector('.desktopNav').classList.remove('scrolled')
-          document.querySelector('.mobileNav').classList.add('scrolled')
+            desktop_nav.classList.remove('scrolled');
+            mobile_nav.classList.remove('scrolled');
         }
-        }
+    }
 }
 
 function fetch_collections() {
@@ -114,25 +116,28 @@ function on_collections_fetched(collections_data) {
     collections_data.collections.forEach(collection => add_collection(collection, collections_data.books, collections_ctr));
 }
 
-function openMenu() {
-  var x2 = document.getElementById("mobile-nav-links")
-  var x1 = document.querySelector('.mobileNav')
-  if (x2.style.display === "block"){
-    x1.classList.remove("mobileNavOpen");
-    x2.style.display = "none"; 
-    
-  }
-  else {
-    x1.classList.add("mobileNavOpen");
-    x2.style.display = "block";
-    
-  }
-  
+function on_navbar_menu_button_click() {
+    const mobile_nav_links = document.getElementById("mobile-nav-links")
+    const mobile_nav = document.querySelector('.mobile-nav')
+    if (mobile_nav_links.style.display === "block") {
+        mobile_nav.classList.remove("mobile-nav-open");
+        mobile_nav_links.style.display = "none";
+    }
+    else {
+        mobile_nav.classList.add("mobile-nav-open");
+        mobile_nav_links.style.display = "block";
+    }
+}
+
+function register_navbar_menu_button_click_handler() {
+    const navbar_menu_button = document.getElementsByClassName("navbar-menu")[0];
+    navbar_menu_button.addEventListener("click", on_navbar_menu_button_click);
 }
 
 function on_page_load() {
     fetch_collections();
-    onScroll();
+    register_scroll_handler();
+    register_navbar_menu_button_click_handler();
 }
 
 window.onload = on_page_load;

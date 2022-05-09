@@ -1,3 +1,97 @@
+.mobile-nav {
+    display: none;
+}
+.desktop-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    top:0;
+    transition: background 0.5s;
+}
+.desktop-nav a {
+    display: block;
+    text-decoration: none;
+    font-size: 17px;
+}
+a.active {
+    text-decoration: underline;
+}
+.search {
+    color: var(--navbar-color);
+}
+.desktop-nav-search {
+    margin-top: 20px;
+    margin-right: 40px;
+}
+.desktop-nav-links {
+    display: flex;
+    flex-direction: row;
+}
+.desktop-nav-links a {
+    margin-left: 40px;
+}
+.scrolled {
+    background-color: var(--navbar-color);   
+}
+.scrolled a {
+    color: var(--alternate-color);
+}
+.scrolled a.search {
+    color: var(--alternate-color);
+}
+
+@media screen and (max-width: 600px){
+    .desktop-nav {
+        display: none;
+    }
+    .mobile-nav {
+        display: block;
+        position: fixed;
+        background-color: var(--background-color);
+        top: 0;
+        width: 100%;
+    }
+    .mobile-nav-links {
+        display: none;
+    }
+    .mobile-nav-links>* {
+        border-top: solid 0.25px white;
+    }
+    .mobile-nav a {
+        color: var(--primary-color);
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        display: block;
+      }
+      .mobile-nav a.search {
+          position: absolute;
+          top: 0;
+          right: 0;
+          color: var(--navbar-color);
+      }
+      .mobile-nav-open {
+        background-color: var(--navbar-color);
+    }
+    .mobile-nav-open a{
+        color: var(--alternate-color);
+    }
+    .mobile-nav-open a.search {
+        color: var(--alternate-color);
+    }
+    .scrolled {
+        background-color: var(--navbar-color);   
+    }
+    .scrolled a.search {
+        color: var(--alternate-color);
+    }
+    .scrolled a.navbar-menu {
+        color: var(--alternate-color);
+    }   
+}
+
 .pricing{
     width: 100%;
     text-align: justify;
@@ -36,101 +130,6 @@
 
 .collection-thumbs a {
     margin-right: 32px;
-}
-
-body {
-    margin: 0%;
-}
-
-@media screen and (min-width: 600px) {
-    .mobileNav {
-        display: none;
-    }
-    .desktopNav {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        position: fixed;
-        width: 100%;
-        top:0;
-        transition: background 0.5s;
-    }
-    .desktopNav a {
-        text-decoration: none;
-        font-size: 17px;
-    }
-    a.active {
-        text-decoration: underline;
-    }
-    .search {
-        margin-right: 40px;
-        color: var(--navbar-color);
-    }
-    .desktop-nav-links {
-        display: flex;
-        flex-direction: row;
-    }
-    .desktop-nav-links a {
-        margin-left: 40px;
-    }
-    .scrolled {
-        background-color: var(--navbar-color);   
-    }
-    .scrolled a {
-        color: var(--alternate-color);
-    }
-    .scrolled a.search {
-        color: var(--alternate-color);
-    }
-}
-
-@media screen and (max-width: 600px){
-    .desktopNav {
-        display: none;
-    }
-    .mobileNav {
-        position: fixed;
-        background-color: var(--background-color);
-        top: 0;
-        width: 100%;
-    }
-    .mobile-nav-links {
-        display: none;
-    }
-    .mobile-nav-links>* {
-        border-top: solid 0.25px white;
-    }
-    .mobileNav a {
-        color: var(--primary-color);
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-        display: block;
-      }
-      .mobileNav a.search {
-          position: absolute;
-          top: 0;
-          right: 0;
-          color: var(--navbar-color);
-      }
-      .mobileNavOpen {
-        background-color: var(--navbar-color);
-    }
-    .mobileNavOpen a{
-        color: var(--alternate-color);
-    }
-    .mobileNavOpen a.search {
-        color: var(--alternate-color);
-    }
-    .scrolled {
-        background-color: var(--navbar-color);   
-    }
-    .scrolled a.search {
-        color: var(--alternate-color);
-    }
-    .scrolled a.menu {
-        color: var(--alternate-color);
-    }   
 }
 
 .collection-thumbs img {
