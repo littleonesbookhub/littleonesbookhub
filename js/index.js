@@ -1,6 +1,7 @@
 const SPREADSHEET_ID = "1qA6bdIiZSv09FA5qgXhq0nRj_PeTWgp0ufYFmWqeDfM";
 const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
-            
+const BOOK_AVAILABLE_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf66BFvFTCPGlnl1D0PgwBItYGV6rhvVlzj81Vd6seq-MtHFQ/viewform?usp=pp_url&entry.233549370=";
+
 function fetch_collections() {
     show_collections_loading_spinner();
     fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
@@ -118,8 +119,14 @@ function show_preview_dialog(book_data) {
     preview_dialog_frame.contentWindow.document.querySelector(".preview-author span").innerText = book_data.author;
     preview_dialog_frame.contentWindow.document.querySelector(".preview-genre span").innerText = book_data.genre;
     preview_dialog_frame.contentWindow.document.querySelector(".preview-age-group span").innerText = book_data.age_group;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerText = book_data.available;
     preview_dialog_frame.contentWindow.document.querySelector(".preview-description span").innerText = book_data.description;
+
+    if (book_data.available.toLowerCase() === 'yes') {
+        preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = 'Available';
+    } else {
+        preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = `Unvailable. <a href="${BOOK_AVAILABLE_FORM_LINK}${book_data.id}" target="_blank">NOTIFY ME</a>`;
+    }
+    
     preview_dialog_frame.style.display = "initial";
 }
 
