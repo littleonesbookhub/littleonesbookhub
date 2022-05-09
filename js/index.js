@@ -2,16 +2,16 @@ const SPREADSHEET_ID = "1qA6bdIiZSv09FA5qgXhq0nRj_PeTWgp0ufYFmWqeDfM";
 const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
 
 function onScroll() {
-  var navbar = document.querySelector('.nav')
         window.onscroll = function() {
         if (window.pageYOffset > 0) {
-            navbar.classList.add('scrolled')
+          document.querySelector('.desktopNav').classList.add('scrolled')
+          document.querySelector('.mobileNav').classList.add('scrolled')
         } else {
-            navbar.classList.remove('scrolled')
+          document.querySelector('.desktopNav').classList.remove('scrolled')
+          document.querySelector('.mobileNav').classList.add('scrolled')
         }
         }
 }
-
 
 function fetch_collections() {
     show_collections_loading_spinner();
@@ -63,14 +63,19 @@ function on_collections_fetched(collections) {
 }
 
 function openMenu() {
-  console.log("here")
-  var x = document.getElementById("nav-links")
-  if (x.style.display === "block"){
-    x.style.display = "none";
+  var x2 = document.getElementById("mobile-nav-links")
+  var x1 = document.querySelector('.mobileNav')
+  if (x2.style.display === "block"){
+    x1.classList.remove("mobileNavOpen");
+    x2.style.display = "none"; 
+    
   }
   else {
-    x.style.display = "block";
+    x1.classList.add("mobileNavOpen");
+    x2.style.display = "block";
+    
   }
+  
 }
 
 function on_page_load() {
