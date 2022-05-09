@@ -3,7 +3,7 @@
     text-align: justify;
 }
 
-.pricing h2 {
+.pricing h2, .contact-main {
     text-align: center;
 }
 
@@ -72,10 +72,6 @@
     display: none;
 }
 /* contact section begins here */
-h2 {
-    text-align: center;
-}
-
 .contact-desktop {
     display: flex;
     flex-direction: row;
@@ -150,6 +146,6 @@ h2 {
    }
    .contact-social i {
     margin-right: 12px;
-}
+   }
 }
 /* contact section ends here */
