@@ -67,9 +67,11 @@ function fetch_collections() {
 }
 
 function show_collections_loading_spinner() {
+    document.querySelector(".collections-loading-spinner").style.display = "flex";
 }
 
 function hide_collections_loading_spinner() {
+    document.querySelector(".collections-loading-spinner").style.display = "none";
 }
 
 function add_collection(collection, books, collections_ctr) {
