@@ -76,6 +76,10 @@
 }
 
 /* contact section begins here */
+.contact-main {
+    padding-bottom: 24px;
+}
+
 .contact-desktop {
     display: flex;
     flex-direction: row;
