@@ -126,7 +126,7 @@ function show_preview_dialog(book_data) {
     } else {
         preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = `Unvailable. <a href="${BOOK_AVAILABLE_FORM_LINK}${book_data.id}" target="_blank">NOTIFY ME</a>`;
     }
-    
+
     preview_dialog_frame.style.display = "initial";
 }
 
