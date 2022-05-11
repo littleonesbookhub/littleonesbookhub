@@ -8,6 +8,8 @@
     --in-use-color: #E19A17;
     --available-color: #7EC6AD;
     --background-color: white;
+    --divider-color: rgba(91, 90, 118, 0.2);
+    --thumb-border-color: #eeeeee;
 }
 
 body {
@@ -18,9 +20,39 @@ body {
 }
 
 h1 {
-    font-family: 'Bubblegum Sans', cursive;    
+    font-family: 'Bubblegum Sans', cursive;
 }
 
-h2, h3, h4, h5, h6, nav {
+h2,
+h3,
+h4,
+h5,
+h6,
+nav {
     font-family: 'Boogaloo', cursive;
+}
+
+main {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+section {
+    width: 100%;
+    margin: 32spx 0;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+footer {
+    font-size: 12px;
+    text-align: center;
+    min-height: 120px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+a {
+    color: var(--primary-color);
 }

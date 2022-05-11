@@ -1,3 +1,6 @@
+.banner-section{
+    padding-bottom: 24px;
+}
 
 .banner-section .banner-image{
     position: relative;
@@ -10,7 +13,6 @@
     text-align: center;
     height: 30vh;
 }
-
 .banner-image p{
     width: 100px;
     height: 100px;
@@ -38,29 +40,135 @@
     top: 10px;
 }
 
-.pricing{
-    width: 80%;
-    margin: auto;
-    border-bottom: 2px solid rgb(193, 193, 206);
+.pricing {
+    width: 100%;
+    text-align: justify;
+}
 
+.pricing h2,
+.contact-main h2 {
+    text-align: center;
 }
-.pricing-heading{
-    position: relative;
+
+.pricing-items div {
+    margin-bottom: 32px;
+}
+
+.collections-ctr {
+    width: 100%;
+}
+
+.collections-loading-spinner {
+    width: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: center;
+}
+
+.collections-loading-spinner img {
+    width: 100px;
+    height: 100px;
+}
+
+.collection {
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.collection-thumbs {
+    display: flex;
+    flex-direction: row;
+
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+/* Disable scrollbar - https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp */
+.collection-thumbs {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.collection-thumbs a {
+    margin-right: 32px;
+}
+
+.collection-thumbs img {
+    border-radius: 8px;
+    width: 120px;
+    height: 160px;
+    object-fit: cover;
+    border: 1px solid var(--thumb-border-color);
+}
+
+.collection-thumbs::-webkit-scrollbar {
+    display: none;
+}
+
+.preview-dialog-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    display: none;
+}
+
+/* contact section begins here */
+.contact-main {
+    padding-bottom: 24px;
+}
+
+.contact-desktop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.contact-map-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.contact-social {
+    color: black;
+    font-weight: bold;
+    font-size: 4.5em;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    bottom: -15px;
 }
-.pricing-heading h2{
-    font-size: 25px;
+
+.contact-social i {
+    margin-right: 24px;
 }
-.pricing-items p{
-    padding-bottom: 10px;
+
+.contact-social a {
+    text-decoration: none;
+    color: black;
 }
-a{
-    color:  #5B5A76;
+
+.contact-mobile {
+    display: none;
 }
-@media (max-width: 768px){
+
+.contact-data {
+    padding: 2em;
+}
+
+.contact-address {
+    margin-left: 3em;
+}
+
+.tel {
+    margin-top: 2em;
+}
+
+/* mobile view */
+@media screen and (max-width: 640px) {
     .banner-section{
         width: 100%;
         margin: auto;
@@ -93,12 +201,41 @@ a{
        margin-top: 40px;
        text-align: center;
    }
+    .contact-desktop {
+        display: none;
+    }
 
-.pricing{
-    width: 100%;
-}
-.pricing-items p{
-    padding-bottom: 0;
+    .contact-mobile {
+        display: block;
+    }
+
+    .contact-map iframe {
+        width: 100%;
+    }
+
+    .contact-address-social {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .contact-address {
+        width: 65%;
+        margin-left: 0;
+    }
+
+    .contact-social {
+        display: flex;
+        align-items: center;
+        width: 30%;
+        font-size: 2.5em;
+        margin-right: 15px;
+    }
+
+    .contact-social i {
+        margin-right: 12px;
+    }
+    
 }
 
-}
+/* contact section ends here */
