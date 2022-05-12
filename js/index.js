@@ -133,11 +133,18 @@ function on_navbar_search_button_click() {
     const desktop_nav_search = document.getElementById("desktop-nav-search");
     const text_input_search = document.getElementById("text-input-search");
     if (text_input_search.style.display === "flex") {
-        // code to go to search page
+        if (text_input_search.value.length == 0) {
+            desktop_nav_search.classList.remove("clicked-search-icon");
+            text_input_search.style.display = "none";
+        }
+        else {
+            // code to go to search page
+        }
     }
     else {
         desktop_nav_search.classList.add("clicked-search-icon");
         text_input_search.style.display = "flex";
+        text_input_search.focus();
     }
 }
 
@@ -145,11 +152,18 @@ function on_mobile_navbar_search_button_click() {
     const mobile_nav_search = document.getElementById("mobile-nav-search");
     const mobile_text_input_search = document.getElementById("mobile-text-input-search");
     if (mobile_text_input_search.style.display === "flex") {
-        // code to go to search page
+        if (mobile_text_input_search.value.length == 0) {
+            mobile_nav_search.classList.remove("clicked-mobile-search-icon");
+            mobile_text_input_search.style.display = "none";
+        }
+        else {
+            // code to go to search page
+        }
     }
     else {
         mobile_nav_search.classList.add("clicked-mobile-search-icon");
         mobile_text_input_search.style.display = "flex";
+        mobile_text_input_search.focus();
     }
 }
 
