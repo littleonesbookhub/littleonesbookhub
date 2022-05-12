@@ -83,6 +83,9 @@ a.search {
     outline: none;
     flex: 1;
 }
+.text-input-search {  
+    overflow: hidden;
+}
 
 .search {
     flex: 0 0 auto;
@@ -169,6 +172,7 @@ a.search {
         transition: background 0.5s;
         outline: none;
         flex: 1;
+        overflow: hidden;
     }
 
     .clicked-mobile-search-icon {
