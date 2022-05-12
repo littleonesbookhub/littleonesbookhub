@@ -23,7 +23,32 @@
     <script src="js/index.js"></script>
 </head>
 
-<body>
+<body id="body">
+    <nav class="desktop-nav">   
+        <div class="desktop-nav-links" id="desktop-nav-links">
+            <a class="active" href="">HOME</a>
+            <a href="search.html">BROWSE</a>                
+        </div>
+        <div class="desktop-nav-search" id="desktop-nav-search">
+            <input type="search" class="text-input-search" id="text-input-search" placeholder="Search for books here">
+            <a href="javascript: void(0)" class="search" id="search" class="desktop-search"><i class="ri-search-line"></i></a>     
+        </div>
+    </nav> 
+
+    <div class="mobile-nav">
+        <div class="collapsed-navbar">
+            <a href="javascript: void(0)" class="navbar-menu"><i class="ri-menu-line"></i></a>
+            <div class="mobile-nav-search" id="mobile-nav-search">
+                <input type="search" class="mobile-text-input-search" id="mobile-text-input-search" placeholder="Search for books here">
+                <a href="javascript: void(0)" class="mobile-search" id="mobile-search"><i class="ri-search-line"></i></a>
+            </div>
+        </div>
+        <div class="mobile-nav-links" id="mobile-nav-links">
+            <a href="index.html">Home</a>
+            <a class="browse" href="search.html">Browse</a>
+        </div>          
+    </div>
+
     <main class="main-ctr">
         <section class="banner-section">
             <div class="banner-image">
@@ -77,6 +102,7 @@
                         </p>
                     </div>
                 </div>
+
                 <div class="contact-social">
                     <a href="https://www.facebook.com/littleonesbookhub/" target="_blank"><i
                             class="ri-facebook-box-fill logo-item"></i></a>
