@@ -14,6 +14,7 @@
     padding-right: 30px;
     padding-top: 22px;
     padding-bottom: 22px;
+    z-index: 1;
 
 }
 
@@ -87,7 +88,7 @@ a.search {
     flex: 0 0 auto;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
     .desktop-nav {
         display: none;
     }
@@ -99,6 +100,7 @@ a.search {
         top: 0;
         width: 100%;
         transition: background 0.5s;
+        z-index: 1;
     }
 
     .collapsed-navbar {
@@ -187,12 +189,55 @@ a.search {
     }
 }
 
+.banner-section{
+    padding-bottom: 24px;
+}
+
+.banner-section .banner-image{
+    position: relative;
+    background-size: 100px 100px;
+    background-image: url("../assets/glitter-300x300.png");
+    background-repeat: repeat;
+    top: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 30vh;
+}
+.banner-image p{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -70px;
+    background-color: rgba(12, 230, 241, 0.59);
+    padding: 50px 50px;
+    border-radius: 50%;
+    font-size: 40px;
+    font-weight: 1000;
+    font-family: 'Boogaloo', cursive;
+    color: white;
+    font-weight: 1000;
+    text-shadow: 2px 2px 3px #150905;
+}
+
+.banner-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 10px;
+}
+
 .pricing {
     width: 100%;
     text-align: justify;
 }
 
-.pricing h2 {
+.pricing h2,
+.contact-main h2 {
     text-align: center;
 }
 
@@ -202,6 +247,18 @@ a.search {
 
 .collections-ctr {
     width: 100%;
+}
+
+.collections-loading-spinner {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.collections-loading-spinner img {
+    width: 100px;
+    height: 100px;
 }
 
 .collection {
@@ -239,4 +296,139 @@ a.search {
 
 .collection-thumbs::-webkit-scrollbar {
     display: none;
+
 }
+
+.preview-dialog-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    display: none;
+}
+
+/* contact section begins here */
+.contact-main {
+    padding-bottom: 24px;
+}
+
+.contact-desktop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.contact-map-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.contact-social {
+    color: black;
+    font-weight: bold;
+    font-size: 4.5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.contact-social i {
+    margin-right: 24px;
+}
+
+.contact-social a {
+    text-decoration: none;
+    color: black;
+}
+
+.contact-mobile {
+    display: none;
+}
+
+.contact-data {
+    padding: 2em;
+}
+
+.contact-address {
+    margin-left: 3em;
+}
+
+.tel {
+    margin-top: 2em;
+}
+
+/* mobile view */
+@media screen and (max-width: 640px) {
+    .banner-section{
+        width: 100%;
+        margin: auto;
+        top: 100%;
+        position: relative;
+        
+    }
+   .banner-image img{
+       height: 110px;
+       width: auto;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       bottom: -60%;
+       position: relative;
+   }
+   .banner-image p{
+       width: 100px;
+       height: 100px;
+       padding: 40px 40px;
+       top: -40px;
+       font-weight: 700;
+       border-radius: 50%;
+       text-shadow: 2px 2px 3px #150905;
+   }
+   .banner-text {
+       align-items: center;
+       justify-content: center;
+       position: relative;
+       margin-top: 40px;
+       text-align: center;
+   }
+    .contact-desktop {
+        display: none;
+    }
+
+    .contact-mobile {
+        display: block;
+    }
+
+    .contact-map iframe {
+        width: 100%;
+    }
+
+    .contact-address-social {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .contact-address {
+        width: 65%;
+        margin-left: 0;
+    }
+
+    .contact-social {
+        display: flex;
+        align-items: center;
+        width: 30%;
+        font-size: 2.5em;
+        margin-right: 15px;
+    }
+
+    .contact-social i {
+        margin-right: 12px;
+    }
+    
+}
+
+/* contact section ends here */
+

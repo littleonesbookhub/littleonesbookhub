@@ -21,10 +21,15 @@ body {
 }
 
 h1 {
-    font-family: 'Bubblegum Sans', cursive;    
+    font-family: 'Bubblegum Sans', cursive;
 }
 
-h2, h3, h4, h5, h6, nav {
+h2,
+h3,
+h4,
+h5,
+h6,
+nav {
     font-family: 'Boogaloo', cursive;
 }
 
@@ -43,7 +48,7 @@ footer {
     font-size: 12px;
     text-align: center;
     min-height: 120px;
-    
+
     display: flex;
     flex-direction: column;
     justify-content: end;

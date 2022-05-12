@@ -14,6 +14,7 @@ function register_scroll_handler() {
         }
     }
 }
+const BOOK_AVAILABLE_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf66BFvFTCPGlnl1D0PgwBItYGV6rhvVlzj81Vd6seq-MtHFQ/viewform?usp=pp_url&entry.233549370=";
 
 function fetch_collections() {
     show_collections_loading_spinner();
@@ -56,14 +57,15 @@ function fetch_collections() {
                                 const title = row.values[1].formattedValue ? row.values[1].formattedValue : "";
                                 const author = row.values[2].formattedValue ? row.values[2].formattedValue : "";
                                 const genre = row.values[3].formattedValue ? row.values[3].formattedValue : "";
-                                const available = row.values[4].formattedValue ? row.values[4].formattedValue : "";
-                                const available_date = row.values[5].formattedValue ? row.values[5].formattedValue : "";
-                                const description = row.values[6].formattedValue ? row.values[6].formattedValue : "";
-                                const thumbnail_url = row.values[7].formattedValue ? row.values[7].formattedValue : "";
+                                const age_group = row.values[4].formattedValue ? row.values[4].formattedValue : "";
+                                const available = row.values[5].formattedValue ? row.values[5].formattedValue : "";
+                                const available_date = row.values[6].formattedValue ? row.values[6].formattedValue : "";
+                                const description = row.values[7].formattedValue ? row.values[7].formattedValue : "";
+                                const thumbnail_url = row.values[8].formattedValue ? row.values[8].formattedValue : "";
                                 if (id === "") {
                                     return;
                                 }
-                                books[id] = { id: id, title: title, author: author, genre: genre, available: available, available_date: available_date, description: description, thumbnail_url: thumbnail_url };
+                                books[id] = { id: id, title: title, author: author, genre: genre, age_group: age_group, available: available, available_date: available_date, description: description, thumbnail_url: thumbnail_url };
                             } catch (err) {
                                 console.error(err);
                             }
@@ -80,9 +82,11 @@ function fetch_collections() {
 }
 
 function show_collections_loading_spinner() {
+    document.querySelector(".collections-loading-spinner").style.display = "flex";
 }
 
 function hide_collections_loading_spinner() {
+    document.querySelector(".collections-loading-spinner").style.display = "none";
 }
 
 function add_collection(collection, books, collections_ctr) {
@@ -107,8 +111,42 @@ function add_collection_item(book, books, item_ctr) {
     const collection_thumb = document.createElement("a");
     collection_thumb.setAttribute("href", books[book].thumbnail_url);
     collection_thumb.innerHTML = `<img class="collection-thumb" src="${books[book].thumbnail_url}">`;
+    const book_data_encoded = encodeURIComponent(JSON.stringify(books[book]));
+    collection_thumb.setAttribute("data-book", book_data_encoded);
+    collection_thumb.addEventListener("click", on_collection_item_click);
 
     item_ctr.appendChild(collection_thumb);
+}
+
+function disable_body_scrolling() {
+    document.body.style.overflow = "hidden";
+}
+
+function enable_body_scrolling() {
+    document.body.style.overflow = "initial";
+}
+
+function show_preview_dialog(book_data) {
+    const preview_dialog_frame = document.getElementsByClassName("preview-dialog-frame")[0];
+    preview_dialog_frame.contentWindow.document.querySelector(".preview-thumb").src = book_data.thumbnail_url;
+    preview_dialog_frame.contentWindow.document.querySelector(".preview-title span").innerText = book_data.title;
+    preview_dialog_frame.contentWindow.document.querySelector(".preview-author span").innerText = book_data.author;
+    preview_dialog_frame.contentWindow.document.querySelector(".preview-genre span").innerText = book_data.genre;
+    preview_dialog_frame.contentWindow.document.querySelector(".preview-age-group span").innerText = book_data.age_group;
+    preview_dialog_frame.contentWindow.document.querySelector(".preview-description span").innerText = book_data.description;
+
+    if (book_data.available.toLowerCase() === 'yes') {
+        preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = 'Available';
+    } else {
+        preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = `Unvailable. <a href="${BOOK_AVAILABLE_FORM_LINK}${book_data.id}" target="_blank">NOTIFY ME</a>`;
+    }
+
+    preview_dialog_frame.style.display = "initial";
+}
+
+function hide_preview_dialog() {
+    const preview_dialog_frame = document.getElementsByClassName("preview-dialog-frame")[0];
+    preview_dialog_frame.style.display = "none";
 }
 
 function on_collections_fetched(collections_data) {
@@ -180,6 +218,23 @@ function register_navbar_search_button_click_handler() {
 function register_mobile_navbar_search_button_click_handler() {
     const mobile_navbar_search_button = document.querySelector(".mobile-search");
     mobile_navbar_search_button.addEventListener("click", on_mobile_navbar_search_button_click);
+}
+
+function on_collection_item_click(event) {
+    event.preventDefault();
+
+    disable_body_scrolling();
+
+    const collection_thumb = event.currentTarget;
+    const book_data_encoded = collection_thumb.getAttribute("data-book");
+    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
+
+    show_preview_dialog(book_data);
+}
+
+function on_preview_dialog_close() {
+    hide_preview_dialog();
+    enable_body_scrolling();
 }
 
 function on_page_load() {

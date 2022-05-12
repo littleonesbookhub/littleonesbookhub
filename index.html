@@ -1,75 +1,147 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- remixicon -->
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-        <!-- Viewport meta -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Bubblegum+Sans&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-        
-        <!-- Global styles -->
-        <link rel="stylesheet" href="styles/common.css">
-        
-        <!-- Local styles -->
-        <link rel="stylesheet" href="styles/index.css">
 
-        <!-- Local JS -->
-        <script src="js/index.js"></script>
+<head>
+    <!-- Viewport meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    </head>
-    <body>
-        <nav class="desktop-nav">   
-            <div class="desktop-nav-links" id="desktop-nav-links">
-                <a class="active" href="">HOME</a>
-                <a href="search.html">BROWSE</a>                
-            </div>
-            <div class="desktop-nav-search" id="desktop-nav-search">
-                <input type="search" class="text-input-search" id="text-input-search">
-                <a href="javascript: void(0)" class="search" class="desktop-search"><i class="ri-search-line"></i></a>     
-            </div>
-        </nav> 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Bubblegum+Sans&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
 
-        <div class="mobile-nav">
-            <div class="collapsed-navbar">
-                <a href="javascript: void(0)" class="navbar-menu"><i class="ri-menu-line"></i></a>
-                <div class="mobile-nav-search" id="mobile-nav-search">
-                    <input type="search" class="mobile-text-input-search" id="mobile-text-input-search">
-                    <a href="javascript: void(0)" class="mobile-search"><i class="ri-search-line"></i></a>
-                </div>
-            </div>
-            <div class="mobile-nav-links" id="mobile-nav-links">
-                <a href="index.html">Home</a>
-                <a class="browse" href="search.html">Browse</a>
-            </div>          
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Global styles -->
+    <link rel="stylesheet" href="styles/common.css">
+    <!-- Local styles -->
+    <link rel="stylesheet" href="styles/index.css">
+
+    <!-- Local JS -->
+    <script src="js/index.js"></script>
+</head>
+
+<body>
+    <nav class="desktop-nav">   
+        <div class="desktop-nav-links" id="desktop-nav-links">
+            <a class="active" href="">HOME</a>
+            <a href="search.html">BROWSE</a>                
         </div>
+        <div class="desktop-nav-search" id="desktop-nav-search">
+            <input type="search" class="text-input-search" id="text-input-search" placeholder="search for books here">
+            <a href="javascript: void(0)" class="search" class="desktop-search"><i class="ri-search-line"></i></a>     
+        </div>
+    </nav> 
 
-        <main class="main-ctr">
-            <section class="collections-ctr">
-            </section>
-            <section class="pricing">
-                <h2>PRICING</h2>
-                <div class="pricing-items">
-                    <div class="pricing-registration">
-                        <p>Registration: INR 100 (3 months), INR 200 (6 months), INR 300 (12 months); non-refundable fee</p>
+    <div class="mobile-nav">
+        <div class="collapsed-navbar">
+            <a href="javascript: void(0)" class="navbar-menu"><i class="ri-menu-line"></i></a>
+            <div class="mobile-nav-search" id="mobile-nav-search">
+                <input type="search" class="mobile-text-input-search" id="mobile-text-input-search">
+                <a href="javascript: void(0)" class="mobile-search"><i class="ri-search-line"></i></a>
+            </div>
+        </div>
+        <div class="mobile-nav-links" id="mobile-nav-links">
+            <a href="index.html">Home</a>
+            <a class="browse" href="search.html">Browse</a>
+        </div>          
+    </div>
+
+    <main class="main-ctr">
+        <section class="banner-section">
+            <div class="banner-image">
+                <img src="assets/rainbow.png" alt="">
+                <p>Little<br>One's<br>Bookhub</p>
+            </div>
+            <div class="banner-text">
+                <p>Children's book library. Now delivering throughout Bangalore!</p>
+            </div>
+        </section>
+        <section class="collections-ctr">
+            <div class="collections-loading-spinner">
+                <img src="assets/loading-spinner.svg">
+            </div>
+        </section>
+        <section class="pricing">
+            <h2>PRICING</h2>
+            <div class="pricing-items">
+                <div class="pricing-registration">
+                    <p>Registration: INR 100 (3 months), INR 200 (6 months), INR 300 (12 months); non-refundable fee</p>
+                </div>
+                <div class="pricing-deposit">
+                    <p>Deposits: INR 500; refundable</p>
+                </div>
+                <div class="pricing-rental">
+                    <p>Rental: INR 25 / book (max. 10 books at once, max. 25 days per book)</p>
+                </div>
+                <div class="pricing-join-link">
+                    <p>If you wish to subscribe, please <a href="#">click here</a> to fill the registration form.</p>
+                </div>
+            </div>
+        </section>
+        <section class="contact-main">
+            <h2>CONTACT</h2>
+            <div class="contact-desktop">
+                <div class="contact-map-container">
+                    <div class="contact-map">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.4524247370723!2d77.64230801467006!3d13.006835990832714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae179e08fe2ad9%3A0x4c000cbbfd8a1854!2sLitttle%20one&#39;s%20bookhub!5e0!3m2!1sen!2sin!4v1651921586573!5m2!1sen!2sin"
+                            width="250" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
-                    <div class="pricing-deposit">
-                        <p>Deposits: INR 500; refundable</p>
-                    </div>
-                    <div class="pricing-rental">
-                        <p>Rental: INR 25 / book (max. 10 books at once, max. 25 days per book)</p>
-                    </div>
-                    <div class="pricing-join-link">
-                        <p>If you wish to subscribe, please <a href="#">click here</a> to fill the registration form.</p>
+                    <div class="contact-address">
+                        <p>Vishreya Heights <br>
+                            1st Cross Rd <br>
+                            Chikka Banaswadi <br>
+                            Bengaluru - 560043 <br>
+                        <div class="tel">
+                            <a href="tel: +91 9972 568 804">Phone: +91 9972 568 804</a>
+                        </div>
+                        </p>
                     </div>
                 </div>
-            </section>
-        </main>
-        <footer>
-            <p>Copyright 2022 Little One's Bookhub Private Limited</p>
-        </footer>
-    </body> 
+
+                <div class="contact-social">
+                    <a href="https://www.facebook.com/littleonesbookhub/" target="_blank"><i
+                            class="ri-facebook-box-fill logo-item"></i></a>
+                    <a href="https://www.instagram.com/kishori_bekal" target="_blank"><i
+                            class="ri-instagram-line"></i></a>
+                </div>
+            </div>
+            <div class="contact-mobile">
+                <div class="contact-map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.4524247370723!2d77.64230801467006!3d13.006835990832714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae179e08fe2ad9%3A0x4c000cbbfd8a1854!2sLitttle%20one&#39;s%20bookhub!5e0!3m2!1sen!2sin!4v1651921586573!5m2!1sen!2sin"
+                        width="250" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="contact-address-social">
+                    <div class="contact-address">
+                        <p>Vishreya Heights <br>
+                            1st Cross Rd <br>
+                            Chikka Banaswadi <br>
+                            Bengaluru - 560043 <br>
+                        <div class="tel">
+                            <a href="tel: +91 9972 568 804">Phone: +91 9972 568 804 </a>
+                        </div>
+                        </p>
+                    </div>
+                    <div class="contact-social">
+                        <a href="https://www.facebook.com/littleonesbookhub/" target="_blank"><i
+                                class="ri-facebook-box-fill logo-item"></i></a>
+                        <a href="https://www.instagram.com/kishori_bekal" target="_blank"><i
+                                class="ri-instagram-line"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Copyright 2022 Little One's Bookhub Private Limited</p>
+    </footer>
+    <iframe class="preview-dialog-frame" src="preview.html"></iframe>
+</body>
+
 </html>
