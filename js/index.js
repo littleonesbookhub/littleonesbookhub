@@ -205,6 +205,24 @@ function on_mobile_navbar_search_button_click() {
     }
 }
 
+function on_click_outside_search_button() {
+    const text_input_search = document.getElementById("text-input-search");
+    const desktop_nav_search = document.getElementById("desktop-nav-search");
+    if (text_input_search.style.display === "flex" && text_input_search.value.length == 0) {
+        desktop_nav_search.classList.remove("clicked-search-icon");
+        text_input_search.style.display = "none";
+    }
+}
+
+function on_mobile_click_outside_search_button() {
+    const mobile_text_input_search = document.getElementById("mobile-text-input-search");
+    const mobile_nav_search = document.getElementById("mobile-nav-search");
+    if (mobile_text_input_search.style.display === "flex" && mobile_text_input_search.value.length == 0) {
+        mobile_nav_search.classList.remove("clicked-mobile-search-icon");
+        mobile_text_input_search.style.display = "none";
+    }
+}
+
 function register_navbar_menu_button_click_handler() {
     const navbar_menu_button = document.getElementsByClassName("navbar-menu")[0];
     navbar_menu_button.addEventListener("click", on_navbar_menu_button_click);
@@ -218,6 +236,26 @@ function register_navbar_search_button_click_handler() {
 function register_mobile_navbar_search_button_click_handler() {
     const mobile_navbar_search_button = document.querySelector(".mobile-search");
     mobile_navbar_search_button.addEventListener("click", on_mobile_navbar_search_button_click);
+}
+
+function register_click_outside_search_button_handler() {
+    var search_button = document.getElementById('search');
+    document.addEventListener('click', function(event) {
+        var clicked_inside = search_button.contains(event.target);
+        if (!clicked_inside) {
+            on_click_outside_search_button();
+        }
+    });
+}
+
+function register_mobile_click_outside_search_button_handler() {
+    var mobile_search_button = document.getElementById('mobile-search');
+    document.addEventListener('click', function(event) {
+        var clicked_inside = mobile_search_button.contains(event.target);
+        if (!clicked_inside) {
+            on_mobile_click_outside_search_button();
+        }
+    });
 }
 
 function on_collection_item_click(event) {
@@ -243,6 +281,8 @@ function on_page_load() {
     register_navbar_menu_button_click_handler();
     register_navbar_search_button_click_handler();
     register_mobile_navbar_search_button_click_handler();
+    register_click_outside_search_button_handler();
+    register_mobile_click_outside_search_button_handler();
 }
 
 window.onload = on_page_load;
