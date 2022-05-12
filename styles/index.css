@@ -30,9 +30,12 @@ a.search {
     color: var(--navbar-color);
 }
 
-desktop-nav-search {
+.desktop-nav-search {
     display: flex;
     justify-content: end;
+    padding: 7px;
+    margin-right: 40px;
+    height: 20px;
 }
 
 .clicked-search-icon {
@@ -43,7 +46,7 @@ desktop-nav-search {
     border-radius: 20px;
     width: 25%;
     justify-content: end;
-    padding: 10px;
+    
 }
 
 .scrolled .clicked-search-icon {
@@ -57,10 +60,6 @@ desktop-nav-search {
 
 .desktop-nav-links a {
     margin-left: 40px;
-}
-
-.desktop-nav-search {
-    margin-right: 40px;
 }
 
 .scrolled {
@@ -113,6 +112,8 @@ desktop-nav-search {
         display: flex;
         flex-direction: row;
         justify-content: end;
+        padding: 7px;
+        height: 20px;
     }
 
     .mobile-nav-links {
@@ -175,7 +176,6 @@ desktop-nav-search {
         border-radius: 20px;
         width: 75%;
         justify-content: end;
-        padding: 10px;
     }
 
     .scrolled .clicked-mobile-search-icon {
