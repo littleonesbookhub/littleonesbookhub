@@ -141,6 +141,7 @@ input::placeholder {
         padding: 7px;
         height: 20px;
         background-color: var(--background-color);
+        transition: background 0.5s;
     }
 
     .scrolled .mobile-nav-search {
@@ -216,6 +217,9 @@ input::placeholder {
 
     .mobile-search {
         flex: 0 0 auto;
+    }
+    .mobile-nav-open .mobile-nav-search {
+        background-color: var(--navbar-color);
     }
 }
 
