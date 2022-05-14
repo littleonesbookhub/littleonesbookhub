@@ -29,8 +29,19 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
 
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
     <!-- Global styles -->
     <link rel="stylesheet" href="styles/common.css">
+    <!-- Local styles -->
+    <link rel="stylesheet" href="styles/search.css">
+
+
+    <!-- Global JS -->
+    <script src="js/common.js"></script>
+    <!-- Local JS -->
+    <script src="js/search.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7636SBLZ38"></script>
@@ -44,6 +55,23 @@
 </head>
 
 <body>
+    <nav class="desktop-nav">
+        <div class="desktop-nav-links" id="desktop-nav-links">
+            <a href="index.html">HOME</a>
+            <a class="active" href="">BROWSE</a>
+        </div>
+    </nav>
+
+    <div class="mobile-nav">
+        <div class="collapsed-navbar">
+            <a href="javascript: void(0)" class="navbar-menu"><i class="ri-menu-line"></i></a>
+        </div>
+        <div class="mobile-nav-links" id="mobile-nav-links">
+            <a href="index.html">Home</a>
+            <a class="browse active" href="search.html">Browse</a>
+        </div>
+    </div>
+
 </body>
 
 </html>
