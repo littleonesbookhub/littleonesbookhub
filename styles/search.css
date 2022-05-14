@@ -1,0 +1,7 @@
+.collapsed-navbar {
+    background-color: var(--navbar-color);
+}
+
+.mobile-nav a {
+    color: var(--alternate-color);
+}
