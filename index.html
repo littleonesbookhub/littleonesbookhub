@@ -21,32 +21,45 @@
 
     <!-- Local JS -->
     <script src="js/index.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7636SBLZ38"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7636SBLZ38');
+    </script>
 </head>
 
 <body id="body">
-    <nav class="desktop-nav">   
+    <nav class="desktop-nav">
         <div class="desktop-nav-links" id="desktop-nav-links">
             <a class="active" href="">HOME</a>
-            <a href="search.html">BROWSE</a>                
+            <a href="search.html">BROWSE</a>
         </div>
         <div class="desktop-nav-search" id="desktop-nav-search">
             <input type="search" class="text-input-search" id="text-input-search" placeholder="Search for books here">
-            <a href="javascript: void(0)" class="search" id="search" class="desktop-search"><i class="ri-search-line"></i></a>     
+            <a href="javascript: void(0)" class="search" id="search" class="desktop-search"><i
+                    class="ri-search-line"></i></a>
         </div>
-    </nav> 
+    </nav>
 
     <div class="mobile-nav">
         <div class="collapsed-navbar">
             <a href="javascript: void(0)" class="navbar-menu"><i class="ri-menu-line"></i></a>
             <div class="mobile-nav-search" id="mobile-nav-search">
-                <input type="search" class="mobile-text-input-search" id="mobile-text-input-search" placeholder="Search for books here">
-                <a href="javascript: void(0)" class="mobile-search" id="mobile-search"><i class="ri-search-line"></i></a>
+                <input type="search" class="mobile-text-input-search" id="mobile-text-input-search"
+                    placeholder="Search for books here">
+                <a href="javascript: void(0)" class="mobile-search" id="mobile-search"><i
+                        class="ri-search-line"></i></a>
             </div>
         </div>
         <div class="mobile-nav-links" id="mobile-nav-links">
             <a href="index.html">Home</a>
             <a class="browse" href="search.html">Browse</a>
-        </div>          
+        </div>
     </div>
 
     <main class="main-ctr">
