@@ -14,9 +14,41 @@
 
     <!-- Global styles -->
     <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/index.css">
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 
 <body>
+    <section class="bar">
+        <div class="search-bar">
+            <div class="search-button">
+                <form class="search-form">
+                    <input type="text" placeholder="Just like me...">
+                    <button type="submit"><i class="ri-search-line"></i></button>
+                </form>
+            </div>
+            <div class="filters-button">
+                <p>Filters</p>
+            </div>
+            <div class="sort-by-button">
+                <p>Sort by: <span>A-Z</span></p>
+            </div>
+        </div>
+        
+        <div class="filter-buttons">
+            <div class="age">
+              <button>2-4 years <span>x</span></button>
+            </div>
+            <div class="availability">
+                <button>Available <span>x</span></button>
+            </div>
+            <div class="author">
+                <button>Vanessa Brantley-Newton <span>x</span></button>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>
