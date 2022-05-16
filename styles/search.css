@@ -1,0 +1,133 @@
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 10%;
+}
+
+.search-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue;
+    width: 30%;
+    max-width: 30%;
+    height: 20px;
+    margin: 16px;
+    padding: 16px 16px;
+    border-radius: 24px;
+}
+
+.search-button .search-form input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 22px;
+    margin-left: -72px;
+}
+
+.search-button .search-form ::placeholder {
+    font-size: 20px;
+    top: 50px;
+}
+
+.search-button .search-form button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #7892BD;
+    border: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    float: right;
+    margin-right: -72px;
+}
+
+.search-button .search-form button i {
+    font-size: 16px;
+    color: white;
+}
+
+.filters-button {
+    margin: 8px 32px;
+    font-weight: 1000;
+    font-size: 22px;
+}
+
+.sort-by-button {
+    margin: 8px 40px 8px 8px;
+    font-size: 22px;
+}
+
+.sort-by-button span {
+    font-weight: 1000;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-direction: row;
+    padding-left: 100px;
+}
+
+.filter-buttons .age,
+.filter-buttons .availability,
+.filter-buttons .author {
+    margin-right: 16px;
+}
+
+.filter-buttons .age button,
+.filter-buttons .availability button,
+.filter-buttons .author button {
+    padding: 8px 16px;
+    background: #7892BD;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+/*mobile view*/
+@media screen and (max-width: 640px){
+    .search-bar{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: -10px;
+        margin: 0px;
+    }
+    .search-button{
+        width: 100%;
+        max-width: 100%;
+    }
+    .search-button .search-form input{
+        margin-left: 8px;
+        width: 80%;
+    }
+    .search-button .search-form button{
+        margin-right: 8px;
+    }
+    .sort-by-button, .filters-button{
+        margin-top: -24px;
+    }
+    .filter-buttons{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        padding-left: 16px;
+    }
+    .filter-buttons{
+        margin-top: -16px;
+    }
+    .age button, .availability button, .author button{
+        font-size: 16px;
+    }
+}
