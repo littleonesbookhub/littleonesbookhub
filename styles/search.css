@@ -1,3 +1,7 @@
+.bar{
+    margin-top: 80px;
+}
+
 .search-bar {
     display: flex;
     flex-direction: row;
@@ -65,29 +69,27 @@
 .sort-by-button span {
     font-weight: 1000;
 }
-
-.filter-buttons {
-    display: flex;
-    flex-direction: row;
-    padding-left: 100px;
+.filter-buttons{
+    padding-left: 50px;
 }
-
-.filter-buttons .age,
-.filter-buttons .availability,
-.filter-buttons .author {
-    margin-right: 16px;
-}
-
-.filter-buttons .age button,
-.filter-buttons .availability button,
-.filter-buttons .author button {
-    padding: 8px 16px;
-    background: #7892BD;
+.filter-buttons button{
+    background-color: #7892BD;
     border: none;
-    border-radius: 20px;
+    padding: 8px 16px;
+    border-radius: 16px;
+    margin: 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     color: white;
-    margin-bottom: 15px;
+    width: 10%;
+    cursor: pointer;
 }
+.filter-buttons button a{
+    text-decoration: none;
+    color: white;
+}
+
 
 /*mobile view*/
 @media screen and (max-width: 640px){
@@ -100,34 +102,32 @@
         width: 100%;
         max-width: 100%;
         margin-bottom: -10px;
-        margin: 0px;
     }
     .search-button{
         width: 100%;
         max-width: 100%;
+        padding: 8px 0px;
     }
     .search-button .search-form input{
-        margin-left: 8px;
+        margin-left: 4px;
         width: 80%;
+        font-size: 16px;
+        margin-left: -40px;
     }
     .search-button .search-form button{
         margin-right: 8px;
+        margin-right: -50px;
     }
     .sort-by-button, .filters-button{
         margin-top: -24px;
     }
     .filter-buttons{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
         width: 100%;
         max-width: 100%;
-        padding-left: 16px;
+        padding-left: 0px;
     }
-    .filter-buttons{
-        margin-top: -16px;
+    .filter-buttons button{
+        width: 32%;
     }
-    .age button, .availability button, .author button{
-        font-size: 16px;
-    }
+
 }
