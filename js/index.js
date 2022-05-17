@@ -1,6 +1,21 @@
 const SPREADSHEET_ID = "1qA6bdIiZSv09FA5qgXhq0nRj_PeTWgp0ufYFmWqeDfM";
 const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
-            
+
+function register_scroll_handler() {
+    const desktop_nav = document.querySelector('.desktop-nav');
+    const mobile_nav = document.querySelector('.mobile-nav');
+    window.onscroll = function () {
+        if (window.pageYOffset > 0) {
+            desktop_nav.classList.add('scrolled');
+            mobile_nav.classList.add('scrolled');
+        } else {
+            desktop_nav.classList.remove('scrolled');
+            mobile_nav.classList.remove('scrolled');
+        }
+    }
+}
+const BOOK_AVAILABLE_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf66BFvFTCPGlnl1D0PgwBItYGV6rhvVlzj81Vd6seq-MtHFQ/viewform?usp=pp_url&entry.233549370=";
+
 function fetch_collections() {
     show_collections_loading_spinner();
     fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
@@ -118,8 +133,14 @@ function show_preview_dialog(book_data) {
     preview_dialog_frame.contentWindow.document.querySelector(".preview-author span").innerText = book_data.author;
     preview_dialog_frame.contentWindow.document.querySelector(".preview-genre span").innerText = book_data.genre;
     preview_dialog_frame.contentWindow.document.querySelector(".preview-age-group span").innerText = book_data.age_group;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerText = book_data.available;
     preview_dialog_frame.contentWindow.document.querySelector(".preview-description span").innerText = book_data.description;
+
+    if (book_data.available.toLowerCase() === 'yes') {
+        preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = 'Available';
+    } else {
+        preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = `Unvailable. <a href="${BOOK_AVAILABLE_FORM_LINK}${book_data.id}" target="_blank">NOTIFY ME</a>`;
+    }
+
     preview_dialog_frame.style.display = "initial";
 }
 
@@ -131,6 +152,92 @@ function hide_preview_dialog() {
 function on_collections_fetched(collections_data) {
     const collections_ctr = document.getElementsByClassName('collections-ctr')[0];
     collections_data.collections.forEach(collection => add_collection(collection, collections_data.books, collections_ctr));
+}
+
+function on_navbar_search_button_click() {
+    const desktop_nav_search = document.getElementById("desktop-nav-search");
+    const text_input_search = document.getElementById("text-input-search");
+    if (text_input_search.style.display === "flex") {
+        if (text_input_search.value.length == 0) {
+            desktop_nav_search.classList.remove("clicked-search-icon");
+            text_input_search.style.display = "none";
+        }
+        else {
+            // code to go to search page
+        }
+    }
+    else {
+        desktop_nav_search.classList.add("clicked-search-icon");
+        text_input_search.style.display = "flex";
+        text_input_search.focus();
+    }
+}
+
+function on_mobile_navbar_search_button_click() {
+    const mobile_nav_search = document.getElementById("mobile-nav-search");
+    const mobile_text_input_search = document.getElementById("mobile-text-input-search");
+    if (mobile_text_input_search.style.display === "flex") {
+        if (mobile_text_input_search.value.length == 0) {
+            mobile_nav_search.classList.remove("clicked-mobile-search-icon");
+            mobile_text_input_search.style.display = "none";
+        }
+        else {
+            // code to go to search page
+        }
+    }
+    else {
+        mobile_nav_search.classList.add("clicked-mobile-search-icon");
+        mobile_text_input_search.style.display = "flex";
+        mobile_text_input_search.focus();
+    }
+}
+
+function on_click_outside_search_button() {
+    const text_input_search = document.getElementById("text-input-search");
+    const desktop_nav_search = document.getElementById("desktop-nav-search");
+    if (text_input_search.style.display === "flex" && text_input_search.value.length == 0) {
+        desktop_nav_search.classList.remove("clicked-search-icon");
+        text_input_search.style.display = "none";
+    }
+}
+
+function on_mobile_click_outside_search_button() {
+    const mobile_text_input_search = document.getElementById("mobile-text-input-search");
+    const mobile_nav_search = document.getElementById("mobile-nav-search");
+    if (mobile_text_input_search.style.display === "flex" && mobile_text_input_search.value.length == 0) {
+        mobile_nav_search.classList.remove("clicked-mobile-search-icon");
+        mobile_text_input_search.style.display = "none";
+    }
+}
+
+function register_navbar_search_button_click_handler() {
+    const navbar_search_button = document.querySelector(".search");
+    navbar_search_button.addEventListener("click", on_navbar_search_button_click);
+}
+
+function register_mobile_navbar_search_button_click_handler() {
+    const mobile_navbar_search_button = document.querySelector(".mobile-search");
+    mobile_navbar_search_button.addEventListener("click", on_mobile_navbar_search_button_click);
+}
+
+function register_click_outside_search_button_handler() {
+    var search_button = document.getElementById('search');
+    document.addEventListener('click', function (event) {
+        var clicked_inside = search_button.contains(event.target);
+        if (!clicked_inside) {
+            on_click_outside_search_button();
+        }
+    });
+}
+
+function register_mobile_click_outside_search_button_handler() {
+    var mobile_search_button = document.getElementById('mobile-search');
+    document.addEventListener('click', function (event) {
+        var clicked_inside = mobile_search_button.contains(event.target);
+        if (!clicked_inside) {
+            on_mobile_click_outside_search_button();
+        }
+    });
 }
 
 function on_collection_item_click(event) {
@@ -152,6 +259,12 @@ function on_preview_dialog_close() {
 
 function on_page_load() {
     fetch_collections();
+    register_scroll_handler();
+    register_navbar_search_button_click_handler();
+    register_mobile_navbar_search_button_click_handler();
+    register_click_outside_search_button_handler();
+    register_mobile_click_outside_search_button_handler();
+    on_page_load_common();
 }
 
 window.onload = on_page_load;

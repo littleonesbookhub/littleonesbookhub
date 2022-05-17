@@ -1,17 +1,77 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Viewport meta -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Bubblegum+Sans&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<head>
+    <!-- Viewport meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Global styles -->
-        <link rel="stylesheet" href="styles/common.css">
-    </head>
-    <body>
-    </body>
+    <!--Social Preview meta-->
+    <meta property="og:title" content="Little One's Bookhub"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://littleonesbookhub.netlify.app"/>
+    <meta property="og:image" content="https://littleonesbookhub.netlify.app/assets/preview.jpg"/>
+    <meta property="og:description" content="Children's book library. Now delivering throughout Bangalore!"/>
+
+    <meta name="twitter:title" content="Little One's Bookhub">
+    <meta name="twitter:description" content="Children's book library. Now delivering throughout Bangalore!"/>
+    <meta name="twitter:image" content="https://littleonesbookhub.netlify.app/assets/preview.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Bubblegum+Sans&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!--Favicon and Title-->
+    <title>Little One's Bookhub</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Global styles -->
+    <link rel="stylesheet" href="styles/common.css">
+    <!-- Local styles -->
+    <link rel="stylesheet" href="styles/search.css">
+
+
+    <!-- Global JS -->
+    <script src="js/common.js"></script>
+    <!-- Local JS -->
+    <script src="js/search.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7636SBLZ38"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7636SBLZ38');
+    </script>
+</head>
+
+<body>
+    <nav class="desktop-nav">
+        <div class="desktop-nav-links" id="desktop-nav-links">
+            <a href="index.html">HOME</a>
+            <a class="active" href="">BROWSE</a>
+        </div>
+    </nav>
+
+    <div class="mobile-nav">
+        <div class="collapsed-navbar">
+            <a href="javascript: void(0)" class="navbar-menu"><i class="ri-menu-line"></i></a>
+        </div>
+        <div class="mobile-nav-links" id="mobile-nav-links">
+            <a href="index.html">Home</a>
+            <a class="browse active" href="search.html">Browse</a>
+        </div>
+    </div>
+
+</body>
+
 </html>

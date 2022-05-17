@@ -1,48 +1,118 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Viewport meta -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Bubblegum+Sans&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
-        <!-- Remix Icon -->
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-        <!-- Global styles -->
-        <link rel="stylesheet" href="styles/common.css">
-        <!-- Local styles -->
-        <link rel="stylesheet" href="styles/index.css">
+<head>
+    <!-- Viewport meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Local JS -->
-        <script src="js/index.js"></script>
-    </head>
-    <body>
-        <main class="main-ctr">
-            <section class="collections-ctr">
-                <div class="collections-loading-spinner">
-                    <img src="assets/loading-spinner.svg">
+    <!--Social Preview meta-->
+    <meta property="og:title" content="Little One's Bookhub"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://littleonesbookhub.netlify.app"/>
+    <meta property="og:image" content="https://littleonesbookhub.netlify.app/assets/preview.jpg"/>
+    <meta property="og:description" content="Children's book library. Now delivering throughout Bangalore!"/>
+
+    <meta name="twitter:title" content="Little One's Bookhub">
+    <meta name="twitter:description" content="Children's book library. Now delivering throughout Bangalore!"/>
+    <meta name="twitter:image" content="https://littleonesbookhub.netlify.app/assets/preview.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Bubblegum+Sans&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!--Favicon and Title-->
+    <title>Little One's Bookhub</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Global styles -->
+    <link rel="stylesheet" href="styles/common.css">
+    <!-- Local styles -->
+    <link rel="stylesheet" href="styles/index.css">
+
+    <!-- Global JS -->
+    <script src="js/common.js"></script>
+    <!-- Local JS -->
+    <script src="js/index.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7636SBLZ38"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7636SBLZ38');
+    </script>
+</head>
+
+<body id="body">
+    <nav class="desktop-nav">
+        <div class="desktop-nav-links" id="desktop-nav-links">
+            <a class="active" href="">HOME</a>
+            <a href="search.html">BROWSE</a>
+        </div>
+        <div class="desktop-nav-search" id="desktop-nav-search">
+            <input type="search" class="text-input-search" id="text-input-search" placeholder="Search for books here">
+            <a href="javascript: void(0)" class="search" id="search" class="desktop-search"><i
+                    class="ri-search-line"></i></a>
+        </div>
+    </nav>
+
+    <div class="mobile-nav">
+        <div class="collapsed-navbar">
+            <a href="javascript: void(0)" class="navbar-menu"><i class="ri-menu-line"></i></a>
+            <div class="mobile-nav-search" id="mobile-nav-search">
+                <input type="search" class="mobile-text-input-search" id="mobile-text-input-search"
+                    placeholder="Search for books here">
+                <a href="javascript: void(0)" class="mobile-search" id="mobile-search"><i
+                        class="ri-search-line"></i></a>
+            </div>
+        </div>
+        <div class="mobile-nav-links" id="mobile-nav-links">
+            <a class="active" href="index.html">Home</a>
+            <a class="browse" href="search.html">Browse</a>
+        </div>
+    </div>
+
+    <main class="main-ctr">
+        <section class="banner-section">
+            <div class="banner-image">
+                <img src="assets/rainbow.png" alt="">
+                <p>Little<br>One's<br>Bookhub</p>
+            </div>
+            <div class="banner-text">
+                <p>Children's book library. Now delivering throughout Bangalore!</p>
+            </div>
+        </section>
+        <section class="collections-ctr">
+            <div class="collections-loading-spinner">
+                <img src="assets/loading-spinner.svg">
+            </div>
+        </section>
+        <section class="pricing">
+            <h2>PRICING</h2>
+            <div class="pricing-items">
+                <div class="pricing-registration">
+                    <p>Registration: INR 100 (3 months), INR 200 (6 months), INR 300 (12 months); non-refundable fee</p>
                 </div>
-            </section>
-            <section class="pricing">
-                <h2>PRICING</h2>
-                <div class="pricing-items">
-                    <div class="pricing-registration">
-                        <p>Registration: INR 100 (3 months), INR 200 (6 months), INR 300 (12 months); non-refundable fee</p>
-                    </div>
-                    <div class="pricing-deposit">
-                        <p>Deposits: INR 500; refundable</p>
-                    </div>
-                    <div class="pricing-rental">
-                        <p>Rental: INR 25 / book (max. 10 books at once, max. 25 days per book)</p>
-                    </div>
-                    <div class="pricing-join-link">
-                        <p>If you wish to subscribe, please <a href="#">click here</a> to fill the registration form.</p>
-                    </div>
+                <div class="pricing-deposit">
+                    <p>Deposits: INR 500; refundable</p>
                 </div>
-            </section>
+                <div class="pricing-rental">
+                    <p>Rental: INR 25 / book (max. 10 books at once, max. 25 days per book)</p>
+                </div>
+                <div class="pricing-join-link">
+                    <p>If you wish to subscribe, please <a href="#">click here</a> to fill the registration form.</p>
+                </div>
+            </div>
+        </section>
         <section class="contact-main">
             <h2>CONTACT</h2>
             <div class="contact-desktop">
@@ -64,10 +134,12 @@
                         </p>
                     </div>
                 </div>
+
                 <div class="contact-social">
                     <a href="https://www.facebook.com/littleonesbookhub/" target="_blank"><i
                             class="ri-facebook-box-fill logo-item"></i></a>
-                    <a href="https://www.instagram.com/kishori_bekal" target="_blank"><i class="ri-instagram-line"></i></a>
+                    <a href="https://www.instagram.com/kishori_bekal" target="_blank"><i
+                            class="ri-instagram-line"></i></a>
                 </div>
             </div>
             <div class="contact-mobile">
@@ -91,18 +163,17 @@
                     <div class="contact-social">
                         <a href="https://www.facebook.com/littleonesbookhub/" target="_blank"><i
                                 class="ri-facebook-box-fill logo-item"></i></a>
-                        <a href="https://www.instagram.com/kishori_bekal" target="_blank"><i class="ri-instagram-line"></i></a>
+                        <a href="https://www.instagram.com/kishori_bekal" target="_blank"><i
+                                class="ri-instagram-line"></i></a>
                     </div>
                 </div>
             </div>
-            <hr>
         </section>
     </main>
-        <footer>
-            <p>Copyright 2022 Little One's Bookhub Private Limited</p>
-        </footer>
-        <iframe class="preview-dialog-frame" src="preview.html"></iframe>
-    </body>  
+    <footer>
+        <p>Copyright 2022 Little One's Bookhub Private Limited</p>
+    </footer>
+    <iframe class="preview-dialog-frame" src="preview.html"></iframe>
+</body>
+
 </html>
-
-
