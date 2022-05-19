@@ -62,6 +62,15 @@ function fetch_collections() {
             hide_collections_loading_spinner();
         });
 }
+let searchInput = document.getElementById('text-input-search').value;
+searchInput.addEventListener('keyup', filterItems);
+
+function filterItems(books, searchInput) {
+    return books.filter(function(el) {
+      return el.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
+    })
+  }
+window.onload = on_page_load;
 function on_page_load() {
     on_page_load_common();
 }

@@ -19,3 +19,9 @@ function on_navbar_menu_button_click() {
 function on_page_load_common() {
     register_navbar_menu_button_click_handler();
 }
+function show_search_loading_spinner() {
+    
+}
+function hide_search_loading_spinner() {
+    
+}
