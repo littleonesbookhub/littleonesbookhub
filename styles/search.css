@@ -39,8 +39,6 @@
     max-height: 530px;
     background-color: white;
     border-radius: 16px;
-
-
 }
 
 .filter-close-button {
@@ -51,6 +49,12 @@
     color: #A6A6A6;
 }
 
+.filter-main-ctr {
+    position: relative;
+    height: 100%;
+    overflow-y: scroll;
+}
+
 .title {
     text-align: center;
     font-size: 35px;
@@ -59,16 +63,18 @@
 }
 
 .filter-types {
-    border-bottom: 1px solid var(--divider-color);
-}
-
-.final-filter-type {
-    border-bottom: none;
+    margin-bottom: 30px;
 }
 
 .filter-type {
     display: flex;
     justify-content: space-between;
+    margin-right: 18px;
+    border-top: 1px solid var(--divider-color);
+}
+
+.first-filter-type {
+    border-top: none;
 }
 
 .filter-type-title {
@@ -84,18 +90,19 @@
     font-size: 25px;
 }
 
-.option-pair {
-    margin-bottom: 30px;
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 10px;
 }
 
 .option {
     position: relative;
     margin: 5px;
     background-color: var(--toggle-button-off-color);
-    color: var(--alternate-color);
     padding: 10px;
     border-radius: 300px;
-    margin-bottom: 30px;
+    color: var(--alternate-color);
 }
 
 .selected {
