@@ -17,8 +17,7 @@ function on_navbar_menu_button_click() {
 }
 
 function cloneObject(source) {
-    target = JSON.parse(JSON.stringify(source));
-    return target;
+    return (JSON.parse(JSON.stringify(source)));
 }
 
 function on_page_load_common() {
