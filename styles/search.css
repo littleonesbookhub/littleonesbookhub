@@ -13,8 +13,7 @@
     z-index: -1;
 }
 
-.filter-ctr,
-.sort-by-ctr {
+.filter-ctr {
     position: absolute;
     top: 0;
     left: 0;
@@ -26,8 +25,7 @@
     z-index: 2;
 }
 
-.filter-ctr a,
-.sort-by-ctr a {
+.filter-ctr a {
     text-decoration: none;
 }
 
@@ -43,8 +41,7 @@
     border-radius: 16px;
 }
 
-.filter-close-button,
-.sort-by-close-button {
+.filter-close-button {
     position: absolute;
     right: 0;
     top: 0;
@@ -58,12 +55,15 @@
     overflow-y: scroll;
 }
 
-.filter-dialog-title,
-.sort-by-dialog-title {
+.filter-dialog-title {
     text-align: center;
     font-size: 35px;
     font-weight: bolder;
     margin: auto;
+}
+
+.filter-types {
+    margin-bottom: 30px;
 }
 
 .filter-type {
@@ -73,7 +73,7 @@
     border-top: 1px solid var(--divider-color);
 }
 
-.first-filter-type {
+.filter-main-ctr :nth-child(2) {
     border-top: none;
 }
 
@@ -93,8 +93,7 @@
 .options {
     display: flex;
     flex-wrap: wrap;
-    margin-right: 10px;
-    margin-bottom: 30px;
+    padding-bottom: 20px;
 }
 
 .option {
@@ -104,40 +103,8 @@
     padding: 10px;
     border-radius: 300px;
     color: var(--alternate-color);
-    text-align: center;
 }
 
-.selected-filter-option,
-.selected-sort-by-option {
+.selected-filter-option {
     background-color: var(--toggle-button-on-color);
-}
-
-.sort-by-dialog {
-    display: none;
-}
-
-.sort-by-main {
-    position: relative;
-    box-sizing: border-box;
-    padding: 16px;
-    width: 100%;
-    height: 100%;
-    max-width: 340px;
-    max-height: 300px;
-    background-color: white;
-    border-radius: 16px;
-}
-
-.sort-by-options {
-    display: grid;
-    margin-right: 20px;
-    margin-left: 20px;
-}
-
-.sort-by-dialog-title {
-    margin-bottom: 20px;
-}
-
-.sort-by-options>* {
-    margin-bottom: 20px;
 }
