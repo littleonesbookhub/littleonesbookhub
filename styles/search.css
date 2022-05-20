@@ -47,6 +47,7 @@
     top: 0;
     z-index: 1;
     color: #A6A6A6;
+    font-size: 12px;
 }
 
 .filter-main-ctr {
@@ -57,7 +58,7 @@
 
 .filter-dialog-title {
     text-align: center;
-    font-size: 35px;
+    font-size: 30px;
     font-weight: bolder;
     margin: auto;
 }
@@ -78,19 +79,19 @@
 }
 
 .filter-type-title {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
 }
 
 .filter-section-clear-button {
     position: relative;
-    margin-top: 26px;
+    margin-top: 21px;
     top: 0;
     right: 0;
-    font-size: 25px;
+    font-size: 20px;
 }
 
-.options {
+.filter-options {
     display: flex;
     flex-wrap: wrap;
     padding-bottom: 20px;

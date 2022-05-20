@@ -16,15 +16,15 @@ const DEFAULT_FILTERS = {
     }
 }
 
-var filters = JSON.parse(JSON.stringify(DEFAULT_FILTERS)); //this is the global variable to be used for search results
+var filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
 function close_filter_dialog_preview() {
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "none";
 
-    filters = JSON.parse(JSON.stringify(DEFAULT_FILTERS));
+    filters = cloneObject(DEFAULT_FILTERS);
     const selected_filter_options = document.getElementsByClassName("selected-filter-option");
     for (var i = 0; i < selected_filter_options.length; i++) {
-        filter_type = selected_filter_options[i].parentNode.dataset.optionsFor;;
+        filter_type = selected_filter_options[i].parentNode.dataset.optionsFor;
         filter_option_with_true_value = selected_filter_options[i].text;
         filters[filter_type][filter_option_with_true_value] = true;
     }
@@ -92,16 +92,14 @@ function register_filter_container_click_handler() {
 
 function add_filter_item_title(key, value) {
     filter_main_ctr = document.getElementsByClassName("filter-main-ctr")[0];
+    var options_string = ""
+    Object.keys(value).forEach((filter_option) => {
+        options_string += '<a class="option ' + key + '" href="#">' + filter_option + '</a>';
+    })
     filter_main_ctr.innerHTML += '<div class="filter-type"><p class="filter-type-title">' + key + '</p>' +
         '<a class="filter-section-clear-button" data-clear-button-of="' + key + '" href="#">Clear</a>' +
         '</div>' +
-        '<div class="options" data-options-for="' + key + '"></div>';
-
-    options = document.getElementsByClassName("options");
-    options = options[options.length - 1];
-    for (var i = 0; i < Object.keys(value).length; i++) {
-        options.innerHTML += '<a class="option ' + key + '" href="#">' + Object.keys(value)[i] + '</a>';
-    }
+        '<div class="filter-options" data-options-for="' + key + '">' + options_string + '</div>';
 }
 
 function add_filter_types() {

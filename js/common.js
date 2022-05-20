@@ -16,6 +16,11 @@ function on_navbar_menu_button_click() {
     }
 }
 
+function cloneObject(source) {
+    target = JSON.parse(JSON.stringify(source));
+    return target;
+}
+
 function on_page_load_common() {
     register_navbar_menu_button_click_handler();
 }
