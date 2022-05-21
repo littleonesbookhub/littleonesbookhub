@@ -16,7 +16,7 @@ const DEFAULT_FILTERS = {
     }
 }
 
-var filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
+let filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
 function close_filter_dialog_preview() {
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "none";
@@ -123,7 +123,7 @@ const DEFAULT_SORT_BY = {
     "Date Available": false
 }
 
-var sort_by = cloneObject(DEFAULT_SORT_BY); //this is the global variable to be used for search results
+let sort_by = cloneObject(DEFAULT_SORT_BY); //this is the global variable to be used for search results
 
 function on_sort_by_button_click() {
     const sort_by_dialog = document.getElementsByClassName("sort-by-dialog")[0];
@@ -131,10 +131,18 @@ function on_sort_by_button_click() {
 }
 
 function on_sort_by_option_click(event) {
-    if (event.target.classList.contains("selected-sort-by-option"))
-        event.target.classList.remove("selected-sort-by-option");
-    else
+    const sort_by_options = document.getElementsByClassName("sort-by-option");
+    const default_sort_by_option = sort_by_options[0];
+
+    if (!event.target.classList.contains("selected-sort-by-option")) {
+        for (var i = 0; i < sort_by_options.length; i++)
+            sort_by_options[i].classList.remove("selected-sort-by-option");
         event.target.classList.add("selected-sort-by-option");
+    }
+    else {
+        event.target.classList.remove("selected-sort-by-option");
+        default_sort_by_option.classList.add("selected-sort-by-option");
+    }
 }
 
 function close_sort_by_dialog_preview() {
@@ -186,8 +194,10 @@ function add_sort_by_options() {
     const sort_by_options_container = document.getElementsByClassName("sort-by-options")[0];
     const sort_by_options = Object.keys(sort_by)
     for (var i = 0; i < sort_by_options.length; i++) {
-        sort_by_options_container.innerHTML += `<a class="sort-by-option">${sort_by_options[i]}</a>`;
+        sort_by_options_container.innerHTML += `<a class="sort-by-option" href="#">${sort_by_options[i]}</a>`;
     }
+    const default_sort_by_option = document.getElementsByClassName("sort-by-option")[0];
+    default_sort_by_option.classList.add("selected-sort-by-option");
 }
 
 function setup_sort_by_ui() {
