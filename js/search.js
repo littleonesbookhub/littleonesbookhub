@@ -118,7 +118,7 @@ function setup_filter_ui() {
 }
 
 const DEFAULT_SORT_BY = {
-    "Title A-Z": false,
+    "Title A-Z": true,
     "Title Z-A": false,
     "Date Available": false
 }
@@ -132,17 +132,9 @@ function on_sort_by_button_click() {
 
 function on_sort_by_option_click(event) {
     const sort_by_options = document.getElementsByClassName("sort-by-option");
-    const default_sort_by_option = sort_by_options[0];
-
-    if (!event.target.classList.contains("selected-sort-by-option")) {
-        for (var i = 0; i < sort_by_options.length; i++)
-            sort_by_options[i].classList.remove("selected-sort-by-option");
-        event.target.classList.add("selected-sort-by-option");
-    }
-    else {
-        event.target.classList.remove("selected-sort-by-option");
-        default_sort_by_option.classList.add("selected-sort-by-option");
-    }
+    for (var i = 0; i < sort_by_options.length; i++)
+        sort_by_options[i].classList.remove("selected-sort-by-option");
+    event.target.classList.add("selected-sort-by-option");
 }
 
 function close_sort_by_dialog_preview() {
