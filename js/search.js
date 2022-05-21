@@ -16,7 +16,7 @@ const DEFAULT_FILTERS = {
     }
 }
 
-var filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
+let filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
 function close_filter_dialog_preview() {
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "none";
@@ -67,7 +67,7 @@ function register_filter_close_button_click_handler() {
 }
 
 function register_filters_button_click_handler() {
-    const filters_button = document.getElementsByClassName("filters_button")[0];
+    const filters_button = document.getElementsByClassName("filters-button")[0];
     filters_button.addEventListener("click", on_filters_button_click);
 }
 
@@ -117,9 +117,93 @@ function setup_filter_ui() {
     register_filter_container_click_handler();
 }
 
+const DEFAULT_SORT_BY = {
+    "Title A-Z": true,
+    "Title Z-A": false,
+    "Date Available": false
+}
+
+let sort_by = cloneObject(DEFAULT_SORT_BY); //this is the global variable to be used for search results
+
+function on_sort_by_button_click() {
+    const sort_by_dialog = document.getElementsByClassName("sort-by-dialog")[0];
+    sort_by_dialog.style.display = "block";
+}
+
+function on_sort_by_option_click(event) {
+    const sort_by_options = document.getElementsByClassName("sort-by-option");
+    for (var i = 0; i < sort_by_options.length; i++)
+        sort_by_options[i].classList.remove("selected-sort-by-option");
+    event.target.classList.add("selected-sort-by-option");
+}
+
+function close_sort_by_dialog_preview() {
+    const sort_by_dialog = document.getElementsByClassName("sort-by-dialog")[0];
+    sort_by_dialog.style.display = "none";
+
+    sort_by = cloneObject(DEFAULT_SORT_BY);
+    const selected_sort_by_options = document.getElementsByClassName("selected-sort-by-option");
+    for (var i = 0; i < selected_sort_by_options.length; i++) {
+        sort_by_option_with_true_value = selected_sort_by_options[i].text;
+        sort_by[sort_by_option_with_true_value] = true;
+    }
+    console.log(sort_by)
+}
+
+function on_sort_by_close_button_click() {
+    close_sort_by_dialog_preview();
+}
+
+function on_sort_by_container_click(event) {
+    const sort_by_main = document.getElementsByClassName("sort-by-main")[0];
+    if (!sort_by_main.contains(event.target))
+        close_sort_by_dialog_preview();
+}
+
+function register_sort_by_button_click_handler() {
+    const sort_by_button = document.getElementsByClassName("sort-by-button")[0];
+    sort_by_button.addEventListener("click", on_sort_by_button_click);
+}
+
+function register_sort_by_option_button_click_handler() {
+    const option = document.getElementsByClassName("sort-by-option");
+    for (var i = 0; i < option.length; i++) {
+        option[i].addEventListener("click", on_sort_by_option_click);
+    }
+}
+
+function register_sort_by_close_button_click_handler() {
+    const sort_by_close_button = document.getElementsByClassName("sort-by-close-button")[0];
+    sort_by_close_button.addEventListener("click", on_sort_by_close_button_click);
+}
+
+function register_sort_by_container_click_handler() {
+    const sort_by_container = document.getElementsByClassName("sort-by-ctr")[0];
+    sort_by_container.addEventListener("click", on_sort_by_container_click);
+}
+
+function add_sort_by_options() {
+    const sort_by_options_container = document.getElementsByClassName("sort-by-options")[0];
+    const sort_by_options = Object.keys(sort_by)
+    for (var i = 0; i < sort_by_options.length; i++) {
+        sort_by_options_container.innerHTML += `<a class="sort-by-option" href="#">${sort_by_options[i]}</a>`;
+    }
+    const default_sort_by_option = document.getElementsByClassName("sort-by-option")[0];
+    default_sort_by_option.classList.add("selected-sort-by-option");
+}
+
+function setup_sort_by_ui() {
+    register_sort_by_button_click_handler();
+    add_sort_by_options();
+    register_sort_by_option_button_click_handler();
+    register_sort_by_close_button_click_handler();
+    register_sort_by_container_click_handler();
+}
+
 function on_page_load() {
     on_page_load_common();
     setup_filter_ui();
+    setup_sort_by_ui();
 }
 
 window.onload = on_page_load;
