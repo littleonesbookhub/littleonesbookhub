@@ -4,7 +4,7 @@ function fetch_collections() {
         .then(response => response.json())
         .then(result => {
             let collections = [];
-            let books = {};
+            let books = [];
             const spreadsheet = result;
             spreadsheet.sheets.forEach(function (sheet) {
                 if (sheet.properties.title === "collections") {
@@ -47,7 +47,7 @@ function fetch_collections() {
                                 if (id === "") {
                                     return;
                                 }
-                                books[id] = { id: id, title: title, author: author, genre: genre, age_group: age_group, available: available, available_date: available_date, description: description, thumbnail_url: thumbnail_url };
+                                books.push({ id: id, title: title, author: author, genre: genre, age_group: age_group, available: available, available_date: available_date, description: description, thumbnail_url: thumbnail_url }) ;
                             } catch (err) {
                                 console.error(err);
                             }
