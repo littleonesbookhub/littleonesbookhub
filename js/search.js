@@ -70,8 +70,9 @@ function filterItems(books, searchInput) {
       return el.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
     })
   }
-window.onload = on_page_load;
+
 function on_page_load() {
+    fetch_books();
     on_page_load_common();
 }
 
