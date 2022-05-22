@@ -6,28 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Social Preview meta-->
-    <meta property="og:title" content="Little One's Bookhub"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://littleonesbookhub.netlify.app"/>
-    <meta property="og:image" content="https://littleonesbookhub.netlify.app/assets/preview.jpg"/>
-    <meta property="og:description" content="Children's book library. Now delivering throughout Bangalore!"/>
+    <meta property="og:title" content="Little One's Bookhub" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://littleonesbookhub.netlify.app" />
+    <meta property="og:image" content="https://littleonesbookhub.netlify.app/assets/preview.jpg" />
+    <meta property="og:description" content="Children's book library. Now delivering throughout Bangalore!" />
 
     <meta name="twitter:title" content="Little One's Bookhub">
-    <meta name="twitter:description" content="Children's book library. Now delivering throughout Bangalore!"/>
+    <meta name="twitter:description" content="Children's book library. Now delivering throughout Bangalore!" />
     <meta name="twitter:image" content="https://littleonesbookhub.netlify.app/assets/preview.jpg">
     <meta name="twitter:card" content="summary_large_image">
-
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Bubblegum+Sans&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Bubblegum+Sans&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+
     <!--Favicon and Title-->
     <title>Little One's Bookhub</title>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
 
     <!-- Remix Icon -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -36,7 +36,6 @@
     <link rel="stylesheet" href="styles/common.css">
     <!-- Local styles -->
     <link rel="stylesheet" href="styles/search.css">
-
 
     <!-- Global JS -->
     <script src="js/common.js"></script>
@@ -69,6 +68,42 @@
         <div class="mobile-nav-links" id="mobile-nav-links">
             <a href="index.html">Home</a>
             <a class="browse active" href="search.html">Browse</a>
+        </div>
+    </div>
+
+    <!--this is a dummy button-->
+    <br>
+    <br>
+    <br>
+    <a class="filters-button">filters</a><br><br>
+    <a class="sort-by-button">Sort by</a>
+    <!--remove the above portion after inserting filter button-->
+
+    <div class="filter-dialog">
+        <div class="sortby-background-mask"></div>
+        <div class="filter-ctr">
+            <main class="filter-main">
+                <a class="filter-close-button" href="#"><i
+                        class="preview-close-icon ri-close-circle-fill ri-3x"></i></a>
+                <div class="filter-main-ctr">
+                    <p class="filter-dialog-title">Filters</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="sort-by-dialog">
+        <div class="background-mask"></div>
+        <div class="sort-by-ctr">
+            <main class="sort-by-main">
+                <a class="sort-by-close-button" href="#"><i
+                        class="preview-close-icon ri-close-circle-fill ri-3x"></i></a>
+                <div class="sort-by-main-ctr">
+                    <p class="sort-by-dialog-title">Sort by</p>
+                    <div class="sort-by-options">
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 
