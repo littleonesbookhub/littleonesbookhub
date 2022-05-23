@@ -1,94 +1,62 @@
-.bar{
-    margin-top: 80px;
+.search-bar{
+    margin-top: 54px;
+    text-align: center;
 }
-
-.search-bar {
+.search-container .form{
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin-right: 10%;
-}
-
-.search-button {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: aliceblue;
-    width: 30%;
-    max-width: 30%;
-    height: 20px;
-    margin: 16px;
-    padding: 16px 16px;
+    border: 1px solid black;
+    width: 100%;
+    max-width: 300px;
+    margin-left: 32%;
+    padding: 3px 5px;
+    background-color:  #eeeeee;
     border-radius: 24px;
 }
-
-.search-button .search-form input {
-    background: transparent;
+.search-container .form input{
     border: none;
     outline: none;
-    font-size: 22px;
-    margin-left: -72px;
+    flex: 1;
+    background-color: transparent;
 }
-
-.search-button .search-form ::placeholder {
-    font-size: 20px;
-    top: 50px;
-}
-
-.search-button .search-form button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    background-color: #7892BD;
-    border: none;
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    float: right;
-    margin-right: -72px;
-}
-
-.search-button .search-form button i {
+.search-container .form ::placeholder{
     font-size: 16px;
+}
+.search-container .form button{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
     color: white;
-}
-
-.filters-button {
-    margin: 8px 32px;
-    font-weight: 1000;
-    font-size: 22px;
-}
-
-.sort-by-button {
-    margin: 8px 40px 8px 8px;
-    font-size: 22px;
-}
-
-.sort-by-button span {
-    font-weight: 1000;
-}
-.filter-buttons{
-    padding-left: 50px;
-}
-.filter-buttons button{
     background-color: #7892BD;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 16px;
-    margin: 4px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    color: white;
-    width: 10%;
+    border: 0;
+}
+.search-container .form button i{
+    font-size: 20px;
+    text-align: center;
+}
+.search-buttons{
+    position: absolute;
+    left: 60%;
+    top: 10%;
+    display: flex;
+}
+.search-buttons .filters-button{
+    padding: 0px 15px 0px 8px;
+    font-size: 24px;
+    cursor: pointer;
+    font-weight: 900;
+}
+.search-buttons .sort-by-button{
+    padding: 0px 15px 0px 8px;
+    font-size: 24px;
     cursor: pointer;
 }
-.filter-buttons button a{
-    text-decoration: none;
-    color: white;
+.search-buttons .sort-by-button span{
+    font-weight: 900;
 }
+
+/*new*/
 .filter-dialog {
     display: none;
 }
