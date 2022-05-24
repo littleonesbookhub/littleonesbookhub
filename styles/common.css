@@ -41,7 +41,7 @@ main {
 
 section {
     width: 100%;
-    margin: 32spx 0;
+    margin: 32px 0;
     border-bottom: 1px solid var(--divider-color);
 }
 

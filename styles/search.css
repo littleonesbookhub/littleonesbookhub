@@ -10,7 +10,7 @@
 }
 
 .search-results-card {
-    max-width: 208px;
+    max-width: 200px;
     max-height: fit-content;
     display: flex;
     flex-direction: column;
@@ -21,23 +21,26 @@
 }
 
 .search-results-card--img {
-    flex: 30%;
-    background-color: #fff;
     max-width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-height: 180px;
+    background-color: #fff;
     border-radius: 30px;
     padding: 4px 6px;
+    object-fit: cover;
+    object-position: 50% 100%;
+}
+
+.search-results-card--img img {
 }
 
 .search-results-card--title {
     overflow: hidden;
     display: inline-block;
     text-overflow: ellipsis;
-    line-height: 30px;
-    max-height: 60px;
-    margin: 6px 12px;
-    font-size: 1.4rem;
+    line-height: 20px;
+    height: 40px;
+    margin: 4px 8px;
+    font-size: 1.1rem;
     font-weight: 600;
 }
 
@@ -45,24 +48,25 @@
     overflow: hidden;
     display: inline-block;
     text-overflow: ellipsis;
-    margin: 6px 12px;
-    font-size: 1rem;
+    margin: 4px 8px;
+    font-size: 0.8rem;
     font-weight: 300;
     white-space: nowrap;
 }
 
 .search-results-card--status {
-    margin: 0 12px;
+    margin: 0 8px;
     display: inline-flex;
     align-items: center;
     color: var(--in-use-color);
+    font-size: 0.8rem;
 }
 
 .search-results-card--status > a {
     margin-left: auto;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--in-use-color);
 }
@@ -72,7 +76,8 @@
     display: inline-block;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin: 0 12px;
+    margin: 0 8px;
     font-weight: 300;
+    font-size: 0.8rem;
     line-height: 30px;
 }
