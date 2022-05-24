@@ -1,34 +1,31 @@
-function fetch_collections() {
-    show_collections_loading_spinner();
+const DEFAULT_FILTERS = {
+    Age: {
+        "0-2 years": false,
+        "2-4 years": false,
+        "4-6 years": false,
+        "6-10 years": false,
+        "10+ years": false
+    },
+    Availability: {
+        "Available": false,
+        "In use": false
+    },
+    Genres: {
+        "Science Fiction": false,
+        "Fantasy": false
+    }
+}
+let filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
+
+function fetch_books() {
+    show_search_loading_spinner();
     fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
         .then(response => response.json())
         .then(result => {
-            let collections = [];
             let books = [];
             const spreadsheet = result;
             spreadsheet.sheets.forEach(function (sheet) {
-                if (sheet.properties.title === "collections") {
-                    sheet.data.forEach(function (gridData) {
-                        gridData.rowData.forEach(function (row, index) {
-                            if (index < 1) { // header in spreadsheet
-                                return;
-                            }
-                            try {
-                                const id = row.values[0].formattedValue ? row.values[0].formattedValue : "";
-                                const name = row.values[1].formattedValue ? row.values[1].formattedValue : "";
-                                let books = row.values[2].formattedValue ? row.values[2].formattedValue : "";
-                                books = books.replaceAll(' ', '');
-                                books = books.split(",");
-                                if (id === "") {
-                                    return;
-                                }
-                                collections.push({ id: id, name: name, books: books });
-                            } catch (err) {
-                                console.error(err);
-                            }
-                        });
-                    });
-                } else if (sheet.properties.title === "books") {
+                if (sheet.properties.title === "books") {
                     sheet.data.forEach(function (gridData) {
                         gridData.rowData.forEach(function (row, index) {
                             if (index < 1) { // header in spreadsheet
@@ -47,7 +44,7 @@ function fetch_collections() {
                                 if (id === "") {
                                     return;
                                 }
-                                books.push({ id: id, title: title, author: author, genre: genre, age_group: age_group, available: available, available_date: available_date, description: description, thumbnail_url: thumbnail_url }) ;
+                                books.push({ id: id, title: title, author: author, genre: genre, age_group: age_group, available: available, available_date: available_date, description: description, thumbnail_url: thumbnail_url });
                             } catch (err) {
                                 console.error(err);
                             }
@@ -55,40 +52,38 @@ function fetch_collections() {
                     });
                 }
             });
-            return { collections: collections, books: books };
+            return books;
         })
-        .then(collections_data => on_collections_fetched(collections_data))
+        .then(books_data => on_books_fetched(books_data))
         .finally(() => {
-            hide_collections_loading_spinner();
+            hide_search_loading_spinner();
         });
 }
-let searchInput = document.getElementById('text-input-search').value;
-searchInput.addEventListener('keyup', filterItems);
 
-function filterItems(books, searchInput) {
-    return books.filter(function(el) {
-      return el.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
-    })
-  }
-const DEFAULT_FILTERS = {
-    Age: {
-        "0-2 years": false,
-        "2-4 years": false,
-        "4-6 years": false,
-        "6-10 years": false,
-        "10+ years": false
-    },
-    Availability: {
-        "Available": false,
-        "In use": false
-    },
-    Genres: {
-        "Science Fiction": false,
-        "Fantasy": false
+function on_books_fetched(books) {
+    const searchInput = get_query_parameters("q") || "";
+    filter_books(books, searchInput, filters);
+};
+function filter_books(books, searchInput, filters) {
+    clear_books_search();
+    function filterItems() {
+        return books.filter(function (el) {
+            return el.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
+        })
     }
+    const filtered_books = filterItems();
+    console.log("filtered books");
+    console.log(filtered_books);
+};
+function show_search_loading_spinner() {
+
+}
+function hide_search_loading_spinner() {
+
 }
 
-let filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
+
+
 function close_filter_dialog_preview() {
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "none";
@@ -273,10 +268,10 @@ function setup_sort_by_ui() {
 }
 
 function on_page_load() {
-    fetch_books();
     on_page_load_common();
     setup_filter_ui();
     setup_sort_by_ui();
+    fetch_books();
 }
 
 window.onload = on_page_load;
