@@ -6,17 +6,22 @@
 .search-results-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .search-results-card {
-    max-width: 200px;
+    width: 180px;
+    max-width: 180px;
     display: flex;
     flex-direction: column;
     margin: 8px;
     background-color: var(--thumb-background-color);
     border-radius: 20px;
     line-height: 25px;
+}
+
+.search-results-card--no-bg {
+    background: none;
 }
 
 .search-results-card--img {
@@ -62,14 +67,14 @@
     font-size: 0.8rem;
 }
 
-.search-results-card--status > p {
+.search-results-card--status>p {
     max-width: 50px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
-.search-results-card--status > a {
+.search-results-card--status>a {
     max-width: 80px;
     margin-left: auto;
     text-decoration: none;
