@@ -6,15 +6,14 @@
 .search-results-cards {
     display: flex;
     flex-wrap: wrap;
-    margin: auto;
+    justify-content: space-evenly;
 }
 
 .search-results-card {
     max-width: 200px;
-    max-height: fit-content;
     display: flex;
     flex-direction: column;
-    margin: 18px;
+    margin: 8px;
     background-color: var(--thumb-background-color);
     border-radius: 20px;
     line-height: 25px;
@@ -27,14 +26,14 @@
     border-radius: 30px;
     padding: 4px 6px;
     object-fit: cover;
-    object-position: 50% 100%;
-}
-
-.search-results-card--img img {
+    object-position: 50% 0%;
 }
 
 .search-results-card--title {
+    box-sizing: border-box;
+    max-width: 150px;
     overflow: hidden;
+    align-self: flex-start;
     display: inline-block;
     text-overflow: ellipsis;
     line-height: 20px;
@@ -45,6 +44,7 @@
 }
 
 .search-results-card--author {
+    max-width: 160px;
     overflow: hidden;
     display: inline-block;
     text-overflow: ellipsis;
@@ -62,16 +62,28 @@
     font-size: 0.8rem;
 }
 
+.search-results-card--status > p {
+    max-width: 50px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .search-results-card--status > a {
+    max-width: 80px;
     margin-left: auto;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 0.8rem;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: var(--in-use-color);
 }
 
 .search-results-card--genre {
+    max-width: 160px;
     overflow: hidden;
     display: inline-block;
     text-overflow: ellipsis;
