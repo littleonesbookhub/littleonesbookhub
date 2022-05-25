@@ -13,10 +13,20 @@ const DEFAULT_FILTERS = {
     Genres: {
         "Science Fiction": false,
         "Fantasy": false
-    }
+    },
+    Author: author
 }
 let filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
-
+const NEW_FILTERS = ((author, age_group, genre, available) => {
+    for (i = 0; i < books.length; i++) {
+        if (books[i].contains(searchInput)) {
+            books[i].style.display = "block";
+        } else {
+            books[i].style.display = "none";
+        }
+    }
+    // filter = title || author || age_group || genre || available;
+});
 function fetch_books() {
     show_search_loading_spinner();
     fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
@@ -66,6 +76,7 @@ function on_books_fetched(books) {
 };
 function filter_books(books, searchInput, filters) {
     clear_books_search();
+    filters = DEFAULT_FILTERS;
     function filterItems() {
         return books.filter(function (el) {
             return el.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
@@ -74,6 +85,7 @@ function filter_books(books, searchInput, filters) {
     const filtered_books = filterItems();
     console.log("filtered books");
     console.log(filtered_books);
+
 };
 function show_search_loading_spinner() {
 
@@ -88,7 +100,7 @@ function close_filter_dialog_preview() {
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "none";
 
-    filters = cloneObject(DEFAULT_FILTERS);
+    filters = cloneObject(DEFAULT_FILTERS), NEW_FILTERS;
     const selected_filter_options = document.getElementsByClassName("selected-filter-option");
     for (var i = 0; i < selected_filter_options.length; i++) {
         filter_type = selected_filter_options[i].parentNode.dataset.optionsFor;
@@ -188,6 +200,7 @@ const DEFAULT_SORT_BY = {
     "Title A-Z": true,
     "Title Z-A": false,
     "Date Available": false
+
 }
 
 let sort_by = cloneObject(DEFAULT_SORT_BY); //this is the global variable to be used for search results
