@@ -1,5 +1,4 @@
-const SPREADSHEET_ID = "1qA6bdIiZSv09FA5qgXhq0nRj_PeTWgp0ufYFmWqeDfM";
-const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
+
 
 function register_scroll_handler() {
     const desktop_nav = document.querySelector('.desktop-nav');
