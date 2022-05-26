@@ -13,20 +13,10 @@ const DEFAULT_FILTERS = {
     Genres: {
         "Science Fiction": false,
         "Fantasy": false
-    },
-    Author: author
+    }
 }
 let filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
-const NEW_FILTERS = ((author, age_group, genre, available) => {
-    for (i = 0; i < books.length; i++) {
-        if (books[i].contains(searchInput)) {
-            books[i].style.display = "block";
-        } else {
-            books[i].style.display = "none";
-        }
-    }
-    // filter = title || author || age_group || genre || available;
-});
+
 function fetch_books() {
     show_search_loading_spinner();
     fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
@@ -71,20 +61,33 @@ function fetch_books() {
 }
 
 function on_books_fetched(books) {
-    const searchInput = get_query_parameters("q") || "";
+    const searchInput = get_query_parameter("q") || "";
     filter_books(books, searchInput, filters);
 };
 function filter_books(books, searchInput, filters) {
-    clear_books_search();
-    filters = DEFAULT_FILTERS;
+    // clear_books_search();
     function filterItems() {
-        return books.filter(function (el) {
-            return el.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
+        return books.filter(function (book) {
+            const keys = ['title', 'author', 'genre'];
+            return keys.some(function (key) {
+                return book[key].toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
+            })
+
         })
     }
     const filtered_books = filterItems();
     console.log("filtered books");
     console.log(filtered_books);
+
+    // const newFILTERS = ((author, age_group, genre, available) => {
+    //     for (i = 0; i < books.length; i++) {
+    //         if (books[i].contains(searchInput)) {
+    //             books[i].style.display = "block";
+    //         } else {
+    //             books[i].style.display = "none";
+    //         }
+    //     }
+    // });
 
 };
 function show_search_loading_spinner() {
@@ -281,6 +284,7 @@ function setup_sort_by_ui() {
 }
 
 function on_page_load() {
+    console.log("on_page_load")
     on_page_load_common();
     setup_filter_ui();
     setup_sort_by_ui();
