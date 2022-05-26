@@ -10,6 +10,7 @@
 }
 
 .search-results-card {
+    box-sizing: border-box;
     width: 180px;
     max-width: 180px;
     display: flex;
