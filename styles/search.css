@@ -20,12 +20,14 @@
     line-height: 25px;
 }
 
-.search-results-card--no-bg {
-    background: none;
+.search-results-card--text {
+    display: flex;
+    flex-direction: column;
 }
 
+
 .search-results-card--img {
-    max-width: 100%;
+    width: 168px;
     max-height: 180px;
     background-color: #fff;
     border-radius: 30px;
@@ -35,13 +37,12 @@
 }
 
 .search-results-card--title {
-    box-sizing: border-box;
     max-width: 150px;
     overflow: hidden;
     align-self: flex-start;
     display: inline-block;
     text-overflow: ellipsis;
-    line-height: 20px;
+    /* line-height: 20px; */
     height: 40px;
     margin: 4px 8px;
     font-size: 1.1rem;
@@ -97,4 +98,48 @@
     font-weight: 300;
     font-size: 0.8rem;
     line-height: 30px;
+}
+
+.search-results-card--no-bg {
+    background: none;
+}
+
+@media (max-width:640px) {
+
+    .search-results-cards {
+        display: block;
+    }
+
+    .search-results-card {
+        width: 100%;
+        max-width: 640px;
+        margin-bottom: 15px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .search-results-card--img {
+        flex-basis: 50%;
+        max-width: 50%;
+        object-position: 50% 50%;
+    }
+
+    .search-results-card--text {
+        justify-content: center;
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+
+    .search-results-card--title, .search-results-card--author {
+        max-width: 100%;
+    }
+
+    .search-results-card--author, .search-results-card--status, .search-results-card--genre {
+        font-size: 1rem;
+    }
+
+    .search-results-card--status>a {
+        margin-right: 5px;
+    }
+
 }
