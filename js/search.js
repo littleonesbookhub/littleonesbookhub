@@ -103,7 +103,7 @@ function close_filter_dialog_preview() {
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "none";
 
-    filters = cloneObject(DEFAULT_FILTERS), NEW_FILTERS;
+    filters = cloneObject(DEFAULT_FILTERS);
     const selected_filter_options = document.getElementsByClassName("selected-filter-option");
     for (var i = 0; i < selected_filter_options.length; i++) {
         filter_type = selected_filter_options[i].parentNode.dataset.optionsFor;
@@ -284,7 +284,6 @@ function setup_sort_by_ui() {
 }
 
 function on_page_load() {
-    console.log("on_page_load")
     on_page_load_common();
     setup_filter_ui();
     setup_sort_by_ui();
