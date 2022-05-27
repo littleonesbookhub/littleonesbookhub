@@ -1,20 +1,10 @@
 const DEFAULT_FILTERS = {
-    Age: {
-        "0-2 years": false,
-        "2-4 years": false,
-        "4-6 years": false,
-        "6-10 years": false,
-        "10+ years": false
-    },
-    Availability: {
-        "Available": false,
-        "In use": false
-    },
-    Genres: {
-        "Science Fiction": false,
-        "Fantasy": false
-    }
+    Age: {},
+    Availability: {},
+    Genres: {},
+    Author: {}
 }
+
 let filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
 
 function fetch_books() {
@@ -60,7 +50,48 @@ function fetch_books() {
         });
 }
 
+function convert_to_title_case(words) {
+    words = words.toLowerCase();
+    words = words.split(' ');
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+    return words.join(' ');
+}
+
+function get_filter_options(books) {
+    for (let i in books) {
+        let genre = books[i]["genre"];
+        genre_title_case = convert_to_title_case(genre);
+        if (!(genre_title_case in DEFAULT_FILTERS["Genres"])) {
+            DEFAULT_FILTERS["Genres"][genre_title_case] = false;
+        }
+
+        let author = books[i]["author"];
+        author_title_case = convert_to_title_case(author);
+        if (!(author_title_case in DEFAULT_FILTERS["Author"])) {
+            DEFAULT_FILTERS["Author"][author_title_case] = false;
+        }
+
+        let availability = books[i]["available"];
+        availability_title_case = convert_to_title_case(availability);
+        if (!(availability_title_case in DEFAULT_FILTERS["Availability"])) {
+            DEFAULT_FILTERS["Availability"][availability_title_case] = false;
+        }
+
+        let age_group = books[i]["age_group"];
+        age_group = age_group + " years";
+        if (!(age_group in DEFAULT_FILTERS["Age"])) {
+            DEFAULT_FILTERS["Age"][age_group] = false;
+        }
+    }
+    filters = cloneObject(DEFAULT_FILTERS);
+    console.log("default filters", DEFAULT_FILTERS);
+    setup_filter_ui();
+}
+
 function on_books_fetched(books) {
+    get_filter_options(books);
     const searchInput = get_query_parameter("q") || "";
     filter_books(books, searchInput, filters);
 };
@@ -76,8 +107,7 @@ function filter_books(books, searchInput, filters) {
         })
     }
     const filtered_books = filterItems();
-    console.log("filtered books");
-    console.log(filtered_books);
+    console.log("filtered books", filtered_books);
 
     // const newFILTERS = ((author, age_group, genre, available) => {
     //     for (i = 0; i < books.length; i++) {
@@ -97,8 +127,6 @@ function hide_search_loading_spinner() {
 
 }
 
-
-
 function close_filter_dialog_preview() {
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "none";
@@ -112,7 +140,7 @@ function close_filter_dialog_preview() {
     }
     enable_body_scrolling();
 
-    console.log(filters);
+    console.log("selected filters", filters);
 }
 
 function on_filter_close_button_click() {
@@ -203,10 +231,9 @@ function setup_filter_ui() {
 }
 
 const DEFAULT_SORT_BY = {
-    "Title A-Z": false,
-    "Title Z-A": true,
+    "Title A-Z": true,
+    "Title Z-A": false,
     "Date Available": false
-
 }
 
 let sort_by = cloneObject(DEFAULT_SORT_BY); //this is the global variable to be used for search results
@@ -248,7 +275,7 @@ function close_sort_by_dialog_preview() {
 
     enable_body_scrolling();
 
-    console.log(sort_by)
+    console.log("selected sortby options", sort_by)
 }
 
 function on_sort_by_close_button_click() {
@@ -289,8 +316,6 @@ function add_sort_by_options() {
     for (let i = 0; i < sort_by_options.length; i++) {
         sort_by_options_container.innerHTML += `<a class="sort-by-option" href="#">${sort_by_options[i]}</a>`;
     }
-    // const default_sort_by_option = document.getElementsByClassName("sort-by-option")[0];
-    // default_sort_by_option.classList.add("selected-sort-by-option");
 }
 
 function setup_sort_by_ui() {
@@ -303,9 +328,9 @@ function setup_sort_by_ui() {
 
 function on_page_load() {
     on_page_load_common();
-    setup_filter_ui();
-    setup_sort_by_ui();
     fetch_books();
+    // setup_filter_ui();
+    setup_sort_by_ui();
 }
 
 window.onload = on_page_load;
