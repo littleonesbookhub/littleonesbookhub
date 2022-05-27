@@ -105,7 +105,7 @@ function close_filter_dialog_preview() {
 
     filters = cloneObject(DEFAULT_FILTERS);
     const selected_filter_options = document.getElementsByClassName("selected-filter-option");
-    for (var i = 0; i < selected_filter_options.length; i++) {
+    for (let i = 0; i < selected_filter_options.length; i++) {
         filter_type = selected_filter_options[i].parentNode.dataset.optionsFor;
         filter_option_with_true_value = selected_filter_options[i].text;
         filters[filter_type][filter_option_with_true_value] = true;
@@ -135,7 +135,7 @@ function on_filter_option_click(event) {
 function on_filter_section_clear_button_click(event) {
     clicked_clear_button = event.target.dataset.clearButtonOf;
     filter_options_to_clear = document.getElementsByClassName(clicked_clear_button);
-    for (var i = 0; i < filter_options_to_clear.length; i++) {
+    for (let i = 0; i < filter_options_to_clear.length; i++) {
         filter_options_to_clear[i].classList.remove("selected-filter-option");
     }
 }
@@ -158,14 +158,14 @@ function register_filters_button_click_handler() {
 
 function register_filter_option_button_click_handler() {
     const option = document.getElementsByClassName("option");
-    for (var i = 0; i < option.length; i++) {
+    for (let i = 0; i < option.length; i++) {
         option[i].addEventListener("click", on_filter_option_click);
     }
 }
 
 function register_clear_button_click_handler() {
     const filter_section_clear_button = document.getElementsByClassName("filter-section-clear-button");
-    for (var i = 0; i < filter_section_clear_button.length; i++) {
+    for (let i = 0; i < filter_section_clear_button.length; i++) {
         filter_section_clear_button[i].addEventListener("click", on_filter_section_clear_button_click);
     }
 }
@@ -177,7 +177,7 @@ function register_filter_container_click_handler() {
 
 function add_filter_item_title(key, value) {
     filter_main_ctr = document.getElementsByClassName("filter-main-ctr")[0];
-    var options_string = ""
+    let options_string = ""
     Object.keys(value).forEach((filter_option) => {
         options_string += '<a class="option ' + key + '" href="#">' + filter_option + '</a>';
     })
@@ -203,8 +203,8 @@ function setup_filter_ui() {
 }
 
 const DEFAULT_SORT_BY = {
-    "Title A-Z": true,
-    "Title Z-A": false,
+    "Title A-Z": false,
+    "Title Z-A": true,
     "Date Available": false
 
 }
@@ -212,6 +212,16 @@ const DEFAULT_SORT_BY = {
 let sort_by = cloneObject(DEFAULT_SORT_BY); //this is the global variable to be used for search results
 
 function on_sort_by_button_click() {
+    const sort_by_options = document.getElementsByClassName("sort-by-option");
+    for (let i = 0; i < sort_by_options.length; i++) {
+        const selected_button = sort_by_options[i].text;
+        if (sort_by[selected_button] == true) {
+            sort_by_options[i].classList.add("selected-sort-by-option");
+        }
+        else {
+            sort_by_options[i].classList.remove("selected-sort-by-option");
+        }
+    }
     const sort_by_dialog = document.getElementsByClassName("sort-by-dialog")[0];
     sort_by_dialog.style.display = "block";
     disable_body_scrolling();
@@ -219,7 +229,7 @@ function on_sort_by_button_click() {
 
 function on_sort_by_option_click(event) {
     const sort_by_options = document.getElementsByClassName("sort-by-option");
-    for (var i = 0; i < sort_by_options.length; i++)
+    for (let i = 0; i < sort_by_options.length; i++)
         sort_by_options[i].classList.remove("selected-sort-by-option");
     event.target.classList.add("selected-sort-by-option");
 }
@@ -228,12 +238,14 @@ function close_sort_by_dialog_preview() {
     const sort_by_dialog = document.getElementsByClassName("sort-by-dialog")[0];
     sort_by_dialog.style.display = "none";
 
-    sort_by = cloneObject(DEFAULT_SORT_BY);
-    const selected_sort_by_options = document.getElementsByClassName("selected-sort-by-option");
-    for (var i = 0; i < selected_sort_by_options.length; i++) {
-        sort_by_option_with_true_value = selected_sort_by_options[i].text;
-        sort_by[sort_by_option_with_true_value] = true;
+    for (let key in sort_by) {
+        sort_by[key] = false;
     }
+
+    const selected_sort_by_option = document.getElementsByClassName("selected-sort-by-option")[0];
+    sort_by_option_with_true_value = selected_sort_by_option.text;
+    sort_by[sort_by_option_with_true_value] = true;
+
     enable_body_scrolling();
 
     console.log(sort_by)
@@ -256,7 +268,7 @@ function register_sort_by_button_click_handler() {
 
 function register_sort_by_option_button_click_handler() {
     const option = document.getElementsByClassName("sort-by-option");
-    for (var i = 0; i < option.length; i++) {
+    for (let i = 0; i < option.length; i++) {
         option[i].addEventListener("click", on_sort_by_option_click);
     }
 }
@@ -274,11 +286,11 @@ function register_sort_by_container_click_handler() {
 function add_sort_by_options() {
     const sort_by_options_container = document.getElementsByClassName("sort-by-options")[0];
     const sort_by_options = Object.keys(sort_by)
-    for (var i = 0; i < sort_by_options.length; i++) {
+    for (let i = 0; i < sort_by_options.length; i++) {
         sort_by_options_container.innerHTML += `<a class="sort-by-option" href="#">${sort_by_options[i]}</a>`;
     }
-    const default_sort_by_option = document.getElementsByClassName("sort-by-option")[0];
-    default_sort_by_option.classList.add("selected-sort-by-option");
+    // const default_sort_by_option = document.getElementsByClassName("sort-by-option")[0];
+    // default_sort_by_option.classList.add("selected-sort-by-option");
 }
 
 function setup_sort_by_ui() {
