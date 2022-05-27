@@ -1,11 +1,9 @@
-const DEFAULT_FILTERS = {
+let filters = {
     Age: {},
     Availability: {},
-    Genres: {},
+    Genre: {},
     Author: {}
 }
-
-let filters = cloneObject(DEFAULT_FILTERS); //this is the global variable to be used for search results
 
 function fetch_books() {
     show_search_loading_spinner();
@@ -34,7 +32,7 @@ function fetch_books() {
                                 if (id === "") {
                                     return;
                                 }
-                                books.push({ id: id, title: title, author: author, genre: genre, age_group: age_group, available: available, available_date: available_date, description: description, thumbnail_url: thumbnail_url });
+                                books.push({ id: id, title: title, author: author, genre: genre, age_group: age_group, availability: available, available_date: available_date, description: description, thumbnail_url: thumbnail_url });
                             } catch (err) {
                                 console.error(err);
                             }
@@ -50,48 +48,24 @@ function fetch_books() {
         });
 }
 
-function convert_to_title_case(words) {
-    words = words.toLowerCase();
-    words = words.split(' ');
-    for (let i = 0; i < words.length; i++) {
-        words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
-    }
-    return words.join(' ');
-}
-
-function get_filter_options(books) {
+function load_filter_options(books) {
+    filter_types = ["Genre", "Author", "Availability"]
     for (let i in books) {
-        let genre = books[i]["genre"];
-        genre_title_case = convert_to_title_case(genre);
-        if (!(genre_title_case in DEFAULT_FILTERS["Genres"])) {
-            DEFAULT_FILTERS["Genres"][genre_title_case] = false;
-        }
-
-        let author = books[i]["author"];
-        author_title_case = convert_to_title_case(author);
-        if (!(author_title_case in DEFAULT_FILTERS["Author"])) {
-            DEFAULT_FILTERS["Author"][author_title_case] = false;
-        }
-
-        let availability = books[i]["available"];
-        availability_title_case = convert_to_title_case(availability);
-        if (!(availability_title_case in DEFAULT_FILTERS["Availability"])) {
-            DEFAULT_FILTERS["Availability"][availability_title_case] = false;
-        }
-
+        filter_types.forEach(function (filter_type) {
+            const filter_type_lower = filter_type.toLowerCase();
+            let current_filter_option = books[i][filter_type_lower];
+            current_filter_option_title_case = convert_to_title_case(current_filter_option);
+            filters[filter_type][current_filter_option_title_case] = false;
+        })
         let age_group = books[i]["age_group"];
         age_group = age_group + " years";
-        if (!(age_group in DEFAULT_FILTERS["Age"])) {
-            DEFAULT_FILTERS["Age"][age_group] = false;
-        }
+        filters["Age"][age_group] = false;
     }
-    filters = cloneObject(DEFAULT_FILTERS);
-    console.log("default filters", DEFAULT_FILTERS);
     setup_filter_ui();
 }
 
 function on_books_fetched(books) {
-    get_filter_options(books);
+    load_filter_options(books);
     const searchInput = get_query_parameter("q") || "";
     filter_books(books, searchInput, filters);
 };
@@ -131,7 +105,12 @@ function close_filter_dialog_preview() {
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "none";
 
-    filters = cloneObject(DEFAULT_FILTERS);
+    Object.keys(filters).forEach((filter_type) => {
+        Object.keys(filters[filter_type]).forEach((filter_option) => {
+            filters[filter_type][filter_option] = false;
+        })
+    })
+
     const selected_filter_options = document.getElementsByClassName("selected-filter-option");
     for (let i = 0; i < selected_filter_options.length; i++) {
         filter_type = selected_filter_options[i].parentNode.dataset.optionsFor;
