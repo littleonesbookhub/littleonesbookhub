@@ -1,18 +1,3 @@
-
-
-function register_scroll_handler() {
-    const desktop_nav = document.querySelector('.desktop-nav');
-    const mobile_nav = document.querySelector('.mobile-nav');
-    window.onscroll = function () {
-        if (window.pageYOffset > 0) {
-            desktop_nav.classList.add('scrolled');
-            mobile_nav.classList.add('scrolled');
-        } else {
-            desktop_nav.classList.remove('scrolled');
-            mobile_nav.classList.remove('scrolled');
-        }
-    }
-}
 const BOOK_AVAILABLE_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf66BFvFTCPGlnl1D0PgwBItYGV6rhvVlzj81Vd6seq-MtHFQ/viewform?usp=pp_url&entry.233549370=";
 
 function fetch_collections() {
@@ -115,14 +100,6 @@ function add_collection_item(book, books, item_ctr) {
     collection_thumb.addEventListener("click", on_collection_item_click);
 
     item_ctr.appendChild(collection_thumb);
-}
-
-function disable_body_scrolling() {
-    document.body.style.overflow = "hidden";
-}
-
-function enable_body_scrolling() {
-    document.body.style.overflow = "initial";
 }
 
 function show_preview_dialog(book_data) {
@@ -258,7 +235,7 @@ function on_preview_dialog_close() {
 
 function on_page_load() {
     fetch_collections();
-    register_scroll_handler();
+
     register_navbar_search_button_click_handler();
     register_mobile_navbar_search_button_click_handler();
     register_click_outside_search_button_handler();
