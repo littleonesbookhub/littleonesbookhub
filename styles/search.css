@@ -43,7 +43,7 @@
     align-self: flex-start;
     display: inline-block;
     text-overflow: ellipsis;
-    /* line-height: 20px; */
+    line-height: 20px;
     height: 40px;
     margin: 4px 8px;
     font-size: 1.1rem;
