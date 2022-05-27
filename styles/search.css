@@ -1,3 +1,9 @@
+/* remove this after removing dummy buttons from search.html */
+.dummy-buttons {
+    height: 1000px;
+    padding: 200px 0;
+}
+
 .filter-dialog {
     display: none;
 }
