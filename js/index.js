@@ -197,9 +197,9 @@ function register_mobile_navbar_search_button_click_handler() {
 }
 
 function register_click_outside_search_button_handler() {
-    var search_button = document.getElementById('search');
+    let search_button = document.getElementById('search');
     document.addEventListener('click', function (event) {
-        var clicked_inside = search_button.contains(event.target);
+        let clicked_inside = search_button.contains(event.target);
         if (!clicked_inside) {
             on_click_outside_search_button();
         }
@@ -207,9 +207,9 @@ function register_click_outside_search_button_handler() {
 }
 
 function register_mobile_click_outside_search_button_handler() {
-    var mobile_search_button = document.getElementById('mobile-search');
+    let mobile_search_button = document.getElementById('mobile-search');
     document.addEventListener('click', function (event) {
-        var clicked_inside = mobile_search_button.contains(event.target);
+        let clicked_inside = mobile_search_button.contains(event.target);
         if (!clicked_inside) {
             on_mobile_click_outside_search_button();
         }
