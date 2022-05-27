@@ -14,4 +14,4 @@ Run the following command in the Terminal:
 ```
 npx browser-sync -w
 ```
-
+Dummy change
