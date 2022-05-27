@@ -110,6 +110,8 @@ function close_filter_dialog_preview() {
         filter_option_with_true_value = selected_filter_options[i].text;
         filters[filter_type][filter_option_with_true_value] = true;
     }
+    enable_body_scrolling();
+
     console.log(filters);
 }
 
@@ -120,6 +122,7 @@ function on_filter_close_button_click() {
 function on_filters_button_click() {
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "block";
+    disable_body_scrolling();
 }
 
 function on_filter_option_click(event) {
@@ -211,6 +214,7 @@ let sort_by = cloneObject(DEFAULT_SORT_BY); //this is the global variable to be 
 function on_sort_by_button_click() {
     const sort_by_dialog = document.getElementsByClassName("sort-by-dialog")[0];
     sort_by_dialog.style.display = "block";
+    disable_body_scrolling();
 }
 
 function on_sort_by_option_click(event) {
@@ -230,6 +234,8 @@ function close_sort_by_dialog_preview() {
         sort_by_option_with_true_value = selected_sort_by_options[i].text;
         sort_by[sort_by_option_with_true_value] = true;
     }
+    enable_body_scrolling();
+
     console.log(sort_by)
 }
 

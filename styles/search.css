@@ -12,6 +12,7 @@
     background-color: black;
     opacity: 0.2;
     z-index: -1;
+    position: fixed;
 }
 
 .filter-ctr,
@@ -25,6 +26,7 @@
     justify-content: center;
     align-items: center;
     z-index: 2;
+    position: fixed;
 }
 
 .filter-ctr a,
