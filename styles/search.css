@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -146,6 +147,14 @@
     .search-results-card--status>a {
         margin-right: 5px;
     }
+
+}
+
+/* remove this after removing dummy buttons from search.html */
+.dummy-buttons {
+    height: 1000px;
+    padding: 200px 0;
+
 }
 
 .filter-dialog {
