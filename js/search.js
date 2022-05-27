@@ -229,11 +229,12 @@ function close_sort_by_dialog_preview() {
     sort_by_dialog.style.display = "none";
 
     sort_by = cloneObject(DEFAULT_SORT_BY);
-    const selected_sort_by_options = document.getElementsByClassName("selected-sort-by-option");
-    for (var i = 0; i < selected_sort_by_options.length; i++) {
-        sort_by_option_with_true_value = selected_sort_by_options[i].text;
-        sort_by[sort_by_option_with_true_value] = true;
-    }
+    const default_sort_by_option = document.getElementsByClassName("sort-by-option")[0].text;
+    sort_by[default_sort_by_option] = false;
+    const selected_sort_by_option = document.getElementsByClassName("selected-sort-by-option")[0];
+    sort_by_option_with_true_value = selected_sort_by_option.text;
+    sort_by[sort_by_option_with_true_value] = true;
+
     enable_body_scrolling();
 
     console.log(sort_by)
