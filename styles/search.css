@@ -147,14 +147,12 @@
     .search-results-card--status>a {
         margin-right: 5px;
     }
-
 }
 
 /* remove this after removing dummy buttons from search.html */
 .dummy-buttons {
     height: 1000px;
     padding: 200px 0;
-
 }
 
 .filter-dialog {
@@ -171,6 +169,7 @@
     background-color: black;
     opacity: 0.2;
     z-index: -1;
+    position: fixed;
 }
 
 .filter-ctr,
@@ -184,6 +183,7 @@
     justify-content: center;
     align-items: center;
     z-index: 2;
+    position: fixed;
 }
 
 .filter-ctr a,
@@ -270,6 +270,7 @@
     border-radius: 300px;
     color: var(--alternate-color);
     text-align: center;
+    min-width: 40px;
 }
 
 .selected-filter-option,
