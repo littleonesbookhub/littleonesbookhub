@@ -1,3 +1,154 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.search-results-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.search-results-card {
+    box-sizing: border-box;
+    width: 180px;
+    max-width: 180px;
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    background-color: var(--thumb-background-color);
+    border-radius: 20px;
+    line-height: 25px;
+}
+
+.search-results-card--text {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.search-results-card--img {
+    width: 168px;
+    max-height: 180px;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 4px 6px;
+    object-fit: cover;
+    object-position: 50% 0%;
+}
+
+.search-results-card--title {
+    max-width: 150px;
+    overflow: hidden;
+    align-self: flex-start;
+    display: inline-block;
+    text-overflow: ellipsis;
+    line-height: 20px;
+    height: 40px;
+    margin: 4px 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.search-results-card--author {
+    max-width: 160px;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    margin: 4px 8px;
+    font-size: 0.8rem;
+    font-weight: 300;
+    white-space: nowrap;
+}
+
+.search-results-card--status {
+    margin: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--in-use-color);
+    font-size: 0.8rem;
+}
+
+.search-results-card--status>p {
+    max-width: 50px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.search-results-card--status>a {
+    max-width: 80px;
+    margin-left: auto;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--in-use-color);
+}
+
+.search-results-card--genre {
+    max-width: 160px;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0 8px;
+    font-weight: 300;
+    font-size: 0.8rem;
+    line-height: 30px;
+}
+
+.search-results-card--no-bg {
+    background: none;
+}
+
+@media (max-width:640px) {
+
+    .search-results-cards {
+        display: block;
+    }
+
+    .search-results-card {
+        width: 100%;
+        max-width: 640px;
+        margin: 0;
+        margin-bottom: 15px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .search-results-card--img {
+        flex-basis: 50%;
+        max-width: 50%;
+        object-position: 50% 50%;
+    }
+
+    .search-results-card--text {
+        justify-content: center;
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+
+    .search-results-card--title,
+    .search-results-card--author {
+        max-width: 100%;
+    }
+
+    .search-results-card--author,
+    .search-results-card--status,
+    .search-results-card--genre {
+        font-size: 1rem;
+    }
+
+    .search-results-card--status>a {
+        margin-right: 5px;
+    }
+}
+
 /* remove this after removing dummy buttons from search.html */
 .dummy-buttons {
     height: 1000px;
