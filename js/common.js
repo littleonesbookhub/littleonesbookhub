@@ -56,3 +56,12 @@ function disable_body_scrolling() {
 function enable_body_scrolling() {
     document.body.style.overflow = "initial";
 }
+
+function convert_to_title_case(words) {
+    words = words.toLowerCase();
+    words = words.split(' ');
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+    return words.join(' ');
+}
