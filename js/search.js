@@ -1,8 +1,8 @@
 let filters = {
-    Age: {},
-    Availability: {},
-    Genre: {},
-    Author: {}
+    "Age Group": {},
+    "Availability": {},
+    "Genre": {},
+    "Author": {}
 }
 
 function fetch_books() {
@@ -49,17 +49,15 @@ function fetch_books() {
 }
 
 function load_filter_options(books) {
-    filter_types = ["Genre", "Author", "Availability"]
+    const filter_types = ["Genre", "Author", "Availability", "Age Group"]
     for (let i in books) {
         filter_types.forEach(function (filter_type) {
-            const filter_type_lower = filter_type.toLowerCase();
+            let filter_type_lower = filter_type.toLowerCase();
+            filter_type_lower = filter_type_lower.replaceAll(' ', '_')
             let current_filter_option = books[i][filter_type_lower];
             current_filter_option_title_case = convert_to_title_case(current_filter_option);
             filters[filter_type][current_filter_option_title_case] = false;
         })
-        let age_group = books[i]["age_group"];
-        age_group = age_group + " years";
-        filters["Age"][age_group] = false;
     }
     setup_filter_ui();
 }
@@ -101,16 +99,19 @@ function hide_search_loading_spinner() {
 
 }
 
-function close_filter_dialog_preview() {
-    const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
-    filter_dialog.style.display = "none";
-
+function reset_filters() {
     Object.keys(filters).forEach((filter_type) => {
         Object.keys(filters[filter_type]).forEach((filter_option) => {
             filters[filter_type][filter_option] = false;
         })
     })
+}
 
+function close_filter_dialog_preview() {
+    const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
+    filter_dialog.style.display = "none";
+
+    reset_filters();
     const selected_filter_options = document.getElementsByClassName("selected-filter-option");
     for (let i = 0; i < selected_filter_options.length; i++) {
         filter_type = selected_filter_options[i].parentNode.dataset.optionsFor;

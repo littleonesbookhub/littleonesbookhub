@@ -119,6 +119,7 @@
     border-radius: 300px;
     color: var(--alternate-color);
     text-align: center;
+    min-width: 40px;
 }
 
 .selected-filter-option,
