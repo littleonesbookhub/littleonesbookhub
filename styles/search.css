@@ -1,59 +1,83 @@
-.search-bar{
-    margin-top: 54px;
-    text-align: center;
-}
-.search-container .form{
+.search-bar {
     display: flex;
-    border: 1px solid black;
-    width: 100%;
-    max-width: 300px;
-    margin-left: 32%;
-    padding: 3px 5px;
-    background-color:  #eeeeee;
+    margin-top: 58px;
+    justify-content: center;
+}
+
+.search-container .form {
+    display: flex;
+    width: 500px;
+    padding: 12px 8px;
+    background-color: whitesmoke;
     border-radius: 24px;
 }
-.search-container .form input{
+
+.search-container .form ::placeholder {
+    font-size: 16px;
+    padding-left: 8px;
+}
+
+
+.search-container .form input {
     border: none;
     outline: none;
     flex: 1;
-    background-color: transparent;
+    padding: 8px 0px;
+    background: transparent;
 }
-.search-container .form ::placeholder{
-    font-size: 16px;
-}
-.search-container .form button{
+
+.search-container .form button {
+    border: none;
+    background: #7892BD;
+    text-align: center;
     height: 35px;
     width: 35px;
     border-radius: 50%;
-    text-align: center;
-    cursor: pointer;
+}
+
+.search-container .form button i {
     color: white;
-    background-color: #7892BD;
-    border: 0;
+    font-size: 24px;
 }
-.search-container .form button i{
-    font-size: 20px;
-    text-align: center;
-}
-.search-buttons{
-    position: absolute;
-    left: 60%;
-    top: 10%;
+
+.search-buttons {
     display: flex;
+    padding-left: 40px;
 }
-.search-buttons .filters-button{
-    padding: 0px 15px 0px 8px;
-    font-size: 24px;
-    cursor: pointer;
+
+.search-buttons .filters-button {
+    font-size: 40px;
     font-weight: 900;
-}
-.search-buttons .sort-by-button{
-    padding: 0px 15px 0px 8px;
-    font-size: 24px;
     cursor: pointer;
 }
-.search-buttons .sort-by-button span{
+
+.search-buttons .sort-by-button {
+    font-size: 40px;
+    padding-left: 64px;
+    cursor: pointer;
+}
+
+.search-buttons .sort-by-button span {
     font-weight: 900;
+}
+
+.search-display-buttons {
+    padding: 24px 0px 0px 24px;
+}
+
+.search-display-buttons .display-button {
+    background: #7892BD;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 24px;
+    margin: 8px;
+}
+
+.search-display-buttons .display-button a {
+    color: white;
+    padding-left: 8px;
+    cursor: pointer;
 }
 
 /*new*/
@@ -208,41 +232,35 @@
 }
 
 /*mobile view*/
-@media screen and (max-width: 640px){
-    .search-bar{
+@media screen and (max-width: 768px) {
+    .search-bar {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
+    }
+
+    .search-bar .search-container .form {
         width: 100%;
-        max-width: 100%;
-        margin-bottom: -10px;
     }
-    .search-button{
+
+    .search-bar .search-container {
+        width: 90%;
+        margin: auto;
+    }
+
+    .search-buttons {
         width: 100%;
-        max-width: 100%;
-        padding: 8px 0px;
-    }
-    .search-button .search-form input{
-        margin-left: 4px;
-        width: 80%;
-        font-size: 16px;
-        margin-left: -40px;
-    }
-    .search-button .search-form button{
-        margin-right: 8px;
-        margin-right: -50px;
-    }
-    .sort-by-button, .filters-button{
-        margin-top: -24px;
-    }
-    .filter-buttons{
-        width: 100%;
-        max-width: 100%;
         padding-left: 0px;
+        padding-top: 16px;
+        display: flex;
+        justify-content: space-around;
     }
-    .filter-buttons button{
-        width: 32%;
+
+    .search-buttons .filters-button {
+        font-size: 30px;
     }
+
+    .search-buttons .sort-by-button {
+        font-size: 30px;
+    }
+
 }
