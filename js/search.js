@@ -1,11 +1,11 @@
-let filters = {
+let g_filters = {
     "Age Group": {},
     "Availability": {},
     "Genre": {},
     "Author": {}
 }
 
-function fetch_books() {
+function fetch_books(filters) {
     show_search_loading_spinner();
     fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
         .then(response => response.json())
@@ -42,7 +42,7 @@ function fetch_books() {
             });
             return books;
         })
-        .then(books_data => on_books_fetched(books_data))
+        .then(books_data => on_books_fetched(books_data, filters))
         .finally(() => {
             hide_search_loading_spinner();
         });
@@ -56,41 +56,37 @@ function load_filter_options(books) {
             filter_type_lower = filter_type_lower.replaceAll(' ', '_')
             let current_filter_option = books[i][filter_type_lower];
             current_filter_option_title_case = convert_to_title_case(current_filter_option);
-            filters[filter_type][current_filter_option_title_case] = false;
+            g_filters[filter_type][current_filter_option_title_case] = false;
         })
     }
     setup_filter_ui();
 }
 
-function on_books_fetched(books) {
+function on_books_fetched(books, filters) {
     load_filter_options(books);
     const searchInput = get_query_parameter("q") || "";
     filter_books(books, searchInput, filters);
-};
-function filter_books(books, searchInput, filters) {
+}
+function filter_books(books, searchInput, g_filters) {
+    console.log('filters', g_filters);
     // clear_books_search();
     function filterItems() {
         return books.filter(function (book) {
             const keys = ['title', 'author', 'genre'];
+
             return keys.some(function (key) {
                 return book[key].toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
             })
-
         })
     }
     const filtered_books = filterItems();
     console.log("filtered books", filtered_books);
 
-    // const newFILTERS = ((author, age_group, genre, available) => {
-    //     for (i = 0; i < books.length; i++) {
-    //         if (books[i].contains(searchInput)) {
-    //             books[i].style.display = "block";
-    //         } else {
-    //             books[i].style.display = "none";
-    //         }
-    //     }
-    // });
-
+    books.some(function () {
+        if (books['age_group'] == g_filters['age_group']) {
+            console.log("Age Group", filtered_books['age_group']);
+        }
+    })
 };
 function show_search_loading_spinner() {
 
@@ -100,14 +96,15 @@ function hide_search_loading_spinner() {
 }
 
 function reset_filters() {
-    Object.keys(filters).forEach((filter_type) => {
-        Object.keys(filters[filter_type]).forEach((filter_option) => {
-            filters[filter_type][filter_option] = false;
+    Object.keys(g_filters).forEach((filter_type) => {
+        Object.keys(g_filters[filter_type]).forEach((filter_option) => {
+            g_filters[filter_type][filter_option] = false;
         })
     })
 }
 
 function close_filter_dialog_preview() {
+    filter_books();
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "none";
 
@@ -116,11 +113,10 @@ function close_filter_dialog_preview() {
     for (let i = 0; i < selected_filter_options.length; i++) {
         filter_type = selected_filter_options[i].parentNode.dataset.optionsFor;
         filter_option_with_true_value = selected_filter_options[i].text;
-        filters[filter_type][filter_option_with_true_value] = true;
+        g_filters[filter_type][filter_option_with_true_value] = true;
     }
     enable_body_scrolling();
-
-    console.log("selected filters", filters);
+    console.log("selected filters", g_filters);
 }
 
 function on_filter_close_button_click() {
@@ -196,7 +192,7 @@ function add_filter_item_title(key, value) {
 }
 
 function add_filter_types() {
-    Object.entries(filters).forEach(([key, value]) => {
+    Object.entries(g_filters).forEach(([key, value]) => {
         add_filter_item_title(key, value);
     })
 }
@@ -308,7 +304,7 @@ function setup_sort_by_ui() {
 
 function on_page_load() {
     on_page_load_common();
-    fetch_books();
+    fetch_books(g_filters);
     // setup_filter_ui();
     setup_sort_by_ui();
 }
