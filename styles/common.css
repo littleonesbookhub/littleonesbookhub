@@ -10,6 +10,7 @@
     --background-color: white;
     --divider-color: rgba(91, 90, 118, 0.2);
     --thumb-border-color: #eeeeee;
+    --thumb-background-color: #f4f4f4;
 }
 
 body {
@@ -40,7 +41,7 @@ main {
 
 section {
     width: 100%;
-    margin: 32spx 0;
+    margin: 32px 0;
     border-bottom: 1px solid var(--divider-color);
 }
 
@@ -176,6 +177,19 @@ input::placeholder {
 .scrolled input::placeholder {
     color: var(--alternate-color);
     opacity: 0.7;
+}
+
+
+.common-loading-spinner {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.common-loading-spinner img {
+    width: 100px;
+    height: 100px;
 }
 
 /* mobile navbar */

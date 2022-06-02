@@ -1,19 +1,3 @@
-const SPREADSHEET_ID = "1qA6bdIiZSv09FA5qgXhq0nRj_PeTWgp0ufYFmWqeDfM";
-const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
-
-function register_scroll_handler() {
-    const desktop_nav = document.querySelector('.desktop-nav');
-    const mobile_nav = document.querySelector('.mobile-nav');
-    window.onscroll = function () {
-        if (window.pageYOffset > 0) {
-            desktop_nav.classList.add('scrolled');
-            mobile_nav.classList.add('scrolled');
-        } else {
-            desktop_nav.classList.remove('scrolled');
-            mobile_nav.classList.remove('scrolled');
-        }
-    }
-}
 const BOOK_AVAILABLE_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf66BFvFTCPGlnl1D0PgwBItYGV6rhvVlzj81Vd6seq-MtHFQ/viewform?usp=pp_url&entry.233549370=";
 
 function fetch_collections() {
@@ -118,14 +102,6 @@ function add_collection_item(book, books, item_ctr) {
     item_ctr.appendChild(collection_thumb);
 }
 
-function disable_body_scrolling() {
-    document.body.style.overflow = "hidden";
-}
-
-function enable_body_scrolling() {
-    document.body.style.overflow = "initial";
-}
-
 function show_preview_dialog(book_data) {
     const preview_dialog_frame = document.getElementsByClassName("preview-dialog-frame")[0];
     preview_dialog_frame.contentWindow.document.querySelector(".preview-thumb").src = book_data.thumbnail_url;
@@ -221,9 +197,9 @@ function register_mobile_navbar_search_button_click_handler() {
 }
 
 function register_click_outside_search_button_handler() {
-    var search_button = document.getElementById('search');
+    let search_button = document.getElementById('search');
     document.addEventListener('click', function (event) {
-        var clicked_inside = search_button.contains(event.target);
+        let clicked_inside = search_button.contains(event.target);
         if (!clicked_inside) {
             on_click_outside_search_button();
         }
@@ -231,9 +207,9 @@ function register_click_outside_search_button_handler() {
 }
 
 function register_mobile_click_outside_search_button_handler() {
-    var mobile_search_button = document.getElementById('mobile-search');
+    let mobile_search_button = document.getElementById('mobile-search');
     document.addEventListener('click', function (event) {
-        var clicked_inside = mobile_search_button.contains(event.target);
+        let clicked_inside = mobile_search_button.contains(event.target);
         if (!clicked_inside) {
             on_mobile_click_outside_search_button();
         }
@@ -259,7 +235,7 @@ function on_preview_dialog_close() {
 
 function on_page_load() {
     fetch_collections();
-    register_scroll_handler();
+
     register_navbar_search_button_click_handler();
     register_mobile_navbar_search_button_click_handler();
     register_click_outside_search_button_handler();
