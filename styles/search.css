@@ -4,9 +4,15 @@
     justify-content: center;
 }
 
+.search-padding,
+.search-container,
+.search-buttons {
+    width: 33%;
+}
+
 .search-container .form {
     display: flex;
-    width: 500px;
+    width: 100%;
     padding: 12px 8px;
     background-color: whitesmoke;
     border-radius: 24px;
@@ -43,16 +49,18 @@
 .search-buttons {
     display: flex;
     padding-left: 40px;
+    justify-content: center;
+    align-items: center;
 }
 
 .search-buttons .filters-button {
-    font-size: 40px;
+    font-size: 18px;
     font-weight: 900;
     cursor: pointer;
 }
 
 .search-buttons .sort-by-button {
-    font-size: 40px;
+    font-size: 18px;
     padding-left: 64px;
     cursor: pointer;
 }
