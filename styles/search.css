@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -29,8 +28,10 @@
 
 
 .search-results-card--img {
-    width: 168px;
-    max-height: 180px;
+    min-width: 168px;
+    max-width: 168px;
+    min-height: 150px;
+    max-height: 160px;
     background-color: #fff;
     border-radius: 30px;
     padding: 4px 6px;
@@ -71,7 +72,8 @@
 }
 
 .search-results-card--status>p {
-    max-width: 50px;
+    text-transform: capitalize;
+    max-width: 80px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

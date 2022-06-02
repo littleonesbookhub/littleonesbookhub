@@ -66,9 +66,13 @@ function on_books_fetched(books) {
     load_filter_options(books);
     const searchInput = get_query_parameter("q") || "";
     filter_books(books, searchInput, filters);
-};
+}
+
+function get_number_dummy_search_results(total_results) {
+    return (3 - (total_results % 3)) % 3;
+}
+
 function filter_books(books, searchInput, filters) {
-    // clear_books_search();
     function filterItems() {
         return books.filter(function (book) {
             const keys = ['title', 'author', 'genre'];
@@ -81,17 +85,14 @@ function filter_books(books, searchInput, filters) {
     const filtered_books = filterItems();
     console.log("filtered books", filtered_books);
 
-    // const newFILTERS = ((author, age_group, genre, available) => {
-    //     for (i = 0; i < books.length; i++) {
-    //         if (books[i].contains(searchInput)) {
-    //             books[i].style.display = "block";
-    //         } else {
-    //             books[i].style.display = "none";
-    //         }
-    //     }
-    // });
+    clear_search_results();
+    filtered_books.forEach(book => add_book_result_item(book));
+    const number_dummy_search_results = get_number_dummy_search_results(filtered_books.length);
+    for (let i = 0; i < number_dummy_search_results; ++i) {
+        add_book_result_item(null);
+    }
+}
 
-};
 function show_search_loading_spinner() {
 
 }
@@ -184,7 +185,7 @@ function register_filter_container_click_handler() {
 }
 
 function add_filter_item_title(key, value) {
-    filter_main_ctr = document.getElementsByClassName("filter-main-ctr")[0];
+    const filter_main_ctr = document.getElementsByClassName("filter-main-ctr")[0];
     let options_string = ""
     Object.keys(value).forEach((filter_option) => {
         options_string += '<a class="option ' + key + '" href="#">' + filter_option + '</a>';
@@ -314,3 +315,32 @@ function on_page_load() {
 }
 
 window.onload = on_page_load;
+
+function clear_search_results() {
+
+    const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
+    search_results_cards_div.innerHTML = "";
+}
+
+function add_book_result_item(book) {
+
+    console.log(book);
+    const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
+    if (book === null) {
+        search_results_cards_div.innerHTML += `<div class="search-results-card search-results-card--no-bg"></div`;
+    } else {
+        search_results_cards_div.innerHTML += `<div class="search-results-card">
+    <img src="${book.thumbnail_url}"
+    class="search-results-card--img">
+    <div class="search-results-card--text">
+        <p class="search-results-card--title">${book.title}</p>
+        <p class="search-results-card--author">${book.author}</p>
+        <div class="search-results-card--status">
+            <p>${book.availability}</p>
+            <a href="#" ${book.availability === 'available' ? 'hidden' : ''}>Notify me</a>
+        </div>
+        <p class="search-results-card--genre">${book.genre}</p>
+    </div>
+</div>`;
+    }
+}
