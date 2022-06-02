@@ -8,6 +8,5 @@
   },
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "liveServer.settings.port": 5501
+  }
 }

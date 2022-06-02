@@ -59,7 +59,7 @@
 
 .search-buttons .sort-by-button {
     font-size: 18px;
-    padding-left: 64px;
+    margin-left: 64px;
     cursor: pointer;
 }
 
