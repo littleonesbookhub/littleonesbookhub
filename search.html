@@ -61,14 +61,6 @@
         </div>
     </nav>
 
-    <!--this is a dummy button-->
-    <br>
-    <br>
-    <br>
-    <a class="filters-button">filters</a><br><br>
-    <a class="sort-by-button">Sort by</a>
-    <!--remove the above portion after inserting filter button-->
-
     <div class="mobile-nav">
         <div class="collapsed-navbar">
             <a href="javascript: void(0)" class="navbar-menu"><i class="ri-menu-line"></i></a>
@@ -79,6 +71,32 @@
         </div>
     </div>
     <main class="main-ctr">
+        <section class="search-input-section">
+            <div class="search-bar">
+
+                <div class="search-container">
+                    <form class="form">
+                        <input type="text" placeholder="just like me...">
+                        <button type="submit"><i class="ri-search-line"></i></button>
+                    </form>
+                </div>
+
+                <div class="search-buttons">
+                    <div class="filters-button">
+                        <a>Filters</a>
+                    </div>
+                    <div class="sort-by-button">
+                        <a>Sort by: <span>A-Z</span></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="search-display-buttons">
+                <button class=" display-button">2-4 years <a>x</a></button>
+                <button class=" display-button">Availability <a>x</a></button>
+                <button class=" display-button">Venesa Branteley-Newton <a>x</a></button>
+            </div>
+        </section>
         <section class="search-results-ctr">
             <div class="common-loading-spinner">
                 <img src="assets/loading-spinner.svg">
@@ -172,7 +190,8 @@
                     <img src="https://ik.imagekit.io/qdxmlqyzh/LOBH/book-thumbs/cb4e8ca33a57502429228a8310aca483_EuiBOqW070.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1652023678256"
                         class="search-results-card--img">
                     <div class="search-results-card--text">
-                        <p class="search-results-card--title">Not Quite Snow White Not Quite Snow White Not Quite Snow
+                        <p class="search-results-card--title">Not Quite Snow White Not Quite Snow White Not Quite
+                            Snow
                             White</p>
                         <p class="search-results-card--author">Vanessa Brantley Newton Not Quite Snow White</p>
                         <div class="search-results-card--status">
@@ -192,13 +211,7 @@
         </section>
     </main>
 
-    <!--this is a dummy button-->
-    <div class="dummy-buttons">
-        <a class="filters-button">filters</a><br><br>
-        <a class="sort-by-button">Sort by</a>
-    </div>
-    <!--remove the above div after inserting filter button-->
-
+    <!--Filter Dialogue-->
     <div class="filter-dialog">
         <div class="sortby-background-mask"></div>
         <div class="filter-ctr">
