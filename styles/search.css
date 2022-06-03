@@ -1,3 +1,93 @@
+.search-bar {
+    display: flex;
+    margin-top: 58px;
+    justify-content: center;
+}
+
+.search-container {
+    width: 50%;
+}
+
+.search-container .form {
+    display: flex;
+    width: 100%;
+    padding: 8px 8px;
+    background-color: whitesmoke;
+    border-radius: 24px;
+}
+
+.search-container .form ::placeholder {
+    font-size: 16px;
+    padding-left: 8px;
+}
+
+
+.search-container .form input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 8px 0px;
+    background: transparent;
+}
+
+.search-container .form button {
+    border: none;
+    background: #7892BD;
+    text-align: center;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
+.search-container .form button i {
+    color: white;
+    font-size: 24px;
+}
+
+.search-buttons {
+    display: flex;
+    padding-left: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-buttons .filters-button {
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.search-buttons .sort-by-button {
+    font-size: 18px;
+    margin-left: 64px;
+    cursor: pointer;
+}
+
+.search-buttons .sort-by-button span {
+    font-weight: 900;
+}
+
+.search-display-buttons {
+    padding: 24px 0px 0px 24px;
+}
+
+.search-display-buttons .display-button {
+    background: #7892BD;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 24px;
+    margin: 8px;
+}
+
+.search-display-buttons .display-button a {
+    color: white;
+    padding-left: 8px;
+    cursor: pointer;
+}
+
+/*new*/
+
 * {
     margin: 0;
     padding: 0;
@@ -308,4 +398,38 @@
 
 .sort-by-options>* {
     margin-bottom: 20px;
+}
+
+/*mobile view*/
+@media screen and (max-width: 768px) {
+    .search-bar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .search-bar .search-container .form {
+        width: 100%;
+    }
+
+    .search-bar .search-container {
+        width: 90%;
+        margin: auto;
+    }
+
+    .search-buttons {
+        width: 100%;
+        padding-left: 0px;
+        padding-top: 16px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .search-buttons .filters-button {
+        font-size: 30px;
+    }
+
+    .search-buttons .sort-by-button {
+        font-size: 30px;
+    }
+
 }

@@ -59,7 +59,7 @@ function enable_body_scrolling() {
 
 function convert_to_title_case(words) {
     words = words.toLowerCase();
-    words = words.split(' ');
+    words = words.split('_');
     for (let i = 0; i < words.length; i++) {
         words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
     }
