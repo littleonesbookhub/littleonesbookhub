@@ -421,13 +421,4 @@
         display: flex;
         justify-content: space-around;
     }
-
-    .search-buttons .filters-button {
-        font-size: 30px;
-    }
-
-    .search-buttons .sort-by-button {
-        font-size: 30px;
-    }
-
 }
