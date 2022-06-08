@@ -17,6 +17,13 @@ function on_preview_container_click(event) {
 function register_close_button_click_handler() {
     const close_button = document.getElementsByClassName("preview-close-button")[0];
     close_button.addEventListener("click", on_close_button_click);
+    document.addEventListener("keyup", on_document_keyup);
+}
+
+function on_document_keyup(e) {
+    if (e.key === "Escape") {
+        on_close_button_click();
+    }
 }
 
 function register_preview_container_click_handler() {

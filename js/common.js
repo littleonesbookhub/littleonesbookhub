@@ -88,6 +88,7 @@ function show_preview_dialog(book_data) {
     }
 
     preview_dialog_frame.style.display = "initial";
+    preview_dialog_frame.contentWindow.focus();
 }
 
 function hide_preview_dialog() {
