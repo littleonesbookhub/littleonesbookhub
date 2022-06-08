@@ -250,8 +250,7 @@
     display: none;
 }
 
-.background-mask,
-.sortby-background-mask {
+.background-mask {
     position: absolute;
     top: 0;
     left: 0;
