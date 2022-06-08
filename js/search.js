@@ -100,10 +100,10 @@ function filter_books(books, searchInput, filters) {
 }
 
 function show_search_loading_spinner() {
-
+    document.querySelector(".common-loading-spinner").style.display = "flex";
 }
 function hide_search_loading_spinner() {
-
+    document.querySelector(".common-loading-spinner").style.display = "none";
 }
 
 function reset_filters() {
