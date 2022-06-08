@@ -65,11 +65,11 @@
     font-weight: 900;
 }
 
-.search-display-buttons {
+.search-input-filter-buttons {
     padding: 24px 0px 0px 24px;
 }
 
-.search-display-buttons .display-button {
+.search-input-filter-buttons .search-input-filter-button {
     background: #7892BD;
     border: none;
     color: white;
@@ -78,7 +78,7 @@
     margin: 8px;
 }
 
-.search-display-buttons .display-button a {
+.search-input-filter-buttons .search-input-filter-button a {
     color: white;
     padding-left: 8px;
     cursor: pointer;

@@ -125,6 +125,8 @@ function close_filter_dialog_preview() {
     }
     enable_body_scrolling();
 
+    setup_search_input_section_filters(filters);
+
     console.log("selected filters", filters);
     filter_books(g_books, "", filters);
 }
@@ -323,7 +325,6 @@ function on_page_load() {
 window.onload = on_page_load;
 
 function clear_search_results() {
-
     const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
     search_results_cards_div.innerHTML = "";
 }
@@ -363,10 +364,30 @@ function on_search_input_submit(event) {
 }
 
 function on_search_input_change(event) {
-    // read the text value of <input>
     const search_input_text = this.value;
-    console.log("search_input_text");
-    console.log(search_input_text);
-    // call filter_books() using this value
     filter_books(g_books, search_input_text, filters);
+}
+
+function setup_search_input_section_filters(filters) {
+    clear_search_input_filters();
+    // iterate through all the filters
+
+    Object.entries(filters).forEach(([filter_type, filter_type_value]) => {
+        Object.entries(filter_type_value).forEach(([filter_name, filter_value]) => {
+            if (filter_value) {
+                add_search_input_filter(filter_name);
+            }
+        });
+    });
+}
+
+function clear_search_input_filters() {
+    const search_input_filter_buttons = document.getElementsByClassName("search-input-filter-buttons")[0];
+    search_input_filter_buttons.innerHTML = "";
+}
+
+function add_search_input_filter(filter_name) {
+    // add a search-input-filter-button inside search-input-filter-buttons
+    const search_input_filter_buttons = document.getElementsByClassName("search-input-filter-buttons")[0];
+    search_input_filter_buttons.innerHTML += `<button class="search-input-filter-button">${filter_name} <a>x</a></button>`;
 }
