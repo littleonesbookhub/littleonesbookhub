@@ -158,7 +158,17 @@ function update_filters_from_filter_dialog() {
 }
 
 function update_filter_dialog_from_filters() {
-    // TBD
+    const filter_options = document.getElementsByClassName("option");
+    for (let i = 0; i < filter_options.length; i++) {
+        const filter_option = filter_options[i];
+        const filter_type = filter_option.dataset.filterType;
+        const filter_type_option = filter_option.dataset.filterTypeOption;
+        if (filters[filter_type][filter_type_option]) {
+            filter_option.classList.add("selected-filter-option");
+        } else {
+            filter_option.classList.remove("selected-filter-option");
+        }
+    }
 }
 
 function on_filter_close_button_click() {
@@ -226,7 +236,7 @@ function add_filter_item_title(key, value) {
     const filter_main_ctr = document.getElementsByClassName("filter-main-ctr")[0];
     let options_string = ""
     Object.keys(value).forEach((filter_option) => {
-        options_string += '<a class="option ' + key + '" href="#">' + filter_option + '</a>';
+        options_string += `<a class="option" data-filter-type="${key}" data-filter-type-option="${filter_option}" href="#">${filter_option}</a>`;
     })
     filter_main_ctr.innerHTML += '<div class="filter-type"><p class="filter-type-title">' + convert_to_title_case(key) + '</p>' +
         '<a class="filter-section-clear-button" data-clear-button-of="' + key + '" href="#">Clear</a>' +
