@@ -105,6 +105,7 @@
     background-color: var(--thumb-background-color);
     border-radius: 20px;
     line-height: 25px;
+    cursor: pointer;
 }
 
 .search-results-card--text {
