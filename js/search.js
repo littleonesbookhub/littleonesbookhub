@@ -379,7 +379,7 @@ function add_book_result_item(book) {
     <div class="search-results-card--text">
         <p class="search-results-card--title">${book.title}</p>
         <p class="search-results-card--author">${book.author}</p>
-        <div class="search-results-card--status">
+        <div class="search-results-card--status ${book.availability === 'available' ? 'search-results-card--status-available' : 'search-results-card--status-in-use'}">
             <p>${book.availability}</p>
             <a class="search-results-card--notify-link" href="${BOOK_NOTIFICATION_FORM_LINK}" target="_blank" ${book.availability === 'available' ? 'hidden' : ''}>Notify me</a>
         </div>

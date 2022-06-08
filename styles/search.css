@@ -155,8 +155,15 @@
     margin: 0 8px;
     display: inline-flex;
     align-items: center;
-    color: var(--in-use-color);
     font-size: 0.8rem;
+}
+
+.search-results-card--status-in-use {
+    color: var(--in-use-color);
+}
+
+.search-results-card--status-available {
+    color: var(--available-color);
 }
 
 .search-results-card--status>p {
