@@ -192,6 +192,17 @@ input::placeholder {
     height: 100px;
 }
 
+.preview-dialog-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    display: none;
+    z-index: 2;
+}
+
 /* mobile navbar */
 @media screen and (max-width: 640px) {
     .desktop-nav {

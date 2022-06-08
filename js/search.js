@@ -368,11 +368,12 @@ function clear_search_results() {
 }
 
 function add_book_result_item(book) {
+    const book_data_encoded = encodeURIComponent(JSON.stringify(book));
     const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
     if (book === null) {
         search_results_cards_div.innerHTML += `<div class="search-results-card search-results-card--no-bg"></div`;
     } else {
-        search_results_cards_div.innerHTML += `<div class="search-results-card">
+        search_results_cards_div.innerHTML += `<div class="search-results-card" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">
     <img src="${book.thumbnail_url}"
     class="search-results-card--img">
     <div class="search-results-card--text">
@@ -454,4 +455,16 @@ function register_search_input_clear_button_handlers() {
             filter_books(g_books, search_input.value, filters, sort_by);
         };
     }
+}
+
+function on_search_result_item_click(event) {
+    event.preventDefault();
+
+    disable_body_scrolling();
+
+    const search_result_item = event.currentTarget;
+    const book_data_encoded = search_result_item.getAttribute("data-book");
+    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
+
+    show_preview_dialog(book_data);
 }
