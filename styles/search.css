@@ -8,7 +8,7 @@
     width: 50%;
 }
 
-.search-container .form {
+.search-container .search-input-form {
     display: flex;
     width: 100%;
     padding: 8px 8px;
@@ -16,13 +16,13 @@
     border-radius: 24px;
 }
 
-.search-container .form ::placeholder {
+.search-container .search-input-form ::placeholder {
     font-size: 16px;
     padding-left: 8px;
 }
 
 
-.search-container .form input {
+.search-container .search-input-form input {
     border: none;
     outline: none;
     flex: 1;
@@ -30,16 +30,14 @@
     background: transparent;
 }
 
-.search-container .form button {
-    border: none;
+.search-container .search-input-form i {
     background: #7892BD;
     text-align: center;
+    box-sizing: border-box;
+    padding-top: 4px;
     height: 35px;
     width: 35px;
     border-radius: 50%;
-}
-
-.search-container .form button i {
     color: white;
     font-size: 24px;
 }
@@ -407,7 +405,7 @@
         flex-direction: column;
     }
 
-    .search-bar .search-container .form {
+    .search-bar .search-container .search-input-form {
         width: 100%;
     }
 

@@ -73,15 +73,14 @@ function get_number_dummy_search_results(total_results) {
 }
 
 function filter_books(books, searchInput, filters) {
-    // clear_books_search();
-    console.log(filters);
+    console.log("filters", filters);
     function filterItems() {
         return books.filter(function (book) {
             const search_input_keys = ['title', 'author', 'genre'];
             const filter_keys = ['age_group', 'availability', 'genre', 'author'];
             return search_input_keys.some(function (search_input_key) {
-                return searchInput !== "" && book[search_input_key].toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
-            }) || filter_keys.every(function (filter_key) {
+                return searchInput === "" || book[search_input_key].toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
+            }) && filter_keys.every(function (filter_key) {
                 // either all filter options are false, or the true filter option matches with the book
                 return Object.values(filters[filter_key]).every(filter_value => filter_value === false) || filters[filter_key][book[filter_key]];
             });
@@ -318,6 +317,7 @@ function on_page_load() {
     fetch_books();
     // setup_filter_ui();
     setup_sort_by_ui();
+    setup_search_input_section();
 }
 
 window.onload = on_page_load;
@@ -329,8 +329,6 @@ function clear_search_results() {
 }
 
 function add_book_result_item(book) {
-
-    console.log(book);
     const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
     if (book === null) {
         search_results_cards_div.innerHTML += `<div class="search-results-card search-results-card--no-bg"></div`;
@@ -349,4 +347,26 @@ function add_book_result_item(book) {
     </div>
 </div>`;
     }
+}
+
+function setup_search_input_section() {
+    // register the event handlers for the search input
+    const search_input_form = document.getElementsByClassName('search-input-form')[0];
+    search_input_form.addEventListener('submit', on_search_input_submit)
+
+    const search_input = document.getElementsByClassName('search-input')[0];
+    search_input.addEventListener('input', on_search_input_change)
+}
+
+function on_search_input_submit(event) {
+    event.preventDefault();
+}
+
+function on_search_input_change(event) {
+    // read the text value of <input>
+    const search_input_text = this.value;
+    console.log("search_input_text");
+    console.log(search_input_text);
+    // call filter_books() using this value
+    filter_books(g_books, search_input_text, filters);
 }
