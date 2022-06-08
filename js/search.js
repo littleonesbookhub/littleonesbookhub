@@ -113,6 +113,10 @@ function filter_books(books, searchInput, filters, sort_by) {
     for (let i = 0; i < number_dummy_search_results; ++i) {
         add_book_result_item(null);
     }
+    if (filtered_books.length === 0) {
+        const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
+        search_results_cards_div.innerHTML += `<div style="width: 100%; text-align: center;">No results.</div>`;
+    }
 }
 
 function show_search_loading_spinner() {
