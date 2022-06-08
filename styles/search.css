@@ -150,6 +150,7 @@
     font-size: 0.8rem;
     font-weight: 300;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .search-results-card--status {
@@ -199,6 +200,7 @@
     font-weight: 300;
     font-size: 0.8rem;
     line-height: 30px;
+    cursor: pointer;
 }
 
 .search-results-card--no-bg {

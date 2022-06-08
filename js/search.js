@@ -378,12 +378,12 @@ function add_book_result_item(book) {
     class="search-results-card--img" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">
     <div class="search-results-card--text">
         <p class="search-results-card--title" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">${book.title}</p>
-        <p class="search-results-card--author">${book.author}</p>
+        <p class="search-results-card--author" onclick="on_search_result_author_click(event)" data-book="${book_data_encoded}">${book.author}</p>
         <div class="search-results-card--status ${book.availability === 'available' ? 'search-results-card--status-available' : 'search-results-card--status-in-use'}">
             <p>${book.availability}</p>
             <a class="search-results-card--notify-link" href="${BOOK_NOTIFICATION_FORM_LINK}" target="_blank" ${book.availability === 'available' ? 'hidden' : ''}>Notify me</a>
         </div>
-        <p class="search-results-card--genre">${book.genre}</p>
+        <p class="search-results-card--genre" onclick="on_search_result_genre_click(event)" data-book="${book_data_encoded}">${book.genre}</p>
     </div>
 </div>`;
     }
@@ -458,8 +458,6 @@ function register_search_input_clear_button_handlers() {
 }
 
 function on_search_result_item_click(event) {
-    event.preventDefault();
-
     disable_body_scrolling();
 
     const search_result_item = event.currentTarget;
@@ -467,4 +465,26 @@ function on_search_result_item_click(event) {
     const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
 
     show_preview_dialog(book_data);
+}
+
+function on_search_result_author_click(event) {
+    const search_result_author = event.currentTarget;
+    const book_data_encoded = search_result_author.getAttribute("data-book");
+    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
+
+    filters["author"][book_data.author] = true;
+    setup_search_input_section_filters(filters);
+    const search_input = document.getElementsByClassName('search-input')[0];
+    filter_books(g_books, search_input.value, filters, sort_by);
+}
+
+function on_search_result_genre_click(event) {
+    const search_result_genre = event.currentTarget;
+    const book_data_encoded = search_result_genre.getAttribute("data-book");
+    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
+
+    filters["genre"][book_data.genre] = true;
+    setup_search_input_section_filters(filters);
+    const search_input = document.getElementsByClassName('search-input')[0];
+    filter_books(g_books, search_input.value, filters, sort_by);
 }
