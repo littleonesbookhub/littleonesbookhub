@@ -113,6 +113,10 @@ function filter_books(books, searchInput, filters, sort_by) {
     for (let i = 0; i < number_dummy_search_results; ++i) {
         add_book_result_item(null);
     }
+    if (filtered_books.length === 0) {
+        const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
+        search_results_cards_div.innerHTML += `<div style="width: 100%; text-align: center;">No results.</div>`;
+    }
 }
 
 function show_search_loading_spinner() {
@@ -154,7 +158,17 @@ function update_filters_from_filter_dialog() {
 }
 
 function update_filter_dialog_from_filters() {
-    // TBD
+    const filter_options = document.getElementsByClassName("option");
+    for (let i = 0; i < filter_options.length; i++) {
+        const filter_option = filter_options[i];
+        const filter_type = filter_option.dataset.filterType;
+        const filter_type_option = filter_option.dataset.filterTypeOption;
+        if (filters[filter_type][filter_type_option]) {
+            filter_option.classList.add("selected-filter-option");
+        } else {
+            filter_option.classList.remove("selected-filter-option");
+        }
+    }
 }
 
 function on_filter_close_button_click() {
@@ -222,7 +236,7 @@ function add_filter_item_title(key, value) {
     const filter_main_ctr = document.getElementsByClassName("filter-main-ctr")[0];
     let options_string = ""
     Object.keys(value).forEach((filter_option) => {
-        options_string += '<a class="option ' + key + '" href="#">' + filter_option + '</a>';
+        options_string += `<a class="option" data-filter-type="${key}" data-filter-type-option="${filter_option}" href="#">${filter_option}</a>`;
     })
     filter_main_ctr.innerHTML += '<div class="filter-type"><p class="filter-type-title">' + convert_to_title_case(key) + '</p>' +
         '<a class="filter-section-clear-button" data-clear-button-of="' + key + '" href="#">Clear</a>' +
@@ -354,21 +368,22 @@ function clear_search_results() {
 }
 
 function add_book_result_item(book) {
+    const book_data_encoded = encodeURIComponent(JSON.stringify(book));
     const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
     if (book === null) {
         search_results_cards_div.innerHTML += `<div class="search-results-card search-results-card--no-bg"></div`;
     } else {
         search_results_cards_div.innerHTML += `<div class="search-results-card">
     <img src="${book.thumbnail_url}"
-    class="search-results-card--img">
+    class="search-results-card--img" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">
     <div class="search-results-card--text">
-        <p class="search-results-card--title">${book.title}</p>
-        <p class="search-results-card--author">${book.author}</p>
-        <div class="search-results-card--status">
+        <p class="search-results-card--title" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">${book.title}</p>
+        <p class="search-results-card--author" onclick="on_search_result_author_click(event)" data-book="${book_data_encoded}">${book.author}</p>
+        <div class="search-results-card--status ${book.availability === 'available' ? 'search-results-card--status-available' : 'search-results-card--status-in-use'}">
             <p>${book.availability}</p>
-            <a href="#" ${book.availability === 'available' ? 'hidden' : ''}>Notify me</a>
+            <a class="search-results-card--notify-link" href="${BOOK_NOTIFICATION_FORM_LINK}" target="_blank" ${book.availability === 'available' ? 'hidden' : ''}>Notify me</a>
         </div>
-        <p class="search-results-card--genre">${book.genre}</p>
+        <p class="search-results-card--genre" onclick="on_search_result_genre_click(event)" data-book="${book_data_encoded}">${book.genre}</p>
     </div>
 </div>`;
     }
@@ -440,4 +455,36 @@ function register_search_input_clear_button_handlers() {
             filter_books(g_books, search_input.value, filters, sort_by);
         };
     }
+}
+
+function on_search_result_item_click(event) {
+    disable_body_scrolling();
+
+    const search_result_item = event.currentTarget;
+    const book_data_encoded = search_result_item.getAttribute("data-book");
+    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
+
+    show_preview_dialog(book_data);
+}
+
+function on_search_result_author_click(event) {
+    const search_result_author = event.currentTarget;
+    const book_data_encoded = search_result_author.getAttribute("data-book");
+    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
+
+    filters["author"][book_data.author] = true;
+    setup_search_input_section_filters(filters);
+    const search_input = document.getElementsByClassName('search-input')[0];
+    filter_books(g_books, search_input.value, filters, sort_by);
+}
+
+function on_search_result_genre_click(event) {
+    const search_result_genre = event.currentTarget;
+    const book_data_encoded = search_result_genre.getAttribute("data-book");
+    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
+
+    filters["genre"][book_data.genre] = true;
+    setup_search_input_section_filters(filters);
+    const search_input = document.getElementsByClassName('search-input')[0];
+    filter_books(g_books, search_input.value, filters, sort_by);
 }

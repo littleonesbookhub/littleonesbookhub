@@ -1,5 +1,3 @@
-const BOOK_AVAILABLE_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf66BFvFTCPGlnl1D0PgwBItYGV6rhvVlzj81Vd6seq-MtHFQ/viewform?usp=pp_url&entry.233549370=";
-
 function fetch_collections() {
     show_collections_loading_spinner();
     fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
@@ -100,29 +98,6 @@ function add_collection_item(book, books, item_ctr) {
     collection_thumb.addEventListener("click", on_collection_item_click);
 
     item_ctr.appendChild(collection_thumb);
-}
-
-function show_preview_dialog(book_data) {
-    const preview_dialog_frame = document.getElementsByClassName("preview-dialog-frame")[0];
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-thumb").src = book_data.thumbnail_url;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-title span").innerText = book_data.title;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-author span").innerText = book_data.author;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-genre span").innerText = book_data.genre;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-age-group span").innerText = book_data.age_group;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-description span").innerText = book_data.description;
-
-    if (book_data.available.toLowerCase() === 'yes') {
-        preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = 'Available';
-    } else {
-        preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = `Unvailable. <a href="${BOOK_AVAILABLE_FORM_LINK}${book_data.id}" target="_blank">NOTIFY ME</a>`;
-    }
-
-    preview_dialog_frame.style.display = "initial";
-}
-
-function hide_preview_dialog() {
-    const preview_dialog_frame = document.getElementsByClassName("preview-dialog-frame")[0];
-    preview_dialog_frame.style.display = "none";
 }
 
 function on_collections_fetched(collections_data) {
@@ -240,11 +215,6 @@ function on_collection_item_click(event) {
     const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
 
     show_preview_dialog(book_data);
-}
-
-function on_preview_dialog_close() {
-    hide_preview_dialog();
-    enable_body_scrolling();
 }
 
 function on_page_load() {

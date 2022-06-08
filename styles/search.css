@@ -84,17 +84,15 @@
     cursor: pointer;
 }
 
-/*new*/
-
-* {
-    margin: 0;
-    padding: 0;
+.search-results-ctr {
+    min-height: 50vh;
 }
 
 .search-results-cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding-bottom: 24px;
 }
 
 .search-results-card {
@@ -114,7 +112,6 @@
     flex-direction: column;
 }
 
-
 .search-results-card--img {
     min-width: 168px;
     max-width: 168px;
@@ -125,19 +122,23 @@
     padding: 4px 6px;
     object-fit: cover;
     object-position: 50% 0%;
+    cursor: pointer;
 }
 
 .search-results-card--title {
     max-width: 150px;
     overflow: hidden;
     align-self: flex-start;
-    display: inline-block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     line-height: 20px;
     height: 40px;
     margin: 4px 8px;
     font-size: 1.1rem;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .search-results-card--author {
@@ -149,17 +150,26 @@
     font-size: 0.8rem;
     font-weight: 300;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .search-results-card--status {
     margin: 0 8px;
     display: inline-flex;
     align-items: center;
-    color: var(--in-use-color);
     font-size: 0.8rem;
 }
 
+.search-results-card--status-in-use {
+    color: var(--in-use-color);
+}
+
+.search-results-card--status-available {
+    color: var(--available-color);
+}
+
 .search-results-card--status>p {
+    margin: 0;
     text-transform: capitalize;
     max-width: 80px;
     text-overflow: ellipsis;
@@ -190,6 +200,7 @@
     font-weight: 300;
     font-size: 0.8rem;
     line-height: 30px;
+    cursor: pointer;
 }
 
 .search-results-card--no-bg {
@@ -249,8 +260,7 @@
     display: none;
 }
 
-.background-mask,
-.sortby-background-mask {
+.background-mask {
     position: absolute;
     top: 0;
     left: 0;
@@ -379,7 +389,7 @@
     width: 100%;
     height: 100%;
     max-width: 340px;
-    max-height: 300px;
+    max-height: 240px;
     background-color: white;
     border-radius: 16px;
 }
@@ -421,13 +431,4 @@
         display: flex;
         justify-content: space-around;
     }
-
-    .search-buttons .filters-button {
-        font-size: 30px;
-    }
-
-    .search-buttons .sort-by-button {
-        font-size: 30px;
-    }
-
 }
