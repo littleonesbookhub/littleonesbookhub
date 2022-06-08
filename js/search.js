@@ -73,15 +73,14 @@ function get_number_dummy_search_results(total_results) {
 }
 
 function filter_books(books, searchInput, filters) {
-    // clear_books_search();
-    console.log(filters);
+    console.log("filters", filters);
     function filterItems() {
         return books.filter(function (book) {
             const search_input_keys = ['title', 'author', 'genre'];
             const filter_keys = ['age_group', 'availability', 'genre', 'author'];
             return search_input_keys.some(function (search_input_key) {
-                return searchInput !== "" && book[search_input_key].toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
-            }) || filter_keys.every(function (filter_key) {
+                return searchInput === "" || book[search_input_key].toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
+            }) && filter_keys.every(function (filter_key) {
                 // either all filter options are false, or the true filter option matches with the book
                 return Object.values(filters[filter_key]).every(filter_value => filter_value === false) || filters[filter_key][book[filter_key]];
             });
@@ -118,16 +117,26 @@ function close_filter_dialog_preview() {
     filter_dialog.style.display = "none";
 
     reset_filters();
+    update_filters_from_filter_dialog();
+    enable_body_scrolling();
+
+    setup_search_input_section_filters(filters);
+
+    console.log("selected filters", filters);
+    filter_books(g_books, "", filters);
+}
+
+function update_filters_from_filter_dialog() {
     const selected_filter_options = document.getElementsByClassName("selected-filter-option");
     for (let i = 0; i < selected_filter_options.length; i++) {
         filter_type = selected_filter_options[i].parentNode.dataset.optionsFor;
         filter_option_with_true_value = selected_filter_options[i].text;
         filters[filter_type][filter_option_with_true_value] = true;
     }
-    enable_body_scrolling();
+}
 
-    console.log("selected filters", filters);
-    filter_books(g_books, "", filters);
+function update_filter_dialog_from_filters() {
+    // TBD
 }
 
 function on_filter_close_button_click() {
@@ -135,6 +144,7 @@ function on_filter_close_button_click() {
 }
 
 function on_filters_button_click() {
+    update_filter_dialog_from_filters();
     const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
     filter_dialog.style.display = "block";
     disable_body_scrolling();
@@ -318,19 +328,17 @@ function on_page_load() {
     fetch_books();
     // setup_filter_ui();
     setup_sort_by_ui();
+    setup_search_input_section();
 }
 
 window.onload = on_page_load;
 
 function clear_search_results() {
-
     const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
     search_results_cards_div.innerHTML = "";
 }
 
 function add_book_result_item(book) {
-
-    console.log(book);
     const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
     if (book === null) {
         search_results_cards_div.innerHTML += `<div class="search-results-card search-results-card--no-bg"></div`;
@@ -348,5 +356,64 @@ function add_book_result_item(book) {
         <p class="search-results-card--genre">${book.genre}</p>
     </div>
 </div>`;
+    }
+}
+
+function setup_search_input_section() {
+    // register the event handlers for the search input
+    const search_input_form = document.getElementsByClassName('search-input-form')[0];
+    search_input_form.addEventListener('submit', on_search_input_submit)
+
+    const search_input = document.getElementsByClassName('search-input')[0];
+    search_input.addEventListener('input', on_search_input_change)
+}
+
+function on_search_input_submit(event) {
+    event.preventDefault();
+}
+
+function on_search_input_change(event) {
+    const search_input_text = this.value;
+    filter_books(g_books, search_input_text, filters);
+}
+
+function setup_search_input_section_filters(filters) {
+    clear_search_input_filters();
+
+    Object.entries(filters).forEach(([filter_type, filter_type_value]) => {
+        Object.entries(filter_type_value).forEach(([filter_type_option, filter_type_option_value]) => {
+            if (filter_type_option_value) {
+                add_search_input_filter(filter_type, filter_type_option);
+            }
+        });
+    });
+
+    register_search_input_clear_button_handlers();
+}
+
+function clear_search_input_filters() {
+    const search_input_filter_buttons = document.getElementsByClassName("search-input-filter-buttons")[0];
+    search_input_filter_buttons.innerHTML = "";
+}
+
+function add_search_input_filter(filter_type, filter_type_option) {
+    // add a search-input-filter-button inside search-input-filter-buttons
+    const search_input_filter_buttons = document.getElementsByClassName("search-input-filter-buttons")[0];
+    search_input_filter_buttons.innerHTML += `<button class="search-input-filter-button">${filter_type_option} <a class="search-input-filter-clear-button" data-filter-type="${filter_type}" data-filter-type-option="${filter_type_option}">x</a></button>`;
+}
+
+function register_search_input_clear_button_handlers() {
+    const search_input_filter_buttons = document.getElementsByClassName("search-input-filter-buttons")[0];
+    const search_input_filter_clear_buttons = document.getElementsByClassName("search-input-filter-clear-button");
+    for (let i = 0; i < search_input_filter_clear_buttons.length; ++i) {
+        const search_input_filter_clear_button = search_input_filter_clear_buttons[i];
+        search_input_filter_clear_button.onclick = function () {
+            search_input_filter_buttons.removeChild(search_input_filter_clear_button.parentNode);
+            const filter_type = search_input_filter_clear_button.dataset.filterType;
+            const filter_type_option = search_input_filter_clear_button.dataset.filterTypeOption;
+            filters[filter_type][filter_type_option] = false;
+            const search_input = document.getElementsByClassName('search-input')[0];
+            filter_books(g_books, search_input.value, filters);
+        };
     }
 }
