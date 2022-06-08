@@ -381,7 +381,7 @@ function add_book_result_item(book) {
         <p class="search-results-card--author">${book.author}</p>
         <div class="search-results-card--status">
             <p>${book.availability}</p>
-            <a href="#" ${book.availability === 'available' ? 'hidden' : ''}>Notify me</a>
+            <a class="search-results-card--notify-link" href="${BOOK_NOTIFICATION_FORM_LINK}" target="_blank" ${book.availability === 'available' ? 'hidden' : ''}>Notify me</a>
         </div>
         <p class="search-results-card--genre">${book.genre}</p>
     </div>
@@ -458,6 +458,10 @@ function register_search_input_clear_button_handlers() {
 }
 
 function on_search_result_item_click(event) {
+    if (event.target.classList.contains("search-results-card--notify-link")) {
+        return;
+    }
+
     event.preventDefault();
 
     disable_body_scrolling();
