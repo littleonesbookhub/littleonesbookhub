@@ -139,7 +139,7 @@ function on_navbar_search_button_click() {
             text_input_search.style.display = "none";
         }
         else {
-            // code to go to search page
+            window.location.href = `search.html?q=${encodeURIComponent(text_input_search.value)}`;
         }
     }
     else {
@@ -158,7 +158,7 @@ function on_mobile_navbar_search_button_click() {
             mobile_text_input_search.style.display = "none";
         }
         else {
-            // code to go to search page
+            window.location.href = `search.html?q=${encodeURIComponent(mobile_text_input_search.value)}`;
         }
     }
     else {
@@ -189,11 +189,25 @@ function on_mobile_click_outside_search_button() {
 function register_navbar_search_button_click_handler() {
     const navbar_search_button = document.querySelector(".search");
     navbar_search_button.addEventListener("click", on_navbar_search_button_click);
+    const text_input_search = document.getElementById("text-input-search");
+    text_input_search.addEventListener("keyup", (event) => {
+        if (event.key === 'Enter' || event.keyCode === 13) {
+            event.preventDefault();
+            on_navbar_search_button_click();
+        }
+    });
 }
 
 function register_mobile_navbar_search_button_click_handler() {
     const mobile_navbar_search_button = document.querySelector(".mobile-search");
     mobile_navbar_search_button.addEventListener("click", on_mobile_navbar_search_button_click);
+    const mobile_text_input_search = document.getElementById("mobile-text-input-search");
+    mobile_text_input_search.addEventListener("keyup", (event) => {
+        if (event.key === 'Enter' || event.keyCode === 13) {
+            event.preventDefault();
+            on_mobile_navbar_search_button_click();
+        }
+    });
 }
 
 function register_click_outside_search_button_handler() {

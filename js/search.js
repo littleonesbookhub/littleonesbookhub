@@ -64,8 +64,10 @@ function load_filter_options(books) {
 function on_books_fetched(books) {
     g_books = books;
     load_filter_options(books);
-    const searchInput = get_query_parameter("q") || "";
-    filter_books(books, searchInput, filters);
+    const search_text = get_query_parameter("q") || "";
+    const search_input = document.getElementsByClassName('search-input')[0];
+    search_input.value = search_text;
+    filter_books(books, search_text, filters);
 }
 
 function get_number_dummy_search_results(total_results) {
