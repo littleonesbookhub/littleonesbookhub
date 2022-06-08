@@ -5,6 +5,18 @@ let filters = {
     "author": {}
 }
 
+const DEFAULT_SORT_BY = {
+    "Title A-Z": true,
+    "Title Z-A": false,
+}
+
+const SORTING_FUNCTIONS = {
+    "Title A-Z": (a, b) => a.title.localeCompare(b.title),
+    "Title Z-A": (a, b) => b.title.localeCompare(a.title),
+};
+
+let sort_by = cloneObject(DEFAULT_SORT_BY); //this is the global variable to be used for search results
+
 let g_books = [];
 
 function fetch_books() {
@@ -67,14 +79,14 @@ function on_books_fetched(books) {
     const search_text = get_query_parameter("q") || "";
     const search_input = document.getElementsByClassName('search-input')[0];
     search_input.value = search_text;
-    filter_books(books, search_text, filters);
+    filter_books(books, search_text, filters, sort_by);
 }
 
 function get_number_dummy_search_results(total_results) {
     return (3 - (total_results % 3)) % 3;
 }
 
-function filter_books(books, searchInput, filters) {
+function filter_books(books, searchInput, filters, sort_by) {
     console.log("filters", filters);
     function filterItems() {
         return books.filter(function (book) {
@@ -90,6 +102,10 @@ function filter_books(books, searchInput, filters) {
     }
     const filtered_books = filterItems();
     console.log("filtered books", filtered_books);
+
+    const sort_option = Object.keys(sort_by).reduce((p, c) => sort_by[c] ? c : p, "Title A-Z");
+    filtered_books.sort(SORTING_FUNCTIONS[sort_option]);
+    console.log("sorted books", filtered_books);
 
     clear_search_results();
     filtered_books.forEach(book => add_book_result_item(book));
@@ -125,7 +141,7 @@ function close_filter_dialog_preview() {
     setup_search_input_section_filters(filters);
 
     console.log("selected filters", filters);
-    filter_books(g_books, "", filters);
+    filter_books(g_books, "", filters, sort_by);
 }
 
 function update_filters_from_filter_dialog() {
@@ -229,14 +245,6 @@ function setup_filter_ui() {
     register_filter_container_click_handler();
 }
 
-const DEFAULT_SORT_BY = {
-    "Title A-Z": true,
-    "Title Z-A": false,
-    "Date Available": false
-}
-
-let sort_by = cloneObject(DEFAULT_SORT_BY); //this is the global variable to be used for search results
-
 function on_sort_by_button_click() {
     const sort_by_options = document.getElementsByClassName("sort-by-option");
     for (let i = 0; i < sort_by_options.length; i++) {
@@ -273,6 +281,11 @@ function close_sort_by_dialog_preview() {
     sort_by[sort_by_option_with_true_value] = true;
 
     enable_body_scrolling();
+
+    setup_search_input_section_sort_by(sort_by);
+
+    const search_input = document.getElementsByClassName('search-input')[0];
+    filter_books(g_books, search_input.value, filters, sort_by);
 
     console.log("selected sortby options", sort_by)
 }
@@ -376,7 +389,7 @@ function on_search_input_submit(event) {
 
 function on_search_input_change(event) {
     const search_input_text = this.value;
-    filter_books(g_books, search_input_text, filters);
+    filter_books(g_books, search_input_text, filters, sort_by);
 }
 
 function setup_search_input_section_filters(filters) {
@@ -391,6 +404,15 @@ function setup_search_input_section_filters(filters) {
     });
 
     register_search_input_clear_button_handlers();
+}
+
+function setup_search_input_section_sort_by(sort_by) {
+    Object.entries(sort_by).forEach(([sort_by_option, sort_by_option_value]) => {
+        if (sort_by_option_value) {
+            const search_input_sort_by = document.getElementsByClassName("search-input-sort-by")[0];
+            search_input_sort_by.innerText = sort_by_option;
+        }
+    });
 }
 
 function clear_search_input_filters() {
@@ -415,7 +437,7 @@ function register_search_input_clear_button_handlers() {
             const filter_type_option = search_input_filter_clear_button.dataset.filterTypeOption;
             filters[filter_type][filter_type_option] = false;
             const search_input = document.getElementsByClassName('search-input')[0];
-            filter_books(g_books, search_input.value, filters);
+            filter_books(g_books, search_input.value, filters, sort_by);
         };
     }
 }
