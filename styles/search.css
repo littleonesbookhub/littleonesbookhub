@@ -105,7 +105,6 @@
     background-color: var(--thumb-background-color);
     border-radius: 20px;
     line-height: 25px;
-    cursor: pointer;
 }
 
 .search-results-card--text {
@@ -123,6 +122,7 @@
     padding: 4px 6px;
     object-fit: cover;
     object-position: 50% 0%;
+    cursor: pointer;
 }
 
 .search-results-card--title {
@@ -138,6 +138,7 @@
     margin: 4px 8px;
     font-size: 1.1rem;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .search-results-card--author {

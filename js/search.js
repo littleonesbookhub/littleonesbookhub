@@ -373,11 +373,11 @@ function add_book_result_item(book) {
     if (book === null) {
         search_results_cards_div.innerHTML += `<div class="search-results-card search-results-card--no-bg"></div`;
     } else {
-        search_results_cards_div.innerHTML += `<div class="search-results-card" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">
+        search_results_cards_div.innerHTML += `<div class="search-results-card">
     <img src="${book.thumbnail_url}"
-    class="search-results-card--img">
+    class="search-results-card--img" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">
     <div class="search-results-card--text">
-        <p class="search-results-card--title">${book.title}</p>
+        <p class="search-results-card--title" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">${book.title}</p>
         <p class="search-results-card--author">${book.author}</p>
         <div class="search-results-card--status ${book.availability === 'available' ? 'search-results-card--status-available' : 'search-results-card--status-in-use'}">
             <p>${book.availability}</p>
@@ -458,10 +458,6 @@ function register_search_input_clear_button_handlers() {
 }
 
 function on_search_result_item_click(event) {
-    if (event.target.classList.contains("search-results-card--notify-link")) {
-        return;
-    }
-
     event.preventDefault();
 
     disable_body_scrolling();
