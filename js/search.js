@@ -191,7 +191,7 @@ function on_filter_option_click(event) {
 
 function on_filter_section_clear_button_click(event) {
     clicked_clear_button = event.target.dataset.clearButtonOf;
-    filter_options_to_clear = document.getElementsByClassName(clicked_clear_button);
+    const filter_options_to_clear = document.querySelectorAll(`[data-filter-type=${clicked_clear_button}]`);
     for (let i = 0; i < filter_options_to_clear.length; i++) {
         filter_options_to_clear[i].classList.remove("selected-filter-option");
     }
