@@ -65,7 +65,10 @@ function on_search_result_genre_click(event) {
     const book_data_encoded = search_result_genre.getAttribute("data-book");
     const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
 
-    filters["genre"][book_data.genre] = true;
+    book_data.genre.forEach(genre => {
+        filters["genre"][genre] = true;
+    });
+
     setup_search_input_section_filters(filters);
     const search_input = document.getElementsByClassName('search-input')[0];
     filter_and_sort_books(g_books, search_input.value, filters, sort_by);
