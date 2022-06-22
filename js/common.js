@@ -1,6 +1,6 @@
 const SPREADSHEET_ID = "1lDXf5bUKeHNE1xExYd0emhyMYcx2OCrll-J5Bmja_Jw";
 const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
-const BOOK_NOTIFICATION_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf66BFvFTCPGlnl1D0PgwBItYGV6rhvVlzj81Vd6seq-MtHFQ/viewform?usp=pp_url&entry.233549370=";
+const BOOK_NOTIFICATION_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf687aNIna4gIcqtgqk-eNU7BdxWZn02J2PpfHhYH7-zICURQ/viewform?usp=pp_url&entry.687757412=";
 
 let g_spreadsheet_data = null;
 
