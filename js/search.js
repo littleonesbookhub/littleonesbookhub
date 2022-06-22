@@ -1,3 +1,5 @@
+// GLOBALS
+
 let filters = {
     "age_group": {},
     "availability": {},
@@ -18,6 +20,132 @@ const SORTING_FUNCTIONS = {
 let sort_by = cloneObject(DEFAULT_SORT_BY); //this is the global variable to be used for search results
 
 let g_books = [];
+
+// Event handlers
+
+function on_page_load() {
+    on_page_load_common();
+    fetch_books();
+    setup_sort_by_ui();
+    setup_search_input_section();
+}
+
+function on_books_fetched(books) {
+    g_books = books;
+    load_filter_options(books);
+    const search_text = get_query_parameter("q") || "";
+    const search_input = document.getElementsByClassName('search-input')[0];
+    search_input.value = search_text;
+    filter_and_sort_books(books, search_text, filters, sort_by);
+}
+
+function on_search_result_item_click(event) {
+    disable_body_scrolling();
+
+    const search_result_item = event.currentTarget;
+    const book_data_encoded = search_result_item.getAttribute("data-book");
+    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
+
+    show_preview_dialog(book_data);
+}
+
+function on_search_result_author_click(event) {
+    const search_result_author = event.currentTarget;
+    const book_data_encoded = search_result_author.getAttribute("data-book");
+    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
+
+    filters["author"][book_data.author] = true;
+    setup_search_input_section_filters(filters);
+    const search_input = document.getElementsByClassName('search-input')[0];
+    filter_and_sort_books(g_books, search_input.value, filters, sort_by);
+}
+
+function on_search_result_genre_click(event) {
+    const search_result_genre = event.currentTarget;
+    const book_data_encoded = search_result_genre.getAttribute("data-book");
+    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
+
+    filters["genre"][book_data.genre] = true;
+    setup_search_input_section_filters(filters);
+    const search_input = document.getElementsByClassName('search-input')[0];
+    filter_and_sort_books(g_books, search_input.value, filters, sort_by);
+}
+
+function on_search_input_submit(event) {
+    event.preventDefault();
+}
+
+function on_search_input_change(event) {
+    const search_input_text = this.value;
+    filter_and_sort_books(g_books, search_input_text, filters, sort_by);
+}
+
+function on_filter_close_button_click() {
+    close_filter_dialog_preview();
+}
+
+function on_filters_button_click() {
+    update_filter_dialog_from_filters();
+    const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
+    filter_dialog.style.display = "block";
+    disable_body_scrolling();
+}
+
+function on_filter_option_click(event) {
+    if (event.target.classList.contains("selected-filter-option"))
+        event.target.classList.remove("selected-filter-option");
+    else
+        event.target.classList.add("selected-filter-option");
+}
+
+function on_filter_section_clear_button_click(event) {
+    clicked_clear_button = event.target.dataset.clearButtonOf;
+    const filter_options_to_clear = document.querySelectorAll(`[data-filter-type=${clicked_clear_button}]`);
+    for (let i = 0; i < filter_options_to_clear.length; i++) {
+        filter_options_to_clear[i].classList.remove("selected-filter-option");
+    }
+}
+
+function on_filter_container_click(event) {
+    const filter_main = document.getElementsByClassName("filter-main")[0];
+    if (!filter_main.contains(event.target))
+        close_filter_dialog_preview();
+}
+
+function on_sort_by_button_click() {
+    const sort_by_options = document.getElementsByClassName("sort-by-option");
+    for (let i = 0; i < sort_by_options.length; i++) {
+        const selected_button = sort_by_options[i].text;
+        if (sort_by[selected_button] == true) {
+            sort_by_options[i].classList.add("selected-sort-by-option");
+        }
+        else {
+            sort_by_options[i].classList.remove("selected-sort-by-option");
+        }
+    }
+    const sort_by_dialog = document.getElementsByClassName("sort-by-dialog")[0];
+    sort_by_dialog.style.display = "block";
+    disable_body_scrolling();
+}
+
+function on_sort_by_option_click(event) {
+    const sort_by_options = document.getElementsByClassName("sort-by-option");
+    for (let i = 0; i < sort_by_options.length; i++)
+        sort_by_options[i].classList.remove("selected-sort-by-option");
+    event.target.classList.add("selected-sort-by-option");
+}
+
+function on_sort_by_close_button_click() {
+    close_sort_by_dialog_preview();
+}
+
+function on_sort_by_container_click(event) {
+    const sort_by_main = document.getElementsByClassName("sort-by-main")[0];
+    if (!sort_by_main.contains(event.target))
+        close_sort_by_dialog_preview();
+}
+
+// Helper functions
 
 function fetch_books() {
     show_search_loading_spinner();
@@ -43,15 +171,6 @@ function load_filter_options(books) {
         })
     }
     setup_filter_ui();
-}
-
-function on_books_fetched(books) {
-    g_books = books;
-    load_filter_options(books);
-    const search_text = get_query_parameter("q") || "";
-    const search_input = document.getElementsByClassName('search-input')[0];
-    search_input.value = search_text;
-    filter_and_sort_books(books, search_text, filters, sort_by);
 }
 
 function get_number_dummy_search_results(total_results) {
@@ -148,38 +267,6 @@ function update_filter_dialog_from_filters() {
     }
 }
 
-function on_filter_close_button_click() {
-    close_filter_dialog_preview();
-}
-
-function on_filters_button_click() {
-    update_filter_dialog_from_filters();
-    const filter_dialog = document.getElementsByClassName("filter-dialog")[0];
-    filter_dialog.style.display = "block";
-    disable_body_scrolling();
-}
-
-function on_filter_option_click(event) {
-    if (event.target.classList.contains("selected-filter-option"))
-        event.target.classList.remove("selected-filter-option");
-    else
-        event.target.classList.add("selected-filter-option");
-}
-
-function on_filter_section_clear_button_click(event) {
-    clicked_clear_button = event.target.dataset.clearButtonOf;
-    const filter_options_to_clear = document.querySelectorAll(`[data-filter-type=${clicked_clear_button}]`);
-    for (let i = 0; i < filter_options_to_clear.length; i++) {
-        filter_options_to_clear[i].classList.remove("selected-filter-option");
-    }
-}
-
-function on_filter_container_click(event) {
-    const filter_main = document.getElementsByClassName("filter-main")[0];
-    if (!filter_main.contains(event.target))
-        close_filter_dialog_preview();
-}
-
 function register_filter_close_button_click_handler() {
     const filter_close_button = document.getElementsByClassName("filter-close-button")[0];
     filter_close_button.addEventListener("click", on_filter_close_button_click);
@@ -236,29 +323,6 @@ function setup_filter_ui() {
     register_filter_container_click_handler();
 }
 
-function on_sort_by_button_click() {
-    const sort_by_options = document.getElementsByClassName("sort-by-option");
-    for (let i = 0; i < sort_by_options.length; i++) {
-        const selected_button = sort_by_options[i].text;
-        if (sort_by[selected_button] == true) {
-            sort_by_options[i].classList.add("selected-sort-by-option");
-        }
-        else {
-            sort_by_options[i].classList.remove("selected-sort-by-option");
-        }
-    }
-    const sort_by_dialog = document.getElementsByClassName("sort-by-dialog")[0];
-    sort_by_dialog.style.display = "block";
-    disable_body_scrolling();
-}
-
-function on_sort_by_option_click(event) {
-    const sort_by_options = document.getElementsByClassName("sort-by-option");
-    for (let i = 0; i < sort_by_options.length; i++)
-        sort_by_options[i].classList.remove("selected-sort-by-option");
-    event.target.classList.add("selected-sort-by-option");
-}
-
 function close_sort_by_dialog_preview() {
     const sort_by_dialog = document.getElementsByClassName("sort-by-dialog")[0];
     sort_by_dialog.style.display = "none";
@@ -281,15 +345,7 @@ function close_sort_by_dialog_preview() {
     console.log("selected sortby options", sort_by)
 }
 
-function on_sort_by_close_button_click() {
-    close_sort_by_dialog_preview();
-}
 
-function on_sort_by_container_click(event) {
-    const sort_by_main = document.getElementsByClassName("sort-by-main")[0];
-    if (!sort_by_main.contains(event.target))
-        close_sort_by_dialog_preview();
-}
 
 function register_sort_by_button_click_handler() {
     const sort_by_button = document.getElementsByClassName("sort-by-button")[0];
@@ -328,15 +384,6 @@ function setup_sort_by_ui() {
     register_sort_by_close_button_click_handler();
     register_sort_by_container_click_handler();
 }
-
-function on_page_load() {
-    on_page_load_common();
-    fetch_books();
-    setup_sort_by_ui();
-    setup_search_input_section();
-}
-
-window.onload = on_page_load;
 
 function clear_search_results() {
     const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
@@ -378,15 +425,6 @@ function setup_search_input_section() {
 
     const search_input = document.getElementsByClassName('search-input')[0];
     search_input.addEventListener('input', on_search_input_change)
-}
-
-function on_search_input_submit(event) {
-    event.preventDefault();
-}
-
-function on_search_input_change(event) {
-    const search_input_text = this.value;
-    filter_and_sort_books(g_books, search_input_text, filters, sort_by);
 }
 
 function setup_search_input_section_filters(filters) {
@@ -439,34 +477,4 @@ function register_search_input_clear_button_handlers() {
     }
 }
 
-function on_search_result_item_click(event) {
-    disable_body_scrolling();
-
-    const search_result_item = event.currentTarget;
-    const book_data_encoded = search_result_item.getAttribute("data-book");
-    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
-
-    show_preview_dialog(book_data);
-}
-
-function on_search_result_author_click(event) {
-    const search_result_author = event.currentTarget;
-    const book_data_encoded = search_result_author.getAttribute("data-book");
-    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
-
-    filters["author"][book_data.author] = true;
-    setup_search_input_section_filters(filters);
-    const search_input = document.getElementsByClassName('search-input')[0];
-    filter_and_sort_books(g_books, search_input.value, filters, sort_by);
-}
-
-function on_search_result_genre_click(event) {
-    const search_result_genre = event.currentTarget;
-    const book_data_encoded = search_result_genre.getAttribute("data-book");
-    const book_data = JSON.parse(decodeURIComponent(book_data_encoded));
-
-    filters["genre"][book_data.genre] = true;
-    setup_search_input_section_filters(filters);
-    const search_input = document.getElementsByClassName('search-input')[0];
-    filter_and_sort_books(g_books, search_input.value, filters, sort_by);
-}
+window.onload = on_page_load;
