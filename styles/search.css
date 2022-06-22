@@ -323,6 +323,8 @@
     max-height: 530px;
     background-color: white;
     border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow);
 }
 
 .filter-close-button,
@@ -414,6 +416,8 @@
     max-height: 240px;
     background-color: white;
     border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow);
 }
 
 .sort-by-options {
