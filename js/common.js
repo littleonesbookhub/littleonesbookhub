@@ -1,6 +1,6 @@
 const SPREADSHEET_ID = "1lDXf5bUKeHNE1xExYd0emhyMYcx2OCrll-J5Bmja_Jw";
 const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
-const BOOK_NOTIFICATION_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf687aNIna4gIcqtgqk-eNU7BdxWZn02J2PpfHhYH7-zICURQ/viewform?usp=pp_url&entry.687757412=";
+const BOOK_NOTIFICATION_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf687aNIna4gIcqtgqk-eNU7BdxWZn02J2PpfHhYH7-zICURQ/viewform?usp=pp_url&entry.466358951=TITLE&entry.687757412=ID";
 
 let g_spreadsheet_data = null;
 
@@ -110,7 +110,7 @@ function show_preview_dialog(book_data) {
     if (book_data.availability === 'available') {
         preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = 'Available';
     } else {
-        preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = `Unvailable. <a href="${BOOK_NOTIFICATION_FORM_LINK}${book_data.id}" target="_blank">NOTIFY ME</a>`;
+        preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = `Unvailable. <a href="${get_notification_form_link(book_data.title, book_data.id)}" target="_blank">NOTIFY ME</a>`;
     }
 
     preview_dialog_frame.style.display = "initial";
@@ -198,4 +198,8 @@ function generate_thumb_background_color() {
     const num_colors = BG_COLORS.length;
     const index = Math.floor(Math.random() * num_colors);
     return BG_COLORS[index];
+}
+
+function get_notification_form_link(title, id) {
+    return BOOK_NOTIFICATION_FORM_LINK.replace("TITLE", encodeURIComponent(title)).replace("ID", encodeURIComponent(id));
 }
