@@ -2,6 +2,8 @@ const SPREADSHEET_ID = "1lDXf5bUKeHNE1xExYd0emhyMYcx2OCrll-J5Bmja_Jw";
 const GOOGLE_CLOUD_API_KEY = "AIzaSyC6lEYx6meglfkrIRHxixxRuYwk9UGtAzM";
 const BOOK_NOTIFICATION_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSf66BFvFTCPGlnl1D0PgwBItYGV6rhvVlzj81Vd6seq-MtHFQ/viewform?usp=pp_url&entry.233549370=";
 
+let g_spreadsheet_data = null;
+
 function register_navbar_menu_button_click_handler() {
     const navbar_menu_button = document.getElementsByClassName("navbar-menu")[0];
     navbar_menu_button.addEventListener("click", on_navbar_menu_button_click);
@@ -74,12 +76,36 @@ function on_preview_dialog_close() {
 
 function show_preview_dialog(book_data) {
     const preview_dialog_frame = document.getElementsByClassName("preview-dialog-frame")[0];
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-thumb").src = book_data.thumbnail_url;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-title span").innerText = book_data.title;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-author span").innerText = book_data.author;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-genre span").innerText = book_data.genre;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-age-group span").innerText = book_data.age_group;
-    preview_dialog_frame.contentWindow.document.querySelector(".preview-description span").innerText = book_data.description;
+    const prop_keys = ["title", "author", "genre", "age_group", "description"];
+    const q = preview_dialog_frame.contentWindow.document.querySelector.bind(preview_dialog_frame.contentWindow.document);
+    prop_keys.forEach(k => {
+        const selector = `.preview-${k.replace('_', '-')} span`;
+        const el = q(selector);
+        el.parentElement.style.display = 'block';
+        const prop = book_data[k];
+        if (Array.isArray(prop) && prop.length) {
+            el.innerText = prop.join(", ");
+        } else if (!Array.isArray(prop) && prop) {
+            el.innerText = prop;
+        } else {
+            el.parentElement.style.display = 'none';
+        }
+    });
+    const preview_thumb = q(".preview-thumb");
+    const preview_thumb_fallback = q(".preview-thumb-fallback");
+    const preview_thumb_fallback_title = q(".preview-thumb-fallback-title");
+    if (book_data.thumbnail_url.startsWith("http")) {
+        preview_thumb.src = book_data.thumbnail_url;
+        preview_thumb.style.visibility = "visible";
+        preview_thumb_fallback.style.visibility = "hidden";
+    } else {
+        preview_thumb.src = '';
+        preview_thumb_fallback.style.backgroundColor = book_data.thumbnail_url;
+        preview_thumb_fallback_title.innerText = book_data.title;
+        preview_thumb.style.visibility = "hidden";
+        preview_thumb_fallback.style.visibility = "visible";
+    }
+    preview_thumb.alt = book_data.title;
 
     if (book_data.availability === 'available') {
         preview_dialog_frame.contentWindow.document.querySelector(".preview-availability span").innerHTML = 'Available';
@@ -94,4 +120,82 @@ function show_preview_dialog(book_data) {
 function hide_preview_dialog() {
     const preview_dialog_frame = document.getElementsByClassName("preview-dialog-frame")[0];
     preview_dialog_frame.style.display = "none";
+}
+
+function get_collections_list() {
+    return get_sheet_list("collections")
+        .then(collections_list => {
+            return collections_list.map(e => {
+                e.books = e.books.replaceAll(' ', '');
+                e.books = e.books.split(",");
+                return e;
+            })
+        });
+}
+
+function get_books_list() {
+    return get_sheet_list("books")
+        .then(books_list => {
+            return books_list.map(e => {
+                e.genre = e.genre.trim() ? e.genre.split(";").map(f => f.replace(">", " ")) : [];
+                e.age_group = e.age_group.trim() ? e.age_group.split(";").map(f => f + " years") : [];
+                e.thumbnail_url = e.thumbnail_url || generate_thumb_background_color();
+                return e;
+            })
+        });
+}
+
+function get_sheet_list(sheetname) {
+    if (!g_spreadsheet_data) {
+        g_spreadsheet_data = fetch_spreadsheet_data();
+    }
+    return g_spreadsheet_data.then(result => {
+        let sheet_list = [];
+        const spreadsheet = result;
+        spreadsheet.sheets.forEach(function (sheet) {
+            if (sheet.properties.title === sheetname) {
+                sheet.data.forEach(function (gridData) {
+                    headers = [];
+                    gridData.rowData.forEach(function (row, index) {
+                        row_cells = row.values.map(e => e.formattedValue ? e.formattedValue : "")
+                        if (index === 0) { // header in spreadsheet
+                            headers = row_cells;
+                            header_index_map = headers.reduce((d, e) => { d[e] = headers.indexOf(e); return d; }, {});
+                            return;
+                        }
+                        try {
+                            let sheet_object = headers.reduce((d, e) => { d[e] = row_cells[header_index_map[e]] || ""; return d; }, {});
+                            if (!sheet_object["id"]) {
+                                return;
+                            }
+                            sheet_list.push(sheet_object);
+                        } catch (err) {
+                            console.error(err);
+                        }
+                    });
+                });
+            }
+        });
+        return sheet_list;
+    });
+}
+
+function fetch_spreadsheet_data() {
+    return fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
+        .then(response => response.json());
+}
+
+function get_genre_list(genre_str) {
+    return genre_str.split(";").map(e => String(e).replace(">", ""));
+}
+
+function get_age_group_list(age_group_str) {
+    return age_group_str.split(";").map(e => e + " years")
+}
+
+function generate_thumb_background_color() {
+    const BG_COLORS = ["#782F4E", "#DB5B42", "#F5B267", "#0B7C86", "#3A3461"];
+    const num_colors = BG_COLORS.length;
+    const index = Math.floor(Math.random() * num_colors);
+    return BG_COLORS[index];
 }

@@ -125,6 +125,28 @@
     cursor: pointer;
 }
 
+.search-results-card--img-fallback {
+    min-width: 168px;
+    max-width: 168px;
+    min-height: 150px;
+    max-height: 160px;
+    border-radius: 30px;
+    padding: 4px 6px;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.search-results-card--img-fallback-title {
+    color: white;
+    font-size: medium;
+}
+
 .search-results-card--title {
     max-width: 150px;
     overflow: hidden;

@@ -21,41 +21,7 @@ let g_books = [];
 
 function fetch_books() {
     show_search_loading_spinner();
-    fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
-        .then(response => response.json())
-        .then(result => {
-            let books = [];
-            const spreadsheet = result;
-            spreadsheet.sheets.forEach(function (sheet) {
-                if (sheet.properties.title === "books") {
-                    sheet.data.forEach(function (gridData) {
-                        gridData.rowData.forEach(function (row, index) {
-                            if (index < 1) { // header in spreadsheet
-                                return;
-                            }
-                            try {
-                                const id = row.values[0].formattedValue ? row.values[0].formattedValue : "";
-                                const title = row.values[1].formattedValue ? row.values[1].formattedValue : "";
-                                const author = row.values[2].formattedValue ? row.values[2].formattedValue : "";
-                                const genre = row.values[3].formattedValue ? row.values[3].formattedValue : "";
-                                const age_group = row.values[4].formattedValue ? row.values[4].formattedValue : "";
-                                const available = row.values[5].formattedValue ? row.values[5].formattedValue : "";
-                                const available_date = row.values[6].formattedValue ? row.values[6].formattedValue : "";
-                                const description = row.values[7].formattedValue ? row.values[7].formattedValue : "";
-                                const thumbnail_url = row.values[8].formattedValue ? row.values[8].formattedValue : "";
-                                if (id === "") {
-                                    return;
-                                }
-                                books.push({ id: id, title: title, author: author, genre: genre, age_group: age_group, availability: available, available_date: available_date, description: description, thumbnail_url: thumbnail_url });
-                            } catch (err) {
-                                console.error(err);
-                            }
-                        });
-                    });
-                }
-            });
-            return books;
-        })
+    return get_books_list()
         .then(books_data => on_books_fetched(books_data))
         .finally(() => {
             hide_search_loading_spinner();
@@ -67,7 +33,13 @@ function load_filter_options(books) {
     for (let i in books) {
         filter_types.forEach(function (filter_type) {
             const current_filter_option = books[i][filter_type];
-            filters[filter_type][current_filter_option] = false;
+            if (Array.isArray(current_filter_option)) {
+                current_filter_option.forEach(function (sub_option) {
+                    filters[filter_type][sub_option] = false;
+                });
+            } else {
+                filters[filter_type][current_filter_option] = false;
+            }
         })
     }
     setup_filter_ui();
@@ -79,33 +51,38 @@ function on_books_fetched(books) {
     const search_text = get_query_parameter("q") || "";
     const search_input = document.getElementsByClassName('search-input')[0];
     search_input.value = search_text;
-    filter_books(books, search_text, filters, sort_by);
+    filter_and_sort_books(books, search_text, filters, sort_by);
 }
 
 function get_number_dummy_search_results(total_results) {
     return (3 - (total_results % 3)) % 3;
 }
 
-function filter_books(books, searchInput, filters, sort_by) {
-    console.log("filters", filters);
-    function filterItems() {
-        return books.filter(function (book) {
-            const search_input_keys = ['title', 'author', 'genre'];
-            const filter_keys = ['age_group', 'availability', 'genre', 'author'];
-            return search_input_keys.some(function (search_input_key) {
-                return searchInput === "" || book[search_input_key].toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
-            }) && filter_keys.every(function (filter_key) {
-                // either all filter options are false, or the true filter option matches with the book
-                return Object.values(filters[filter_key]).every(filter_value => filter_value === false) || filters[filter_key][book[filter_key]];
-            });
-        })
+function filter_books(books, searchInput, filters) {
+    function search_input_match(prop) {
+        const inner_match = p => p.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1;
+        return Array.isArray(prop) ? prop.some(p => inner_match(p)) : inner_match(prop);
     }
-    const filtered_books = filterItems();
-    console.log("filtered books", filtered_books);
+    function filter_match(filter, prop) {
+        const inner_match = p => filter[p];
+        return Array.isArray(prop) ? prop.some(p => inner_match(p)) : inner_match(prop);
+    }
+    return books.filter(function (book) {
+        const search_input_keys = ['title', 'author', 'genre'];
+        const filter_keys = ['age_group', 'availability', 'genre', 'author'];
+        return (searchInput === "" || search_input_keys.some(k => search_input_match(book[k]))) &&
+            filter_keys.every(k => {
+                // either all filter options are false, or the active filter options matches with the book's props
+                return Object.values(filters[k]).every(v => !v) || filter_match(filters[k], book[k]);
+            });
+    })
+}
+
+function filter_and_sort_books(books, searchInput, filters, sort_by) {
+    const filtered_books = filter_books(books, searchInput, filters);
 
     const sort_option = Object.keys(sort_by).reduce((p, c) => sort_by[c] ? c : p, "Title A-Z");
     filtered_books.sort(SORTING_FUNCTIONS[sort_option]);
-    console.log("sorted books", filtered_books);
 
     clear_search_results();
     filtered_books.forEach(book => add_book_result_item(book));
@@ -145,7 +122,7 @@ function close_filter_dialog_preview() {
     setup_search_input_section_filters(filters);
 
     console.log("selected filters", filters);
-    filter_books(g_books, "", filters, sort_by);
+    filter_and_sort_books(g_books, "", filters, sort_by);
 }
 
 function update_filters_from_filter_dialog() {
@@ -299,7 +276,7 @@ function close_sort_by_dialog_preview() {
     setup_search_input_section_sort_by(sort_by);
 
     const search_input = document.getElementsByClassName('search-input')[0];
-    filter_books(g_books, search_input.value, filters, sort_by);
+    filter_and_sort_books(g_books, search_input.value, filters, sort_by);
 
     console.log("selected sortby options", sort_by)
 }
@@ -355,7 +332,6 @@ function setup_sort_by_ui() {
 function on_page_load() {
     on_page_load_common();
     fetch_books();
-    // setup_filter_ui();
     setup_sort_by_ui();
     setup_search_input_section();
 }
@@ -370,23 +346,29 @@ function clear_search_results() {
 function add_book_result_item(book) {
     const book_data_encoded = encodeURIComponent(JSON.stringify(book));
     const search_results_cards_div = document.getElementsByClassName("search-results-cards")[0];
+    const search_results_card = document.createElement("div");
+    search_results_card.classList.add("search-results-card");
     if (book === null) {
-        search_results_cards_div.innerHTML += `<div class="search-results-card search-results-card--no-bg"></div`;
+        search_results_card.classList.add("search-results-card--no-bg");
     } else {
-        search_results_cards_div.innerHTML += `<div class="search-results-card">
-    <img src="${book.thumbnail_url}"
-    class="search-results-card--img" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">
-    <div class="search-results-card--text">
-        <p class="search-results-card--title" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">${book.title}</p>
-        <p class="search-results-card--author" onclick="on_search_result_author_click(event)" data-book="${book_data_encoded}">${book.author}</p>
-        <div class="search-results-card--status ${book.availability === 'available' ? 'search-results-card--status-available' : 'search-results-card--status-in-use'}">
-            <p>${book.availability}</p>
-            <a class="search-results-card--notify-link" href="${BOOK_NOTIFICATION_FORM_LINK}" target="_blank" ${book.availability === 'available' ? 'hidden' : ''}>Notify me</a>
-        </div>
-        <p class="search-results-card--genre" onclick="on_search_result_genre_click(event)" data-book="${book_data_encoded}">${book.genre}</p>
-    </div>
-</div>`;
+        let card_image = null;
+        if (book.thumbnail_url.startsWith("http")) {
+            card_image = `<img class="search-results-card--img" src="${book.thumbnail_url}" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}"></img>`;
+        } else {
+            card_image = `<div class="search-results-card--img-fallback" style="background-color: ${book.thumbnail_url}" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}"><p class="search-results-card--img-fallback-title">${book.title}</p></div>`;
+        }
+        search_results_card.innerHTML = `${card_image}
+        <div class="search-results-card--text">
+            <p class="search-results-card--title" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">${book.title}</p>
+            <p class="search-results-card--author" onclick="on_search_result_author_click(event)" data-book="${book_data_encoded}">${book.author}</p>
+            <div class="search-results-card--status ${book.availability === 'available' ? 'search-results-card--status-available' : 'search-results-card--status-in-use'}">
+                <p>${book.availability}</p>
+                <a class="search-results-card--notify-link" href="${BOOK_NOTIFICATION_FORM_LINK}" target="_blank" ${book.availability === 'available' ? 'hidden' : ''}>Notify me</a>
+            </div>
+            <p class="search-results-card--genre" onclick="on_search_result_genre_click(event)" data-book="${book_data_encoded}">${book.genre.join(", ")}</p>
+        </div>`;
     }
+    search_results_cards_div.appendChild(search_results_card);
 }
 
 function setup_search_input_section() {
@@ -404,7 +386,7 @@ function on_search_input_submit(event) {
 
 function on_search_input_change(event) {
     const search_input_text = this.value;
-    filter_books(g_books, search_input_text, filters, sort_by);
+    filter_and_sort_books(g_books, search_input_text, filters, sort_by);
 }
 
 function setup_search_input_section_filters(filters) {
@@ -452,7 +434,7 @@ function register_search_input_clear_button_handlers() {
             const filter_type_option = search_input_filter_clear_button.dataset.filterTypeOption;
             filters[filter_type][filter_type_option] = false;
             const search_input = document.getElementsByClassName('search-input')[0];
-            filter_books(g_books, search_input.value, filters, sort_by);
+            filter_and_sort_books(g_books, search_input.value, filters, sort_by);
         };
     }
 }
@@ -475,7 +457,7 @@ function on_search_result_author_click(event) {
     filters["author"][book_data.author] = true;
     setup_search_input_section_filters(filters);
     const search_input = document.getElementsByClassName('search-input')[0];
-    filter_books(g_books, search_input.value, filters, sort_by);
+    filter_and_sort_books(g_books, search_input.value, filters, sort_by);
 }
 
 function on_search_result_genre_click(event) {
@@ -486,5 +468,5 @@ function on_search_result_genre_click(event) {
     filters["genre"][book_data.genre] = true;
     setup_search_input_section_filters(filters);
     const search_input = document.getElementsByClassName('search-input')[0];
-    filter_books(g_books, search_input.value, filters, sort_by);
+    filter_and_sort_books(g_books, search_input.value, filters, sort_by);
 }

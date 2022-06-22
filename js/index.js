@@ -1,61 +1,11 @@
 function fetch_collections() {
     show_collections_loading_spinner();
-    fetch("https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "?key=" + GOOGLE_CLOUD_API_KEY + "&includeGridData=true")
-        .then(response => response.json())
-        .then(result => {
-            let collections = [];
-            let books = {};
-            const spreadsheet = result;
-            spreadsheet.sheets.forEach(function (sheet) {
-                if (sheet.properties.title === "collections") {
-                    sheet.data.forEach(function (gridData) {
-                        gridData.rowData.forEach(function (row, index) {
-                            if (index < 1) { // header in spreadsheet
-                                return;
-                            }
-                            try {
-                                const id = row.values[0].formattedValue ? row.values[0].formattedValue : "";
-                                const name = row.values[1].formattedValue ? row.values[1].formattedValue : "";
-                                let books = row.values[2].formattedValue ? row.values[2].formattedValue : "";
-                                books = books.replaceAll(' ', '');
-                                books = books.split(",");
-                                if (id === "") {
-                                    return;
-                                }
-                                collections.push({ id: id, name: name, books: books });
-                            } catch (err) {
-                                console.error(err);
-                            }
-                        });
-                    });
-                } else if (sheet.properties.title === "books") {
-                    sheet.data.forEach(function (gridData) {
-                        gridData.rowData.forEach(function (row, index) {
-                            if (index < 1) { // header in spreadsheet
-                                return;
-                            }
-                            try {
-                                const id = row.values[0].formattedValue ? row.values[0].formattedValue : "";
-                                const title = row.values[1].formattedValue ? row.values[1].formattedValue : "";
-                                const author = row.values[2].formattedValue ? row.values[2].formattedValue : "";
-                                const genre = row.values[3].formattedValue ? row.values[3].formattedValue : "";
-                                const age_group = row.values[4].formattedValue ? row.values[4].formattedValue : "";
-                                const available = row.values[5].formattedValue ? row.values[5].formattedValue : "";
-                                const available_date = row.values[6].formattedValue ? row.values[6].formattedValue : "";
-                                const description = row.values[7].formattedValue ? row.values[7].formattedValue : "";
-                                const thumbnail_url = row.values[8].formattedValue ? row.values[8].formattedValue : "";
-                                if (id === "") {
-                                    return;
-                                }
-                                books[id] = { id: id, title: title, author: author, genre: genre, age_group: age_group, available: available, available_date: available_date, description: description, thumbnail_url: thumbnail_url };
-                            } catch (err) {
-                                console.error(err);
-                            }
-                        });
-                    });
-                }
-            });
-            return { collections: collections, books: books };
+    return get_collections_list()
+        .then(collections => {
+            return get_books_list().then(books_list => {
+                books = books_list.reduce((d, e) => { d[e.id] = e; return d; }, {})
+                return { collections: collections, books: books };
+            })
         })
         .then(collections_data => on_collections_fetched(collections_data))
         .finally(() => {
@@ -90,10 +40,20 @@ function add_collection_item(book, books, item_ctr) {
         console.log(`Unable to find book ${book} in books.`);
         return;
     }
+
+    const b = books[book];
     const collection_thumb = document.createElement("a");
-    collection_thumb.setAttribute("href", books[book].thumbnail_url);
-    collection_thumb.innerHTML = `<img class="collection-thumb" src="${books[book].thumbnail_url}">`;
-    const book_data_encoded = encodeURIComponent(JSON.stringify(books[book]));
+    collection_thumb.setAttribute("href", b.thumbnail_url);
+    collection_thumb.style.textDecoration = "none";
+    const image_src = b.thumbnail_url.startsWith("http") ? b.thumbnail_url : "";
+    const bg_color = b.thumbnail_url.startsWith("http") ? "white" : b.thumbnail_url;
+    if (b.thumbnail_url.startsWith("http")) {
+        collection_thumb.innerHTML = `<img class="collection-thumb" src="${image_src}" alt="${b.title}">`;
+    } else {
+        collection_thumb.innerHTML = `<div class="collection-thumb-fallback" style="background-color: ${bg_color}"><p class="collection-thumb-fallback-title">${b.title}</p></div>`;
+    }
+
+    const book_data_encoded = encodeURIComponent(JSON.stringify(b));
     collection_thumb.setAttribute("data-book", book_data_encoded);
     collection_thumb.addEventListener("click", on_collection_item_click);
 
