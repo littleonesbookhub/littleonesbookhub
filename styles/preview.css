@@ -41,6 +41,8 @@ body {
     max-height: 640px;
     background-color: white;
     border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow);
 }
 
 .preview-close-icon {
@@ -56,9 +58,36 @@ body {
     height: 100%;
 }
 
+.preview-thumb-ctr {
+    position: relative;
+}
+
+.preview-thumb-fallback {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    padding: 0 4px;
+}
+
+.preview-thumb-fallback-title {
+    color: white;
+    font-size: large;
+}
+
 .preview-thumb {
     width: 100%;
     height: 300px;
+    min-width: 100%;
+    min-height: 300px;
     object-fit: cover;
 }
 

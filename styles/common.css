@@ -11,6 +11,8 @@
     --divider-color: rgba(91, 90, 118, 0.2);
     --thumb-border-color: #eeeeee;
     --thumb-background-color: #f4f4f4;
+    --border-color: #A6A6A6;
+    --box-shadow: rgba(235, 242, 247, 0.5) 0px 8px 24px;
 }
 
 body {
