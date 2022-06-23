@@ -132,12 +132,10 @@ function add_collection_item(book, books, item_ctr) {
     const collection_thumb = document.createElement("a");
     collection_thumb.setAttribute("href", b.thumbnail_url);
     collection_thumb.style.textDecoration = "none";
-    const image_src = b.thumbnail_url.startsWith("http") ? b.thumbnail_url : "";
-    const bg_color = b.thumbnail_url.startsWith("http") ? "white" : b.thumbnail_url;
-    if (b.thumbnail_url.startsWith("http")) {
-        collection_thumb.innerHTML = `<img class="collection-thumb" src="${image_src}" alt="${b.title}">`;
+    if (b.thumbnail_url) {
+        collection_thumb.innerHTML = `<img class="collection-thumb" src="${b.thumbnail_url}" alt="${b.title}">`;
     } else {
-        collection_thumb.innerHTML = `<div class="collection-thumb-fallback" style="background-color: ${bg_color}"><p class="collection-thumb-fallback-title">${b.title}</p></div>`;
+        collection_thumb.innerHTML = `<div class="collection-thumb-fallback" style="background-color: ${b.thumbnail_bg_color}"><p class="collection-thumb-fallback-title">${b.title}</p></div>`;
     }
 
     const book_data_encoded = encodeURIComponent(JSON.stringify(b));

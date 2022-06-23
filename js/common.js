@@ -94,13 +94,13 @@ function show_preview_dialog(book_data) {
     const preview_thumb = q(".preview-thumb");
     const preview_thumb_fallback = q(".preview-thumb-fallback");
     const preview_thumb_fallback_title = q(".preview-thumb-fallback-title");
-    if (book_data.thumbnail_url.startsWith("http")) {
+    if (book_data.thumbnail_url) {
         preview_thumb.src = book_data.thumbnail_url;
         preview_thumb.style.visibility = "visible";
         preview_thumb_fallback.style.visibility = "hidden";
     } else {
         preview_thumb.src = '';
-        preview_thumb_fallback.style.backgroundColor = book_data.thumbnail_url;
+        preview_thumb_fallback.style.backgroundColor = book_data.thumbnail_bg_color;
         preview_thumb_fallback_title.innerText = book_data.title;
         preview_thumb.style.visibility = "hidden";
         preview_thumb_fallback.style.visibility = "visible";
@@ -139,7 +139,7 @@ function get_books_list() {
             return books_list.map(e => {
                 e.genre = e.genre.trim() ? e.genre.split(";").map(f => f.replace(">", " ")) : [];
                 e.age_group = e.age_group.trim() ? e.age_group.split(";").map(f => f + " years") : [];
-                e.thumbnail_url = e.thumbnail_url || generate_thumb_background_color();
+                e["thumbnail_bg_color"] = generate_thumb_background_color();
                 return e;
             })
         });
