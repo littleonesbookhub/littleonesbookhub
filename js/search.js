@@ -218,6 +218,36 @@ function filter_and_sort_books(books, searchInput, filters, sort_by) {
     }
 }
 
+function register_image_visibility_change_handler(card_thumb_image) {
+    let options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0,
+    }
+
+    var observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                const thumbnail_url = target.getAttribute("data-thumbnail-url");
+                if (target.tagName === 'DIV' && thumbnail_url) {
+                    const book_data_encoded = target.getAttribute("data-book");
+                    const card_thumb_image = document.createElement("img");
+                    card_thumb_image.classList.add("search-results-card--img");
+                    card_thumb_image.onclick = on_search_result_item_click;
+                    card_thumb_image.setAttribute("data-book", book_data_encoded);
+                    card_thumb_image.src = thumbnail_url;
+                    target.parentNode.insertBefore(card_thumb_image, target.nextSibling);
+                    observer.unobserve(target);
+                    target.remove();
+                }
+            }
+        });
+    }, options);
+
+    observer.observe(card_thumb_image);
+}
+
 function show_search_loading_spinner() {
     document.querySelector(".common-loading-spinner").style.display = "flex";
 }
@@ -401,13 +431,7 @@ function add_book_result_item(book) {
     if (book === null) {
         search_results_card.classList.add("search-results-card--no-bg");
     } else {
-        let card_image = null;
-        if (book.thumbnail_url.startsWith("http")) {
-            card_image = `<img class="search-results-card--img" src="${book.thumbnail_url}" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}"></img>`;
-        } else {
-            card_image = `<div class="search-results-card--img-fallback" style="background-color: ${book.thumbnail_url}" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}"><p class="search-results-card--img-fallback-title">${book.title}</p></div>`;
-        }
-        search_results_card.innerHTML = `${card_image}
+        search_results_card.innerHTML = `<div class="search-results-card--img-fallback" style="background-color: ${book.thumbnail_bg_color}" onclick="on_search_result_item_click(event)" data-thumbnail-url="${book.thumbnail_url}" data-book="${book_data_encoded}"><p class="search-results-card--img-fallback-title">${book.title}</p></div>
         <div class="search-results-card--text">
             <p class="search-results-card--title" onclick="on_search_result_item_click(event)" data-book="${book_data_encoded}">${book.title}</p>
             <p class="search-results-card--author" onclick="on_search_result_author_click(event)" data-book="${book_data_encoded}">${book.author}</p>
@@ -419,6 +443,11 @@ function add_book_result_item(book) {
         </div>`;
     }
     search_results_cards_div.appendChild(search_results_card);
+    const card_thumb_fallback_divs = search_results_card.getElementsByClassName("search-results-card--img-fallback");
+    const card_thumb_fallback_div = card_thumb_fallback_divs && card_thumb_fallback_divs[0];
+    if (card_thumb_fallback_div) {
+        register_image_visibility_change_handler(card_thumb_fallback_div);
+    }
 }
 
 function setup_search_input_section() {
