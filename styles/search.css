@@ -250,6 +250,11 @@
         object-position: 50% 50%;
     }
 
+    .search-results-card--img-fallback {
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+
     .search-results-card--text {
         justify-content: center;
         flex-basis: 50%;
