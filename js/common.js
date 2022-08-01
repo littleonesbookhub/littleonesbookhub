@@ -123,7 +123,7 @@ function hide_preview_dialog() {
 }
 
 function get_collections_list() {
-    return get_sheet_list("collections_old")
+    return get_sheet_list("collections")
         .then(collections_list => {
             return collections_list.map(e => {
                 e.books = e.books.replaceAll(' ', '');
