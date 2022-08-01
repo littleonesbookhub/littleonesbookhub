@@ -123,7 +123,7 @@ function hide_preview_dialog() {
 }
 
 function get_collections_list() {
-    return get_sheet_list("collections")
+    return get_sheet_list("collections_old")
         .then(collections_list => {
             return collections_list.map(e => {
                 e.books = e.books.replaceAll(' ', '');
@@ -157,13 +157,13 @@ function get_sheet_list(sheetname) {
                 sheet.data.forEach(function (gridData) {
                     headers = [];
                     gridData.rowData.forEach(function (row, index) {
-                        row_cells = row.values.map(e => e.formattedValue ? e.formattedValue : "")
-                        if (index === 0) { // header in spreadsheet
-                            headers = row_cells;
-                            header_index_map = headers.reduce((d, e) => { d[e] = headers.indexOf(e); return d; }, {});
-                            return;
-                        }
                         try {
+                            row_cells = row.values.map(e => e.formattedValue ? e.formattedValue : "")
+                            if (index === 0) { // header in spreadsheet
+                                headers = row_cells;
+                                header_index_map = headers.reduce((d, e) => { d[e] = headers.indexOf(e); return d; }, {});
+                                return;
+                            }
                             let sheet_object = headers.reduce((d, e) => { d[e] = row_cells[header_index_map[e]] || ""; return d; }, {});
                             if (!sheet_object["id"]) {
                                 return;
